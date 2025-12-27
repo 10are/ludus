@@ -1,0 +1,107 @@
+{
+  "lanistas": [
+    {
+      "id": "lanista_1",
+      "name": "Quintus Batiatus",
+      "title": "Lanista",
+      "wealth": 2000,
+      "influence": 40,
+      "relationship": -10,
+      "personality": "cunning",
+      "description": "Capua'nın en kurnaz ludus sahibi",
+      "image": "assets/rivals/batiatus.png"
+    },
+    {
+      "id": "lanista_2",
+      "name": "Solonius",
+      "title": "Lanista",
+      "wealth": 1500,
+      "influence": 35,
+      "relationship": -20,
+      "personality": "aggressive",
+      "description": "Acımasız ve hırslı bir rakip",
+      "image": "assets/rivals/solonius.png"
+    },
+    {
+      "id": "lanista_3",
+      "name": "Vettius",
+      "title": "Lanista",
+      "wealth": 1800,
+      "influence": 30,
+      "relationship": 0,
+      "personality": "cautious",
+      "description": "Temkinli ve hesapçı",
+      "image": "assets/rivals/vettius.png"
+    }
+  ],
+  "politicians": [
+    {
+      "id": "senator_1",
+      "name": "Senator Albinius",
+      "title": "Senator",
+      "wealth": 5000,
+      "influence": 80,
+      "relationship": 0,
+      "personality": "cautious",
+      "description": "Roma senatosunun güçlü isimlerinden",
+      "image": "assets/rivals/albinius.png"
+    },
+    {
+      "id": "senator_2",
+      "name": "Senator Varinius",
+      "title": "Senator",
+      "wealth": 4500,
+      "influence": 75,
+      "relationship": 5,
+      "personality": "proud",
+      "description": "Asil ve gururlu bir senator",
+      "image": "assets/rivals/varinius.png"
+    },
+    {
+      "id": "senator_3",
+      "name": "Senator Metellus",
+      "title": "Senator",
+      "wealth": 6000,
+      "influence": 85,
+      "relationship": -5,
+      "personality": "cunning",
+      "description": "Çok zengin ve etkili",
+      "image": "assets/rivals/metellus.png"
+    }
+  ],
+  "military": [
+    {
+      "id": "legatus_1",
+      "name": "Legatus Glaber",
+      "title": "Legatus",
+      "wealth": 3000,
+      "influence": 70,
+      "relationship": 5,
+      "personality": "proud",
+      "description": "Roma lejyonlarının komutanı",
+      "image": "assets/rivals/glaber.png"
+    },
+    {
+      "id": "legatus_2",
+      "name": "Praetor Cossinius",
+      "title": "Praetor",
+      "wealth": 2500,
+      "influence": 60,
+      "relationship": 0,
+      "personality": "aggressive",
+      "description": "Savaş alanında acımasız",
+      "image": "assets/rivals/cossinius.png"
+    },
+    {
+      "id": "legatus_3",
+      "name": "Tribunus Marcus",
+      "title": "Tribunus",
+      "wealth": 2000,
+      "influence": 50,
+      "relationship": 10,
+      "personality": "cautious",
+      "description": "Genç ve hırslı bir subay",
+      "image": "assets/rivals/tribunus.png"
+    }
+  ]
+}

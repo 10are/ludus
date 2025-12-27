@@ -1,0 +1,141 @@
+{
+  "starting_gladiators": [
+    {
+      "id": "glad_1",
+      "name": "Marcus",
+      "origin": "Roma",
+      "age": 28,
+      "health": 100,
+      "strength": 35,
+      "intelligence": 25,
+      "stamina": 40,
+      "salary": 60,
+      "morale": 55,
+      "image": "assets/gladiators/marcus.png"
+    },
+    {
+      "id": "glad_2",
+      "name": "Crixus",
+      "origin": "Galya",
+      "age": 32,
+      "health": 100,
+      "strength": 45,
+      "intelligence": 20,
+      "stamina": 35,
+      "salary": 70,
+      "morale": 50,
+      "image": "assets/gladiators/crixus.png"
+    },
+    {
+      "id": "glad_3",
+      "name": "Oenomaus",
+      "origin": "Numidia",
+      "age": 35,
+      "health": 100,
+      "strength": 30,
+      "intelligence": 40,
+      "stamina": 30,
+      "salary": 55,
+      "morale": 60,
+      "image": "assets/gladiators/oenomaus.png"
+    }
+  ],
+  "market_slaves": [
+    {
+      "id": "slave_1",
+      "name": "Spartacus",
+      "origin": "Trakya",
+      "age": 30,
+      "health": 100,
+      "strength": 50,
+      "intelligence": 35,
+      "stamina": 45,
+      "price": 400,
+      "image": "assets/gladiators/spartacus.png"
+    },
+    {
+      "id": "slave_2",
+      "name": "Gannicus",
+      "origin": "Galya",
+      "age": 27,
+      "health": 100,
+      "strength": 40,
+      "intelligence": 30,
+      "stamina": 50,
+      "price": 350,
+      "image": "assets/gladiators/gannicus.png"
+    },
+    {
+      "id": "slave_3",
+      "name": "Agron",
+      "origin": "Germania",
+      "age": 26,
+      "health": 100,
+      "strength": 45,
+      "intelligence": 20,
+      "stamina": 40,
+      "price": 300,
+      "image": "assets/gladiators/agron.png"
+    },
+    {
+      "id": "slave_4",
+      "name": "Nasir",
+      "origin": "Suriye",
+      "age": 24,
+      "health": 100,
+      "strength": 25,
+      "intelligence": 45,
+      "stamina": 35,
+      "price": 280,
+      "image": "assets/gladiators/nasir.png"
+    },
+    {
+      "id": "slave_5",
+      "name": "Donar",
+      "origin": "Germania",
+      "age": 29,
+      "health": 100,
+      "strength": 48,
+      "intelligence": 15,
+      "stamina": 38,
+      "price": 320,
+      "image": "assets/gladiators/donar.png"
+    },
+    {
+      "id": "slave_6",
+      "name": "Lugo",
+      "origin": "Hispania",
+      "age": 31,
+      "health": 100,
+      "strength": 35,
+      "intelligence": 25,
+      "stamina": 42,
+      "price": 290,
+      "image": "assets/gladiators/lugo.png"
+    },
+    {
+      "id": "slave_7",
+      "name": "Nemetes",
+      "origin": "Germania",
+      "age": 28,
+      "health": 100,
+      "strength": 42,
+      "intelligence": 18,
+      "stamina": 36,
+      "price": 270,
+      "image": "assets/gladiators/nemetes.png"
+    },
+    {
+      "id": "slave_8",
+      "name": "Totus",
+      "origin": "Britanya",
+      "age": 25,
+      "health": 100,
+      "strength": 30,
+      "intelligence": 32,
+      "stamina": 44,
+      "price": 300,
+      "image": "assets/gladiators/totus.png"
+    }
+  ]
+}

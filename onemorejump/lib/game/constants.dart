@@ -1,63 +1,64 @@
 import 'dart:ui';
 
 class GameConstants {
-  // Screen & World
-  static const double worldWidth = 400;
-  static const double worldHeight = 800;
+  // Başlangıç değerleri
+  static const int startingGold = 1000;
+  static const int startingGladiators = 3;
 
-  // Player
-  static const double playerWidth = 30;
-  static const double playerHeight = 40;
-  static const double gravity = 900;
-  static const double maxJumpPower = 750;
-  static const double minJumpPower = 250;
-  static const double chargeRate = 550; // Power per second
-  static const double horizontalSpeed = 200;
-  static const double maxFallSpeed = 800;
+  // Gladyatör stat limitleri
+  static const int maxStat = 100;
+  static const int minStat = 1;
 
-  // Platforms
-  static const double platformHeight = 15;
-  static const double minPlatformWidth = 60;
-  static const double maxPlatformWidth = 120;
-  static const double minPlatformGap = 80;
-  static const double maxPlatformGap = 150;
-  static const double platformSpawnBuffer = 300;
+  // Eğitim
+  static const int trainingCostBase = 50;
+  static const int trainingStatGain = 5;
 
-  // Platform types probability (must sum to 1.0)
-  static const double normalPlatformChance = 0.7;
-  static const double slipperyPlatformChance = 0.15;
-  static const double bouncyPlatformChance = 0.15;
+  // Sağlık
+  static const int doctorCost = 100;
+  static const int doctorHealAmount = 30;
 
-  // Slippery platform
-  static const double slipperyFriction = 0.02;
-  static const double slipperySlideSpeed = 150;
+  // Dövüş ödülleri
+  static const int undergroundFightReward = 150;
+  static const int smallArenaReward = 400;
+  static const int bigArenaReward = 1200;
 
-  // Bouncy platform
-  static const double bouncyMultiplier = 1.4;
+  // === ROMA RENK PALETİ ===
 
-  // Camera
-  static const double cameraFollowSpeed = 5.0;
-  static const double cameraDeadzone = 200;
+  // Ana arka plan renkleri - Sıcak, toprak tonları
+  static const Color primaryDark = Color(0xFF1A1209); // Çok koyu kahve
+  static const Color primaryBrown = Color(0xFF2A1D12); // Koyu kahverengi
+  static const Color secondaryBrown = Color(0xFF3D2A1C); // Orta kahverengi
 
-  // Colors
-  static const Color backgroundColor = Color(0xFF1a1a2e);
-  static const Color playerColor = Color(0xFFe94560);
-  static const Color normalPlatformColor = Color(0xFF16213e);
-  static const Color slipperyPlatformColor = Color(0xFF4fc3f7);
-  static const Color bouncyPlatformColor = Color(0xFF66bb6a);
-  static const Color chargeBarBackground = Color(0xFF333333);
-  static const Color chargeBarFill = Color(0xFFff6b6b);
-  static const Color textColor = Color(0xFFffffff);
-  static const Color hudBackground = Color(0x88000000);
+  // Vurgu renkleri - Roma altın/turuncu
+  static const Color gold = Color(0xFFD4A853); // Roma altını
+  static const Color bronze = Color(0xFFCD7F32); // Bronz
+  static const Color copper = Color(0xFFB87333); // Bakır
+  static const Color warmOrange = Color(0xFFBF5B04); // Sıcak turuncu
+  static const Color bloodRed = Color(0xFF6B1010); // Kan kırmızısı
 
-  // Game feel
-  static const double deathFallDistance = 0; // Die immediately when leaving camera view
-  static const double startPlatformWidth = 150;
-  static const double startPlatformY = 700; // Near bottom of screen
+  // Nötr renkler
+  static const Color sand = Color(0xFFD9C4A9); // Kum rengi
+  static const Color parchment = Color(0xFFF0E2D0); // Parşömen
+  static const Color stone = Color(0xFF7A7068); // Taş grisi
 
-  // Difficulty scaling
-  static const double difficultyIncreasePerMeter = 0.001;
-  static const double maxDifficultyMultiplier = 2.0;
-  static const double minPlatformWidthAtMaxDifficulty = 40;
-  static const double maxPlatformGapAtMaxDifficulty = 200;
+  // Metin renkleri
+  static const Color textLight = Color(0xFFF0E2D0); // Açık metin
+  static const Color textMuted = Color(0xFF9A8B7A); // Soluk metin
+
+  // Stat renkleri
+  static const Color healthColor = Color(0xFFAA3333); // Sağlık - kırmızı
+  static const Color strengthColor = Color(0xFFCC6600); // Güç - turuncu
+  static const Color intelligenceColor = Color(0xFF4A6B8A); // Zeka - mavi
+  static const Color staminaColor = Color(0xFF5C7A4A); // Kondisyon - yeşil
+
+  // UI elementleri
+  static const Color cardBg = Color(0xFF2A1D12);
+  static const Color cardBorder = Color(0xFF4A3528);
+  static const Color buttonPrimary = Color(0xFF6B1010);
+  static const Color buttonSecondary = Color(0xFF3D2A1C);
+
+  // Durum renkleri
+  static const Color success = Color(0xFF5C7A4A);
+  static const Color danger = Color(0xFF8B2020);
+  static const Color warning = Color(0xFFBF5B04);
 }

@@ -1,0 +1,64 @@
+{
+  "available_staff": [
+    {
+      "id": "doctor_1",
+      "name": "Medicus",
+      "role": "doctor",
+      "skill": 50,
+      "salary": 40,
+      "bonus": 15,
+      "description": "Tecrübeli bir doktor, tedavi bonusu sağlar",
+      "image": "assets/staff/medicus.png"
+    },
+    {
+      "id": "doctor_2",
+      "name": "Aulus",
+      "role": "doctor",
+      "skill": 65,
+      "salary": 55,
+      "bonus": 25,
+      "description": "Usta hekim, yüksek tedavi bonusu",
+      "image": "assets/staff/aulus.png"
+    },
+    {
+      "id": "trainer_1",
+      "name": "Doctore",
+      "role": "trainer",
+      "skill": 45,
+      "salary": 35,
+      "bonus": 2,
+      "description": "Gladyatör eğitmeni, eğitim bonusu sağlar",
+      "image": "assets/staff/doctore.png"
+    },
+    {
+      "id": "trainer_2",
+      "name": "Aelius",
+      "role": "trainer",
+      "skill": 60,
+      "salary": 50,
+      "bonus": 4,
+      "description": "Usta eğitmen, yüksek eğitim bonusu",
+      "image": "assets/staff/aelius.png"
+    }
+  ],
+  "house_slaves": [
+    {
+      "id": "slave_house_1",
+      "name": "Naevia",
+      "role": "servant",
+      "skill": 30,
+      "salary": 15,
+      "description": "Ev hizmetçisi",
+      "image": "assets/staff/naevia.png"
+    },
+    {
+      "id": "slave_house_2",
+      "name": "Mira",
+      "role": "servant",
+      "skill": 35,
+      "salary": 18,
+      "description": "Sadık hizmetçi",
+      "image": "assets/staff/mira.png"
+    }
+  ]
+}

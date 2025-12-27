@@ -1,0 +1,205 @@
+{
+  "market_weeks": [
+    {
+      "week": 1,
+      "title": "Yeni Gelenler",
+      "description": "Taze köle kervanı Roma'ya ulaştı",
+      "slaves": [
+        {
+          "id": "slave_w1_1",
+          "name": "Spartacus",
+          "origin": "Trakya",
+          "age": 28,
+          "health": 90,
+          "strength": 45,
+          "intelligence": 35,
+          "stamina": 50,
+          "price": 300,
+          "image": "assets/defaultasker.png",
+          "description": "Güçlü ve isyankar"
+        },
+        {
+          "id": "slave_w1_2",
+          "name": "Crixus",
+          "origin": "Galya",
+          "age": 30,
+          "health": 95,
+          "strength": 55,
+          "intelligence": 25,
+          "stamina": 45,
+          "price": 350,
+          "image": "assets/defaultasker.png",
+          "description": "Vahşi bir savaşçı"
+        },
+        {
+          "id": "slave_w1_3",
+          "name": "Agron",
+          "origin": "Germania",
+          "age": 26,
+          "health": 85,
+          "strength": 40,
+          "intelligence": 30,
+          "stamina": 55,
+          "price": 280,
+          "image": "assets/defaultasker.png",
+          "description": "Sadık ve dayanıklı"
+        }
+      ],
+      "staff": [
+        {
+          "id": "staff_w1_1",
+          "name": "Medicus",
+          "role": "doctor",
+          "salary": 40,
+          "skill": 50,
+          "bonus": 15,
+          "price": 200,
+          "image": "assets/defaultasker.png",
+          "description": "Tecrübeli bir hekim"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "title": "Doğu Kervanı",
+      "description": "Suriye ve Mısır'dan özel köleler",
+      "slaves": [
+        {
+          "id": "slave_w2_1",
+          "name": "Nasir",
+          "origin": "Syria",
+          "age": 24,
+          "health": 80,
+          "strength": 35,
+          "intelligence": 50,
+          "stamina": 45,
+          "price": 320,
+          "image": "assets/defaultasker.png",
+          "description": "Zeki ve çevik"
+        },
+        {
+          "id": "slave_w2_2",
+          "name": "Dagan",
+          "origin": "Mısır",
+          "age": 32,
+          "health": 88,
+          "strength": 50,
+          "intelligence": 40,
+          "stamina": 50,
+          "price": 380,
+          "image": "assets/defaultasker.png",
+          "description": "Nil'in oğlu"
+        },
+        {
+          "id": "slave_w2_3",
+          "name": "Ashur",
+          "origin": "Syria",
+          "age": 29,
+          "health": 75,
+          "strength": 30,
+          "intelligence": 60,
+          "stamina": 40,
+          "price": 250,
+          "image": "assets/defaultasker.png",
+          "description": "Kurnaz ve hesapçı"
+        },
+        {
+          "id": "slave_w2_4",
+          "name": "Mira",
+          "origin": "Judea",
+          "age": 22,
+          "health": 70,
+          "strength": 25,
+          "intelligence": 55,
+          "stamina": 60,
+          "price": 200,
+          "image": "assets/defaultasker.png",
+          "description": "Hızlı ve atik"
+        }
+      ],
+      "staff": [
+        {
+          "id": "staff_w2_1",
+          "name": "Doctore",
+          "role": "trainer",
+          "salary": 35,
+          "skill": 55,
+          "bonus": 3,
+          "price": 250,
+          "image": "assets/defaultasker.png",
+          "description": "Eski bir gladyatör"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "title": "Kuzey Barbarları",
+      "description": "Germania ve Britannia'dan vahşi savaşçılar",
+      "slaves": [
+        {
+          "id": "slave_w3_1",
+          "name": "Gannicus",
+          "origin": "Galya",
+          "age": 27,
+          "health": 92,
+          "strength": 60,
+          "intelligence": 30,
+          "stamina": 55,
+          "price": 450,
+          "image": "assets/defaultasker.png",
+          "description": "Efsanevi bir dövüşçü"
+        },
+        {
+          "id": "slave_w3_2",
+          "name": "Lugo",
+          "origin": "Germania",
+          "age": 35,
+          "health": 98,
+          "strength": 65,
+          "intelligence": 20,
+          "stamina": 60,
+          "price": 500,
+          "image": "assets/defaultasker.png",
+          "description": "Dev gibi bir adam"
+        },
+        {
+          "id": "slave_w3_3",
+          "name": "Saxa",
+          "origin": "Germania",
+          "age": 25,
+          "health": 85,
+          "strength": 45,
+          "intelligence": 35,
+          "stamina": 50,
+          "price": 380,
+          "image": "assets/defaultasker.png",
+          "description": "Hızlı ve acımasız"
+        }
+      ],
+      "staff": [
+        {
+          "id": "staff_w3_1",
+          "name": "Oenomaus",
+          "role": "trainer",
+          "salary": 50,
+          "skill": 70,
+          "bonus": 5,
+          "price": 400,
+          "image": "assets/defaultasker.png",
+          "description": "Efsanevi eğitmen"
+        },
+        {
+          "id": "staff_w3_2",
+          "name": "Lucanus",
+          "role": "doctor",
+          "salary": 55,
+          "skill": 65,
+          "bonus": 20,
+          "price": 350,
+          "image": "assets/defaultasker.png",
+          "description": "Roma'nın en iyi cerrahı"
+        }
+      ]
+    }
+  ]
+}

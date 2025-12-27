@@ -1,0 +1,82 @@
+{
+  "underground_fights": [
+    {
+      "id": "underground_1",
+      "title": "Karanlık Mahzen",
+      "description": "Yasadışı yeraltı dövüşü",
+      "type": "underground",
+      "reward": 150,
+      "difficulty": 1,
+      "enemy_power": 25
+    },
+    {
+      "id": "underground_2",
+      "title": "Gece Arenası",
+      "description": "Gizli kumarhane dövüşü",
+      "type": "underground",
+      "reward": 200,
+      "difficulty": 2,
+      "enemy_power": 35
+    },
+    {
+      "id": "underground_3",
+      "title": "Kanlı Bodrum",
+      "description": "Ölümüne dövüş",
+      "type": "underground",
+      "reward": 300,
+      "difficulty": 3,
+      "enemy_power": 45
+    }
+  ],
+  "small_arena_fights": [
+    {
+      "id": "small_1",
+      "title": "Yerel Arena",
+      "description": "Kasaba arenasında halka açık dövüş",
+      "type": "smallArena",
+      "reward": 400,
+      "difficulty": 2,
+      "enemy_power": 40
+    },
+    {
+      "id": "small_2",
+      "title": "Capua Arenası",
+      "description": "Capua'da gösteri",
+      "type": "smallArena",
+      "reward": 500,
+      "difficulty": 3,
+      "enemy_power": 50
+    },
+    {
+      "id": "small_3",
+      "title": "Neapolis Oyunları",
+      "description": "Neapolis şehrinde turnuva",
+      "type": "smallArena",
+      "reward": 600,
+      "difficulty": 3,
+      "enemy_power": 55
+    }
+  ],
+  "big_arena_fights": [
+    {
+      "id": "big_1",
+      "title": "Colosseum",
+      "description": "Roma'nın kalbinde büyük gösteri",
+      "type": "bigArena",
+      "reward": 1200,
+      "difficulty": 4,
+      "enemy_power": 60,
+      "required_reputation": 50
+    },
+    {
+      "id": "big_2",
+      "title": "İmparator Önünde",
+      "description": "İmparatorun huzurunda dövüş",
+      "type": "bigArena",
+      "reward": 2000,
+      "difficulty": 5,
+      "enemy_power": 75,
+      "required_reputation": 100
+    }
+  ]
+}

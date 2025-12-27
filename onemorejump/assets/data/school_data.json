@@ -1,0 +1,144 @@
+{
+  "wife": {
+    "name": "Lucretia",
+    "title": "Domina",
+    "image": "assets/karin.png",
+    "morale_required_for_child": 100,
+    "dialogues": [
+      {
+        "id": "dialogue_1",
+        "week": 1,
+        "text": "Kocam, bu ludus'u büyütmek için birlikte çalışmalıyız. Bir varis... Roma'nın geleceği için önemli.",
+        "mood": "hopeful"
+      },
+      {
+        "id": "dialogue_2",
+        "week": 2,
+        "text": "Gladyatörlerimiz güçleniyor. Ama bir çocuk olmadan bu mirasın ne anlamı var?",
+        "mood": "thoughtful"
+      },
+      {
+        "id": "dialogue_3",
+        "week": 3,
+        "text": "Senatör Albinius'un karısı yeni bir kolye takmış. Belki bana da bir hediye...",
+        "mood": "jealous"
+      },
+      {
+        "id": "dialogue_4",
+        "week": 4,
+        "text": "Bugün tapınağa gittim. Tanrılardan bir varis diledim. Umarım dualarım kabul olur.",
+        "mood": "prayerful"
+      },
+      {
+        "id": "dialogue_5",
+        "week": 5,
+        "text": "Diğer domina'lar beni küçümsüyor. Çocuksuz bir kadın... Roma'da hiçbir şey değiliz.",
+        "mood": "sad"
+      },
+      {
+        "id": "dialogue_6",
+        "week": 6,
+        "text": "Bana özen göster kocam. Hediyeler güzel ama asıl ihtiyacım senin ilgin.",
+        "mood": "loving"
+      },
+      {
+        "id": "dialogue_7",
+        "week": 7,
+        "text": "Gladyatör pazarı iyi gidiyor duydum. Belki karını da mutlu etmenin zamanı gelmiştir?",
+        "mood": "expectant"
+      },
+      {
+        "id": "dialogue_8",
+        "week": 8,
+        "text": "Kocam, seni her geçen gün daha çok seviyorum. Bir varis... hayallerimizin tacı olur.",
+        "mood": "romantic"
+      }
+    ],
+    "gifts": [
+      {
+        "id": "gift_1",
+        "name": "Gül Buketi",
+        "description": "Mısır'dan taze güller",
+        "price": 50,
+        "morale_bonus": 10,
+        "image": "assets/gift_rose.png"
+      },
+      {
+        "id": "gift_2",
+        "name": "İpek Kumaş",
+        "description": "Çin'den nadir ipek",
+        "price": 150,
+        "morale_bonus": 20,
+        "image": "assets/gift_silk.png"
+      },
+      {
+        "id": "gift_3",
+        "name": "Altın Kolye",
+        "description": "Roma ustasının eseri",
+        "price": 300,
+        "morale_bonus": 35,
+        "image": "assets/gift_necklace.png"
+      },
+      {
+        "id": "gift_4",
+        "name": "Elmas Küpe",
+        "description": "Hint elmasları",
+        "price": 500,
+        "morale_bonus": 50,
+        "image": "assets/gift_earring.png"
+      }
+    ]
+  },
+  "feasts": [
+    {
+      "id": "feast_1",
+      "name": "Basit Ziyafet",
+      "description": "Ekmek, şarap ve zeytin",
+      "price": 100,
+      "morale_bonus": 10,
+      "icon": "food"
+    },
+    {
+      "id": "feast_2",
+      "name": "Roma Ziyafeti",
+      "description": "Et, balık ve bol şarap",
+      "price": 250,
+      "morale_bonus": 20,
+      "icon": "wine"
+    },
+    {
+      "id": "feast_3",
+      "name": "İmparator Sofrası",
+      "description": "En nadide yemekler",
+      "price": 500,
+      "morale_bonus": 35,
+      "icon": "crown"
+    }
+  ],
+  "training_types": [
+    {
+      "id": "train_strength",
+      "name": "Güç Eğitimi",
+      "stat": "strength",
+      "price": 30,
+      "gain": 5,
+      "icon": "fitness_center"
+    },
+    {
+      "id": "train_intelligence",
+      "name": "Taktik Eğitimi",
+      "stat": "intelligence",
+      "price": 30,
+      "gain": 5,
+      "icon": "psychology"
+    },
+    {
+      "id": "train_stamina",
+      "name": "Dayanıklılık",
+      "stat": "stamina",
+      "price": 30,
+      "gain": 5,
+      "icon": "directions_run"
+    }
+  ]
+}

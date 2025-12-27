@@ -1,0 +1,88 @@
+{
+  "arena_fighters": [
+    {
+      "id": "arena_1",
+      "name": "Theokoles",
+      "title": "Capua'nın Gölgesi",
+      "origin": "Syria",
+      "health": 100,
+      "strength": 85,
+      "intelligence": 40,
+      "stamina": 90,
+      "reward": 500,
+      "reputation_reward": 50,
+      "image": "assets/defaultasker.png",
+      "defeated": false
+    },
+    {
+      "id": "arena_2",
+      "name": "Pericles",
+      "title": "Atina'nın Oğlu",
+      "origin": "Yunanistan",
+      "health": 100,
+      "strength": 65,
+      "intelligence": 70,
+      "stamina": 60,
+      "reward": 350,
+      "reputation_reward": 35,
+      "image": "assets/defaultasker.png",
+      "defeated": false
+    },
+    {
+      "id": "arena_3",
+      "name": "Caburus",
+      "title": "Galya Aslanı",
+      "origin": "Galya",
+      "health": 100,
+      "strength": 75,
+      "intelligence": 35,
+      "stamina": 80,
+      "reward": 400,
+      "reputation_reward": 40,
+      "image": "assets/defaultasker.png",
+      "defeated": false
+    },
+    {
+      "id": "arena_4",
+      "name": "Gnaeus",
+      "title": "Roma'nın Kılıcı",
+      "origin": "Roma",
+      "health": 100,
+      "strength": 70,
+      "intelligence": 55,
+      "stamina": 70,
+      "reward": 380,
+      "reputation_reward": 38,
+      "image": "assets/defaultasker.png",
+      "defeated": false
+    },
+    {
+      "id": "arena_5",
+      "name": "Sedullus",
+      "title": "Kuzey Fırtınası",
+      "origin": "Germania",
+      "health": 100,
+      "strength": 80,
+      "intelligence": 30,
+      "stamina": 85,
+      "reward": 450,
+      "reputation_reward": 45,
+      "image": "assets/defaultasker.png",
+      "defeated": false
+    },
+    {
+      "id": "arena_6",
+      "name": "Varinius",
+      "title": "Kum Kralı",
+      "origin": "Mısır",
+      "health": 100,
+      "strength": 60,
+      "intelligence": 75,
+      "stamina": 65,
+      "reward": 420,
+      "reputation_reward": 42,
+      "image": "assets/defaultasker.png",
+      "defeated": false
+    }
+  ]
+}

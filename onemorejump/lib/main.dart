@@ -1,68 +1,62 @@
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'game/one_more_jump_game.dart';
-import 'game/overlays/main_menu.dart';
-import 'game/overlays/hud.dart';
-import 'game/overlays/game_over.dart';
+import 'package:provider/provider.dart';
+import 'game/gladiator_game.dart';
+import 'game/models/game_state.dart';
+import 'game/constants.dart';
+import 'game/screens/menu_screen.dart';
+import 'game/screens/home_screen.dart';
+import 'game/screens/game_over_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Lock to portrait mode
+  // Portrait mode
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
 
-  // Hide system UI for immersive experience
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
-  runApp(const OneMoreJumpApp());
+  runApp(const GladiatorApp());
 }
 
-class OneMoreJumpApp extends StatelessWidget {
-  const OneMoreJumpApp({super.key});
+class GladiatorApp extends StatelessWidget {
+  const GladiatorApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'One More Jump',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      home: const GameScreen(),
+    return ChangeNotifierProvider(
+      create: (_) => GladiatorGame(),
+      child: MaterialApp(
+        title: 'Gladyatör Ludus',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: GameConstants.primaryDark,
+        ),
+        home: const GameRouter(),
+      ),
     );
   }
 }
 
-class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
-
-  @override
-  State<GameScreen> createState() => _GameScreenState();
-}
-
-class _GameScreenState extends State<GameScreen> {
-  late final OneMoreJumpGame game;
-
-  @override
-  void initState() {
-    super.initState();
-    game = OneMoreJumpGame();
-  }
+class GameRouter extends StatelessWidget {
+  const GameRouter({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GameWidget<OneMoreJumpGame>(
-        game: game,
-        overlayBuilderMap: {
-          'MainMenu': (context, game) => MainMenu(game: game),
-          'HUD': (context, game) => HUD(game: game),
-          'GameOver': (context, game) => GameOver(game: game),
-        },
-        initialActiveOverlays: const ['MainMenu'],
-      ),
+    return Consumer<GladiatorGame>(
+      builder: (context, game, child) {
+        switch (game.state.phase) {
+          case GamePhase.menu:
+            return const MenuScreen();
+          case GamePhase.playing:
+            return const HomeScreen();
+          case GamePhase.gameOver:
+            return const GameOverScreen();
+        }
+      },
     );
   }
 }

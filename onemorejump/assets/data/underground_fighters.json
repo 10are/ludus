@@ -1,0 +1,88 @@
+{
+  "underground_fighters": [
+    {
+      "id": "underground_1",
+      "name": "Ferox",
+      "title": "Sokak Köpeği",
+      "origin": "Roma",
+      "health": 80,
+      "strength": 45,
+      "intelligence": 25,
+      "stamina": 50,
+      "reward": 100,
+      "reputation_reward": 5,
+      "image": "assets/defaultasker.png",
+      "defeated": false
+    },
+    {
+      "id": "underground_2",
+      "name": "Duro",
+      "title": "Kemik Kıran",
+      "origin": "Hispania",
+      "health": 90,
+      "strength": 55,
+      "intelligence": 20,
+      "stamina": 60,
+      "reward": 150,
+      "reputation_reward": 8,
+      "image": "assets/defaultasker.png",
+      "defeated": false
+    },
+    {
+      "id": "underground_3",
+      "name": "Nasir",
+      "title": "Gece Bıçağı",
+      "origin": "Syria",
+      "health": 70,
+      "strength": 40,
+      "intelligence": 50,
+      "stamina": 55,
+      "reward": 120,
+      "reputation_reward": 6,
+      "image": "assets/defaultasker.png",
+      "defeated": false
+    },
+    {
+      "id": "underground_4",
+      "name": "Barca",
+      "title": "Kartaca'nın Hayaleti",
+      "origin": "Kartaca",
+      "health": 85,
+      "strength": 50,
+      "intelligence": 45,
+      "stamina": 65,
+      "reward": 180,
+      "reputation_reward": 10,
+      "image": "assets/defaultasker.png",
+      "defeated": false
+    },
+    {
+      "id": "underground_5",
+      "name": "Rhaskos",
+      "title": "Trakya Dağları",
+      "origin": "Trakya",
+      "health": 95,
+      "strength": 60,
+      "intelligence": 30,
+      "stamina": 70,
+      "reward": 200,
+      "reputation_reward": 12,
+      "image": "assets/defaultasker.png",
+      "defeated": false
+    },
+    {
+      "id": "underground_6",
+      "name": "Leviticus",
+      "title": "Yeraltı Kralı",
+      "origin": "Judea",
+      "health": 100,
+      "strength": 65,
+      "intelligence": 55,
+      "stamina": 75,
+      "reward": 300,
+      "reputation_reward": 20,
+      "image": "assets/defaultasker.png",
+      "defeated": false
+    }
+  ]
+}
