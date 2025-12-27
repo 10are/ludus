@@ -1,0 +1,183 @@
+{
+  "caesar": {
+    "id": "caesar",
+    "name": "Gaius Julius Caesar",
+    "title": "Roma İmparatoru",
+    "description": "Roma'nın en güçlü adamı. Onun gözüne girmek her şeyi değiştirebilir.",
+    "image": "assets/defaultasker.png",
+    "required_reputation": 500,
+    "dialogues": [
+      {
+        "id": "caesar_1",
+        "text": "Ludus'un hakkında iyi şeyler duydum. Roma seni izliyor.",
+        "mood": "neutral"
+      },
+      {
+        "id": "caesar_2",
+        "text": "Gladyatörlerin cesur savaşıyor. Colosseum'da görmeyi isterim.",
+        "mood": "pleased"
+      },
+      {
+        "id": "caesar_3",
+        "text": "İmparatorluğun en iyi ludus'u olmak ister misin? Bana sadakat göster.",
+        "mood": "commanding"
+      }
+    ],
+    "rewards": {
+      "gold": 1000,
+      "reputation": 200
+    }
+  },
+  "characters": [
+    {
+      "id": "marcus_trader",
+      "name": "Marcus Licinius",
+      "title": "Zengin Tüccar",
+      "description": "Roma'nın en zengin tüccarlarından. Bahislerden büyük paralar kazanıyor.",
+      "image": "assets/defaultasker.png",
+      "type": "merchant",
+      "wealth": 5000,
+      "required_reputation": 50
+    },
+    {
+      "id": "livia_noble",
+      "name": "Livia Drusilla",
+      "title": "Soylu Kadın",
+      "description": "Zengin bir dul. Gladyatörlere özel ilgi duyuyor.",
+      "image": "assets/defaultasker.png",
+      "type": "noble",
+      "wealth": 3000,
+      "required_reputation": 100
+    },
+    {
+      "id": "senator_albinius",
+      "name": "Senator Albinius",
+      "title": "Roma Senatörü",
+      "description": "Senatoda güçlü bir sesi var. Siyasi bağlantıları değerli.",
+      "image": "assets/defaultasker.png",
+      "type": "politician",
+      "wealth": 4000,
+      "required_reputation": 150
+    },
+    {
+      "id": "rival_solonius",
+      "name": "Solonius",
+      "title": "Rakip Ludus Sahibi",
+      "description": "En büyük rakibin. Bazen işbirliği bazen düşmanlık.",
+      "image": "assets/defaultasker.png",
+      "type": "rival",
+      "wealth": 2000,
+      "required_reputation": 0
+    },
+    {
+      "id": "doctore_gnaeus",
+      "name": "Gnaeus",
+      "title": "Emekli Gladyatör",
+      "description": "Arenada efsane olmuş biri. Şimdi antrenörlük yapıyor.",
+      "image": "assets/defaultasker.png",
+      "type": "trainer",
+      "wealth": 500,
+      "required_reputation": 0
+    }
+  ],
+  "missions": [
+    {
+      "id": "mission_fix_fight",
+      "type": "fix_fight",
+      "title": "Şikeli Dövüş",
+      "description": "Seçtiğin gladyatör bir sonraki dövüşü kaybetsin.",
+      "giver": "marcus_trader",
+      "reward_gold": 500,
+      "penalty_reputation": -30,
+      "success_message": "Marcus memnun! Altınlar senin.",
+      "fail_message": "Marcus öfkeli! Bahisini kaybettin.",
+      "icon": "casino"
+    },
+    {
+      "id": "mission_rent_gladiator",
+      "type": "rent_gladiator",
+      "title": "Özel Gece",
+      "description": "Livia bir gladyatörünü gece için istiyor.",
+      "giver": "livia_noble",
+      "reward_gold": 300,
+      "penalty_reputation": -20,
+      "health_damage": 15,
+      "morale_change": -10,
+      "success_message": "Livia çok memnun kaldı!",
+      "icon": "nightlife"
+    },
+    {
+      "id": "mission_sabotage",
+      "type": "sabotage",
+      "title": "Rakibi Zayıflat",
+      "description": "Solonius'un gladyatörüne zarar ver.",
+      "giver": "rival_solonius",
+      "reward_gold": 400,
+      "penalty_reputation": -40,
+      "risk_caught": 30,
+      "success_message": "Kimse fark etmedi. Para cebinde.",
+      "fail_message": "Yakalandın! İtibarın yerle bir.",
+      "icon": "warning"
+    },
+    {
+      "id": "mission_senator_favor",
+      "type": "senator_favor",
+      "title": "Senatör'ün İsteği",
+      "description": "Senatör'ün özel gösterisinde en iyi gladyatörünü göster.",
+      "giver": "senator_albinius",
+      "reward_gold": 600,
+      "reward_reputation": 50,
+      "gladiator_requirement": "best",
+      "success_message": "Senatör çok etkilendi! Kapılar açılıyor.",
+      "icon": "stars"
+    },
+    {
+      "id": "mission_training_secret",
+      "type": "training",
+      "title": "Gizli Teknikler",
+      "description": "Gnaeus sana özel eğitim teknikleri öğretebilir.",
+      "giver": "doctore_gnaeus",
+      "cost_gold": 200,
+      "reward_stat_boost": 5,
+      "success_message": "Gladyatörlerin yeni teknikler öğrendi!",
+      "icon": "fitness_center"
+    },
+    {
+      "id": "mission_poison",
+      "type": "poison",
+      "title": "Zehirli Teklif",
+      "description": "Bir rakip gladyatörü zehirle. Çok riskli ama kazançlı.",
+      "giver": "marcus_trader",
+      "reward_gold": 800,
+      "penalty_reputation": -100,
+      "risk_caught": 50,
+      "success_message": "Rakip dövüşemez halde. Bahis kazanıldı!",
+      "fail_message": "FELAKET! Yakalandın ve hapse atıldın!",
+      "icon": "science"
+    },
+    {
+      "id": "mission_bribe_judge",
+      "type": "bribe",
+      "title": "Hakem Rüşveti",
+      "description": "Bir sonraki dövüşte hakem senin tarafında olsun.",
+      "giver": "senator_albinius",
+      "cost_gold": 300,
+      "reward_fight_bonus": 20,
+      "success_message": "Hakem gözünü kırpıyor. Avantaj sende.",
+      "icon": "gavel"
+    },
+    {
+      "id": "mission_wealthy_patron",
+      "type": "patronage",
+      "title": "Zengin Hamilik",
+      "description": "Livia ludus'una sponsor olmak istiyor.",
+      "giver": "livia_noble",
+      "reward_gold": 200,
+      "reward_weekly": true,
+      "duration_weeks": 4,
+      "requirement": "2_gladiators",
+      "success_message": "Livia artık hamiliniz! Haftalık 200 altın.",
+      "icon": "volunteer_activism"
+    }
+  ]
+}

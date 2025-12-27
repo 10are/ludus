@@ -58,6 +58,24 @@ class GladiatorGame extends ChangeNotifier {
     return true;
   }
 
+  // === ÖZEL İLAÇ İLE İYİLEŞTİRME ===
+  bool healGladiatorWithMedicine(String gladiatorId, int price, int healAmount) {
+    if (state.gold < price) return false;
+
+    final gladiator = state.gladiators.firstWhere((g) => g.id == gladiatorId);
+
+    state.modifyGold(-price);
+
+    // Doktor varsa bonus
+    final hasDoctor = state.staff.any((s) => s.role == StaffRole.doctor);
+    final totalHeal = hasDoctor ? healAmount + 15 : healAmount;
+
+    gladiator.heal(totalHeal);
+
+    notifyListeners();
+    return true;
+  }
+
   // === DÖVÜŞ SİSTEMİ ===
   FightResult fight(String gladiatorId, FightOpportunity fight) {
     final gladiator = state.gladiators.firstWhere((g) => g.id == gladiatorId);
@@ -357,6 +375,75 @@ class GladiatorGame extends ChangeNotifier {
   // === DİYALOG İNDEKSİNİ İLERLET ===
   void advanceDialogue(int totalDialogues) {
     state.dialogueIndex = (state.dialogueIndex + 1) % totalDialogues;
+    notifyListeners();
+  }
+
+  // === GÖREV SİSTEMİ ===
+  void addMission(ActiveMission mission) {
+    state.activeMissions.add(mission);
+    notifyListeners();
+  }
+
+  void removeMission(String missionId) {
+    state.activeMissions.removeWhere((m) => m.id == missionId);
+    notifyListeners();
+  }
+
+  // Görev tamamla
+  void completeMission(String missionId) {
+    final missionIndex = state.activeMissions.indexWhere((m) => m.id == missionId);
+    if (missionIndex != -1) {
+      final mission = state.activeMissions[missionIndex];
+      mission.isCompleted = true;
+      state.modifyGold(mission.rewardGold);
+      state.activeMissions.removeAt(missionIndex);
+      notifyListeners();
+    }
+  }
+
+  // Görev başarısız
+  void failMission(String missionId) {
+    final missionIndex = state.activeMissions.indexWhere((m) => m.id == missionId);
+    if (missionIndex != -1) {
+      final mission = state.activeMissions[missionIndex];
+      mission.isFailed = true;
+      state.modifyReputation(mission.penaltyReputation);
+      state.activeMissions.removeAt(missionIndex);
+      notifyListeners();
+    }
+  }
+
+  // Şikeli dövüş kontrolü - gladyatör kaybederse görev tamamlanır
+  ActiveMission? getFixFightMission() {
+    try {
+      return state.activeMissions.firstWhere(
+        (m) => m.type == MissionType.fixFight && !m.isCompleted && !m.isFailed,
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+
+  // Haftalık görev güncellemesi
+  void updateMissionsOnWeekEnd() {
+    final toRemove = <String>[];
+
+    for (final mission in state.activeMissions) {
+      if (mission.durationWeeks != null) {
+        mission.remainingWeeks--;
+        if (mission.remainingWeeks <= 0) {
+          // Süre doldu - başarısız
+          mission.isFailed = true;
+          state.modifyReputation(mission.penaltyReputation);
+          toRemove.add(mission.id);
+        }
+      }
+    }
+
+    for (final id in toRemove) {
+      state.activeMissions.removeWhere((m) => m.id == id);
+    }
+
     notifyListeners();
   }
 }

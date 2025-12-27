@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../gladiator_game.dart';
 import '../constants.dart';
-import '../models/game_state.dart';
 
 class SchoolScreen extends StatefulWidget {
   const SchoolScreen({super.key});
@@ -16,7 +15,9 @@ class SchoolScreen extends StatefulWidget {
 class _SchoolScreenState extends State<SchoolScreen> {
   Map<String, dynamic>? schoolData;
   bool isLoading = true;
-  int selectedTab = 0; // 0: Eş, 1: Ziyafet, 2: Gladyatörler
+  int selectedTab = 0; // 0: Gladyatörler, 1: Domina, 2: Doctore, 3: Doktor
+  final PageController _gladiatorController = PageController(viewportFraction: 0.55);
+  int _doctoreDialogueIndex = 0;
 
   @override
   void initState() {
@@ -33,7 +34,7 @@ class _SchoolScreenState extends State<SchoolScreen> {
         isLoading = false;
       });
     } catch (e) {
-      debugPrint('School data yükleme hatası: $e');
+      debugPrint('School data yukleme hatasi: $e');
       setState(() => isLoading = false);
     }
   }
@@ -48,7 +49,7 @@ class _SchoolScreenState extends State<SchoolScreen> {
               // Arka plan
               Positioned.fill(
                 child: Image.asset(
-                  'assets/okul.png',
+                  'assets/okul.jpg',
                   fit: BoxFit.cover,
                   errorBuilder: (ctx, err, stack) => Container(
                     color: GameConstants.primaryDark,
@@ -56,33 +57,26 @@ class _SchoolScreenState extends State<SchoolScreen> {
                 ),
               ),
 
-              // Karartma
+              // Hafif karartma - arka plan gorunsun
               Positioned.fill(
                 child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black.withAlpha(120),
-                        Colors.black.withAlpha(180),
-                      ],
-                    ),
-                  ),
+                  color: Colors.black.withAlpha(100),
                 ),
               ),
 
-              // İçerik
+              // Icerik
               SafeArea(
                 child: Column(
                   children: [
-                    // Üst bar
+                    // Ust bar - minimal
                     _buildTopBar(context, game),
 
-                    // Tab seçici
+                    const SizedBox(height: 8),
+
+                    // Tab secici - minimal
                     _buildTabSelector(),
 
-                    // İçerik
+                    // Icerik
                     Expanded(
                       child: isLoading
                           ? Center(child: CircularProgressIndicator(color: GameConstants.gold))
@@ -100,7 +94,7 @@ class _SchoolScreenState extends State<SchoolScreen> {
 
   Widget _buildTopBar(BuildContext context, GladiatorGame game) {
     return Padding(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Row(
         children: [
           // Geri butonu
@@ -109,53 +103,31 @@ class _SchoolScreenState extends State<SchoolScreen> {
             child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: GameConstants.primaryDark.withAlpha(200),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: GameConstants.gold.withAlpha(60)),
+                color: Colors.black.withAlpha(120),
+                borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(Icons.arrow_back, color: GameConstants.textLight, size: 20),
             ),
           ),
 
-          const SizedBox(width: 12),
+          const Spacer(),
 
-          // Başlık
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: BoxDecoration(
-                color: GameConstants.primaryDark.withAlpha(200),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: GameConstants.gold.withAlpha(60)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'LUDUS',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: GameConstants.gold,
-                      letterSpacing: 2,
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Icon(Icons.paid, color: GameConstants.gold, size: 18),
-                      const SizedBox(width: 4),
-                      Text(
-                        '${game.state.gold}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: GameConstants.gold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+          // Altin
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: Colors.black.withAlpha(120),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.paid, color: GameConstants.gold, size: 18),
+                const SizedBox(width: 4),
+                Text(
+                  '${game.state.gold}',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: GameConstants.gold),
+                ),
+              ],
             ),
           ),
         ],
@@ -166,73 +138,376 @@ class _SchoolScreenState extends State<SchoolScreen> {
   Widget _buildTabSelector() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12),
-      padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: GameConstants.primaryDark.withAlpha(200),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: GameConstants.gold.withAlpha(40)),
-      ),
-      child: Row(
-        children: [
-          _buildTab(0, 'Domina', Icons.favorite),
-          _buildTab(1, 'Ziyafet', Icons.restaurant),
-          _buildTab(2, 'Gladyatörler', Icons.sports_mma),
-        ],
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            _buildTab(0, 'Gladyatorler', Icons.sports_mma),
+            const SizedBox(width: 6),
+            _buildTab(1, 'Domina', Icons.favorite),
+            const SizedBox(width: 6),
+            _buildTab(2, 'Doctore', Icons.fitness_center),
+            const SizedBox(width: 6),
+            _buildTab(3, 'Doktor', Icons.healing),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildTab(int index, String label, IconData icon) {
     final isSelected = selectedTab == index;
-    return Expanded(
-      child: GestureDetector(
-        onTap: () => setState(() => selectedTab = index),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          decoration: BoxDecoration(
-            color: isSelected ? GameConstants.gold.withAlpha(30) : Colors.transparent,
-            borderRadius: BorderRadius.circular(10),
-            border: isSelected ? Border.all(color: GameConstants.gold.withAlpha(80)) : null,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, color: isSelected ? GameConstants.gold : GameConstants.textMuted, size: 16),
-              const SizedBox(width: 6),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                  color: isSelected ? GameConstants.gold : GameConstants.textMuted,
-                ),
+    return GestureDetector(
+      onTap: () => setState(() => selectedTab = index),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? GameConstants.gold.withAlpha(40) : Colors.black.withAlpha(100),
+          borderRadius: BorderRadius.circular(20),
+          border: isSelected ? Border.all(color: GameConstants.gold.withAlpha(80)) : null,
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: isSelected ? GameConstants.gold : GameConstants.textMuted, size: 16),
+            const SizedBox(width: 6),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                color: isSelected ? GameConstants.gold : GameConstants.textMuted,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
   Widget _buildContent(GladiatorGame game) {
-    if (schoolData == null) {
-      return Center(child: Text('Veri yüklenemedi', style: TextStyle(color: GameConstants.textMuted)));
-    }
+    if (schoolData == null) return const SizedBox();
 
     switch (selectedTab) {
       case 0:
-        return _buildWifeSection(game);
-      case 1:
-        return _buildFeastSection(game);
-      case 2:
         return _buildGladiatorsSection(game);
+      case 1:
+        return _buildDominaSection(game);
+      case 2:
+        return _buildDoctoreSection(game);
+      case 3:
+        return _buildDoctorSection(game);
       default:
         return const SizedBox();
     }
   }
 
-  // === EŞ (DOMİNA) BÖLÜMÜ ===
-  Widget _buildWifeSection(GladiatorGame game) {
+  // === GLADYATORLER - KART TASARIMI ===
+  Widget _buildGladiatorsSection(GladiatorGame game) {
+    if (game.state.gladiators.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.sports_mma, color: GameConstants.textMuted.withAlpha(100), size: 60),
+            const SizedBox(height: 12),
+            Text('Gladyator yok', style: TextStyle(color: GameConstants.textMuted, fontSize: 16)),
+          ],
+        ),
+      );
+    }
+
+    final feasts = schoolData!['feasts'] as List? ?? [];
+
+    return Column(
+      children: [
+        const SizedBox(height: 12),
+
+        // Ziyafet bolumu - kompakt
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.black.withAlpha(120),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.restaurant, color: GameConstants.warmOrange, size: 16),
+                  const SizedBox(width: 6),
+                  Text('ZIYAFET', style: TextStyle(fontSize: 11, color: GameConstants.textMuted, letterSpacing: 1)),
+                  const Spacer(),
+                  Text(
+                    'Ort. Moral: ${game.state.gladiators.isNotEmpty ? (game.state.gladiators.map((g) => g.morale).reduce((a, b) => a + b) / game.state.gladiators.length).round() : 0}',
+                    style: TextStyle(fontSize: 11, color: GameConstants.gold),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: feasts.map<Widget>((feast) {
+                  final price = feast['price'] ?? 0;
+                  final bonus = feast['morale_bonus'] ?? 0;
+                  final canAfford = game.state.gold >= price;
+                  return Expanded(
+                    child: GestureDetector(
+                      onTap: canAfford ? () => _giveFeast(game, price, bonus, feast['name']) : null,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 2),
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        decoration: BoxDecoration(
+                          color: canAfford ? GameConstants.warmOrange.withAlpha(30) : Colors.black26,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: canAfford ? GameConstants.warmOrange.withAlpha(60) : Colors.transparent),
+                        ),
+                        child: Column(
+                          children: [
+                            Text('+$bonus', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: canAfford ? GameConstants.warmOrange : GameConstants.textMuted)),
+                            Text('$price g', style: TextStyle(fontSize: 10, color: canAfford ? GameConstants.gold : GameConstants.textMuted)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 12),
+
+        // Gladyator kartlari - swipeable
+        Expanded(
+          child: PageView.builder(
+            controller: _gladiatorController,
+            itemCount: game.state.gladiators.length,
+            itemBuilder: (context, index) {
+              final gladiator = game.state.gladiators[index];
+              return _buildGladiatorCard(gladiator, game, index);
+            },
+          ),
+        ),
+
+        const SizedBox(height: 20),
+      ],
+    );
+  }
+
+  Widget _buildGladiatorCard(dynamic gladiator, GladiatorGame game, int index) {
+    final bool isInjured = gladiator.isInjured;
+    final Color accentColor = GameConstants.bloodRed;
+
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 6),
+      decoration: BoxDecoration(
+        color: Colors.black.withAlpha(180),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(
+          color: isInjured ? GameConstants.danger.withAlpha(100) : accentColor.withAlpha(100),
+          width: 1.5,
+        ),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Column(
+          children: [
+            // Görsel
+            Expanded(
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  // Asker görseli
+                  Image.asset(
+                    'assets/defaultasker.png',
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Container(
+                      color: accentColor.withAlpha(30),
+                      child: Icon(Icons.person, size: 50, color: accentColor.withAlpha(100)),
+                    ),
+                  ),
+
+                  // Gradient overlay
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: 60,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Colors.transparent, Colors.black.withAlpha(200)],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Sıra numarası
+                  Positioned(
+                    top: 6,
+                    left: 6,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: accentColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        '${index + 1}/${game.state.gladiators.length}',
+                        style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                    ),
+                  ),
+
+                  // Yaralı badge
+                  if (isInjured)
+                    Positioned(
+                      top: 6,
+                      right: 6,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: GameConstants.danger,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Icon(Icons.healing, size: 12, color: Colors.white),
+                      ),
+                    ),
+
+                  // Maaş
+                  Positioned(
+                    bottom: 6,
+                    right: 6,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withAlpha(150),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.paid, color: GameConstants.gold, size: 10),
+                          const SizedBox(width: 2),
+                          Text('${gladiator.salary}/h', style: TextStyle(fontSize: 9, color: GameConstants.gold)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Bilgiler - kompakt
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  // İsim ve Unvan
+                  Text(
+                    gladiator.name,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: GameConstants.textLight,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    gladiator.origin ?? '',
+                    style: TextStyle(
+                      fontSize: 9,
+                      color: accentColor,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+
+                  const SizedBox(height: 4),
+
+                  // Statlar - küçük ikonlarla
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildMiniStat(Icons.favorite, gladiator.health, GameConstants.healthColor),
+                      _buildMiniStat(Icons.flash_on, gladiator.strength, GameConstants.strengthColor),
+                      _buildMiniStat(Icons.psychology, gladiator.intelligence, GameConstants.intelligenceColor),
+                      _buildMiniStat(Icons.directions_run, gladiator.stamina, GameConstants.staminaColor),
+                      _buildMiniStat(Icons.mood, gladiator.morale, GameConstants.gold),
+                    ],
+                  ),
+
+                  const SizedBox(height: 6),
+
+                  // Aksiyonlar
+                  Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: gladiator.canTrain ? () => _showTrainDialog(gladiator, game) : null,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              color: gladiator.canTrain ? GameConstants.strengthColor : Colors.black26,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              'EĞİT',
+                              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: gladiator.canTrain ? Colors.black : GameConstants.textMuted),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => _showFireDialog(gladiator, game),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 6),
+                            decoration: BoxDecoration(
+                              color: GameConstants.danger.withAlpha(80),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              'KOV',
+                              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: GameConstants.danger),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMiniStat(IconData icon, int value, Color color) {
+    return Column(
+      children: [
+        Icon(icon, size: 12, color: color.withAlpha(200)),
+        const SizedBox(height: 1),
+        Text(
+          '$value',
+          style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: GameConstants.textLight),
+        ),
+      ],
+    );
+  }
+
+  // === DOMINA BOLUMU ===
+  Widget _buildDominaSection(GladiatorGame game) {
     final wife = schoolData!['wife'];
     final dialogues = wife['dialogues'] as List;
     final gifts = wife['gifts'] as List;
@@ -242,128 +517,87 @@ class _SchoolScreenState extends State<SchoolScreen> {
       padding: const EdgeInsets.all(12),
       child: Column(
         children: [
-          // Eş kartı
+          // Kart
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: GameConstants.primaryDark.withAlpha(230),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: GameConstants.copper.withAlpha(100)),
+              color: Colors.black.withAlpha(150),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: GameConstants.copper.withAlpha(60)),
             ),
             child: Column(
               children: [
-                // Fotoğraf ve bilgi
                 Row(
                   children: [
-                    // Fotoğraf
+                    // Foto
                     Container(
-                      width: 100,
-                      height: 120,
+                      width: 80,
+                      height: 100,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: GameConstants.copper.withAlpha(80)),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: GameConstants.copper.withAlpha(60)),
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(11),
+                        borderRadius: BorderRadius.circular(9),
                         child: Image.asset(
-                          wife['image'] ?? 'assets/karin.png',
+                          wife['image'] ?? 'assets/karin.jpg',
                           fit: BoxFit.cover,
                           errorBuilder: (ctx, err, stack) => Container(
-                            color: GameConstants.copper.withAlpha(50),
-                            child: Icon(Icons.person, color: GameConstants.copper, size: 50),
+                            color: GameConstants.copper.withAlpha(30),
+                            child: Icon(Icons.person, color: GameConstants.copper, size: 40),
                           ),
                         ),
                       ),
                     ),
 
-                    const SizedBox(width: 16),
+                    const SizedBox(width: 12),
 
-                    // Bilgiler
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            game.state.wifeName,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: GameConstants.textLight,
-                            ),
-                          ),
-                          Text(
-                            wife['title'] ?? 'Domina',
-                            style: TextStyle(fontSize: 12, color: GameConstants.copper),
-                          ),
+                          Text(game.state.wifeName, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: GameConstants.textLight)),
+                          Text(wife['title'] ?? 'Domina', style: TextStyle(fontSize: 11, color: GameConstants.copper)),
 
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 10),
 
-                          // Moral barı
+                          // Moral bar
                           Row(
                             children: [
-                              Icon(Icons.favorite, color: Colors.pink, size: 16),
+                              Icon(Icons.favorite, color: Colors.pink, size: 14),
                               const SizedBox(width: 6),
                               Expanded(
                                 child: Stack(
                                   children: [
-                                    Container(
-                                      height: 12,
-                                      decoration: BoxDecoration(
-                                        color: Colors.black26,
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                    ),
+                                    Container(height: 8, decoration: BoxDecoration(color: Colors.black38, borderRadius: BorderRadius.circular(4))),
                                     FractionallySizedBox(
                                       widthFactor: game.state.wifeMorale / 100,
-                                      child: Container(
-                                        height: 12,
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            colors: [Colors.pink, Colors.red],
-                                          ),
-                                          borderRadius: BorderRadius.circular(6),
-                                        ),
-                                      ),
+                                      child: Container(height: 8, decoration: BoxDecoration(color: Colors.pink, borderRadius: BorderRadius.circular(4))),
                                     ),
                                   ],
                                 ),
                               ),
-                              const SizedBox(width: 8),
-                              Text(
-                                '${game.state.wifeMorale}',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.pink,
-                                ),
-                              ),
+                              const SizedBox(width: 6),
+                              Text('${game.state.wifeMorale}', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.pink)),
                             ],
                           ),
 
                           const SizedBox(height: 8),
 
-                          // Çocuk durumu
+                          // Cocuk durumu
                           if (game.state.hasChild)
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                               decoration: BoxDecoration(
                                 color: GameConstants.success.withAlpha(30),
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: GameConstants.success.withAlpha(80)),
+                                borderRadius: BorderRadius.circular(6),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(Icons.child_care, color: GameConstants.success, size: 14),
+                                  Icon(Icons.child_care, color: GameConstants.success, size: 12),
                                   const SizedBox(width: 4),
-                                  Text(
-                                    'VARİS DOĞDU!',
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      color: GameConstants.success,
-                                    ),
-                                  ),
+                                  Text('VARIS DOGDU', style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: GameConstants.success)),
                                 ],
                               ),
                             )
@@ -371,25 +605,18 @@ class _SchoolScreenState extends State<SchoolScreen> {
                             GestureDetector(
                               onTap: () => _tryForChild(game),
                               child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                                 decoration: BoxDecoration(
                                   color: Colors.pink.withAlpha(30),
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(color: Colors.pink.withAlpha(80)),
+                                  borderRadius: BorderRadius.circular(6),
+                                  border: Border.all(color: Colors.pink.withAlpha(60)),
                                 ),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Icon(Icons.child_care, color: Colors.pink, size: 14),
+                                    Icon(Icons.child_care, color: Colors.pink, size: 12),
                                     const SizedBox(width: 4),
-                                    Text(
-                                      'VARİS İÇİN HAZIR!',
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.pink,
-                                      ),
-                                    ),
+                                    Text('VARIS ICIN HAZIR', style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.pink)),
                                   ],
                                 ),
                               ),
@@ -400,170 +627,75 @@ class _SchoolScreenState extends State<SchoolScreen> {
                   ],
                 ),
 
-                const SizedBox(height: 16),
+                const SizedBox(height: 12),
 
-                // Diyalog balonu
+                // Diyalog
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.all(14),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: GameConstants.cardBg,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: GameConstants.copper.withAlpha(40)),
+                    color: Colors.black26,
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '"${currentDialogue['text']}"',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontStyle: FontStyle.italic,
-                          color: GameConstants.textLight,
-                          height: 1.4,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            '- ${game.state.wifeName}',
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: GameConstants.copper,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  child: Text(
+                    '"${currentDialogue['text']}"',
+                    style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: GameConstants.textLight, height: 1.3),
                   ),
                 ),
               ],
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
 
-          // Hediyeler başlığı
-          Row(
-            children: [
-              Icon(Icons.card_giftcard, color: GameConstants.gold, size: 18),
-              const SizedBox(width: 8),
-              Text(
-                'HEDİYELER',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: GameConstants.textMuted,
-                  letterSpacing: 1,
-                ),
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 8),
-
-          // Hediye kartları
-          ...gifts.map((gift) => _buildGiftCard(gift, game)),
+          // Hediyeler
+          ...gifts.map((gift) => _buildGiftRow(gift, game)),
         ],
       ),
     );
   }
 
-  Widget _buildGiftCard(Map<String, dynamic> gift, GladiatorGame game) {
+  Widget _buildGiftRow(Map<String, dynamic> gift, GladiatorGame game) {
     final price = gift['price'] ?? 0;
-    final moraleBonus = gift['morale_bonus'] ?? 0;
+    final bonus = gift['morale_bonus'] ?? 0;
     final canAfford = game.state.gold >= price;
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.only(bottom: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-        color: GameConstants.primaryDark.withAlpha(220),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: canAfford ? GameConstants.copper.withAlpha(60) : GameConstants.cardBorder),
+        color: Colors.black.withAlpha(120),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: canAfford ? GameConstants.copper.withAlpha(40) : Colors.transparent),
       ),
       child: Row(
         children: [
-          // İkon
-          Container(
-            width: 45,
-            height: 45,
-            decoration: BoxDecoration(
-              color: Colors.pink.withAlpha(30),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(Icons.card_giftcard, color: Colors.pink, size: 24),
-          ),
-
-          const SizedBox(width: 12),
-
-          // Bilgiler
+          Icon(Icons.card_giftcard, color: Colors.pink.withAlpha(canAfford ? 255 : 100), size: 20),
+          const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  gift['name'] ?? '',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: canAfford ? GameConstants.textLight : GameConstants.textMuted,
-                  ),
-                ),
-                Text(
-                  gift['description'] ?? '',
-                  style: TextStyle(fontSize: 11, color: GameConstants.textMuted),
-                ),
+                Text(gift['name'] ?? '', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: canAfford ? GameConstants.textLight : GameConstants.textMuted)),
+                Text(gift['description'] ?? '', style: TextStyle(fontSize: 10, color: GameConstants.textMuted)),
               ],
             ),
           ),
-
-          // Moral bonus
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: Colors.pink.withAlpha(20),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.favorite, color: Colors.pink, size: 12),
-                const SizedBox(width: 2),
-                Text(
-                  '+$moraleBonus',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.pink),
-                ),
-              ],
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            decoration: BoxDecoration(color: Colors.pink.withAlpha(20), borderRadius: BorderRadius.circular(4)),
+            child: Text('+$bonus', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.pink)),
           ),
-
           const SizedBox(width: 8),
-
-          // Satın al butonu
           GestureDetector(
-            onTap: canAfford ? () => _giveGift(game, price, moraleBonus, gift['name']) : null,
+            onTap: canAfford ? () => _giveGift(game, price, bonus, gift['name']) : null,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
-                color: canAfford ? GameConstants.gold : GameConstants.cardBorder,
-                borderRadius: BorderRadius.circular(8),
+                color: canAfford ? GameConstants.gold : Colors.black26,
+                borderRadius: BorderRadius.circular(6),
               ),
-              child: Row(
-                children: [
-                  Icon(Icons.paid, color: canAfford ? Colors.black : GameConstants.textMuted, size: 14),
-                  const SizedBox(width: 4),
-                  Text(
-                    '$price',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: canAfford ? Colors.black : GameConstants.textMuted,
-                    ),
-                  ),
-                ],
-              ),
+              child: Text('$price', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: canAfford ? Colors.black : GameConstants.textMuted)),
             ),
           ),
         ],
@@ -571,45 +703,98 @@ class _SchoolScreenState extends State<SchoolScreen> {
     );
   }
 
-  void _giveGift(GladiatorGame game, int price, int moraleBonus, String giftName) {
-    final success = game.giveGiftToWife(price, moraleBonus);
-    if (success) {
-      _showPopup(context, giftName, true, 'Hediye verildi! Moral +$moraleBonus');
-    }
-  }
+  // === DOCTORE BOLUMU ===
+  Widget _buildDoctoreSection(GladiatorGame game) {
+    final doctore = schoolData!['doctore'];
+    final dialogues = doctore['dialogues'] as List;
+    final currentDialogue = dialogues[_doctoreDialogueIndex % dialogues.length];
 
-  void _tryForChild(GladiatorGame game) {
-    final success = game.tryForChild();
-    if (success) {
-      _showPopup(context, 'VARİS!', true, 'Bir varise sahip oldunuz! +50 İtibar');
-    }
-  }
-
-  // === ZİYAFET BÖLÜMÜ ===
-  Widget _buildFeastSection(GladiatorGame game) {
-    final feasts = schoolData!['feasts'] as List;
+    // Egitmen var mi kontrol et
+    final hasTrainer = game.state.staff.any((s) => s.role.toString().contains('trainer'));
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(12),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Açıklama
+          // Kart
           Container(
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: GameConstants.primaryDark.withAlpha(220),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: GameConstants.warmOrange.withAlpha(60)),
+              color: Colors.black.withAlpha(150),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: GameConstants.strengthColor.withAlpha(60)),
             ),
-            child: Row(
+            child: Column(
               children: [
-                Icon(Icons.info_outline, color: GameConstants.warmOrange, size: 20),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    'Gladyatörlerine ziyafet vererek morallerini yükselt!',
-                    style: TextStyle(fontSize: 12, color: GameConstants.textLight),
+                Row(
+                  children: [
+                    Container(
+                      width: 80,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: GameConstants.strengthColor.withAlpha(60)),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(9),
+                        child: Image.asset(
+                          doctore['image'] ?? 'assets/doctore.jpg',
+                          fit: BoxFit.cover,
+                          errorBuilder: (ctx, err, stack) => Container(
+                            color: GameConstants.strengthColor.withAlpha(30),
+                            child: Icon(Icons.fitness_center, color: GameConstants.strengthColor, size: 40),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(doctore['name'] ?? 'Doctore', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: GameConstants.textLight)),
+                          Text(doctore['title'] ?? 'Egitmen', style: TextStyle(fontSize: 11, color: GameConstants.strengthColor)),
+                          const SizedBox(height: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: hasTrainer ? GameConstants.success.withAlpha(30) : GameConstants.danger.withAlpha(30),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              hasTrainer ? 'GOREVDE' : 'ISE ALINMADI',
+                              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: hasTrainer ? GameConstants.success : GameConstants.danger),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 12),
+
+                // Diyalog
+                GestureDetector(
+                  onTap: () => setState(() => _doctoreDialogueIndex++),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.black26,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '"${currentDialogue['text']}"',
+                          style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: GameConstants.textLight, height: 1.3),
+                        ),
+                        const SizedBox(height: 6),
+                        Text('(Dokun - sonraki sozler)', style: TextStyle(fontSize: 9, color: GameConstants.textMuted)),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -618,347 +803,162 @@ class _SchoolScreenState extends State<SchoolScreen> {
 
           const SizedBox(height: 16),
 
-          // Gladyatör sayısı ve ortalama moral
-          if (game.state.gladiators.isNotEmpty) ...[
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: GameConstants.cardBg,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    children: [
-                      Text('${game.state.gladiators.length}', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: GameConstants.textLight)),
-                      Text('Gladyatör', style: TextStyle(fontSize: 10, color: GameConstants.textMuted)),
-                    ],
-                  ),
-                  Container(width: 1, height: 40, color: GameConstants.cardBorder),
-                  Column(
-                    children: [
-                      Text(
-                        '${(game.state.gladiators.map((g) => g.morale).reduce((a, b) => a + b) / game.state.gladiators.length).round()}',
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: GameConstants.gold),
-                      ),
-                      Text('Ort. Moral', style: TextStyle(fontSize: 10, color: GameConstants.textMuted)),
-                    ],
-                  ),
-                ],
-              ),
+          // Bilgi
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.black.withAlpha(100),
+              borderRadius: BorderRadius.circular(10),
             ),
-
-            const SizedBox(height: 16),
-          ],
-
-          // Ziyafet kartları
-          ...feasts.map((feast) => _buildFeastCard(feast, game)),
+            child: Row(
+              children: [
+                Icon(Icons.info_outline, color: GameConstants.textMuted, size: 18),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    hasTrainer
+                        ? 'Doctore gladyatorlerini egitmene yardimci oluyor. Egitim bonusu: +2'
+                        : 'Pazardan bir egitmen ise alarak gladyatorlerini daha hizli gelistirebilirsin.',
+                    style: TextStyle(fontSize: 11, color: GameConstants.textMuted, height: 1.3),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildFeastCard(Map<String, dynamic> feast, GladiatorGame game) {
-    final price = feast['price'] ?? 0;
-    final moraleBonus = feast['morale_bonus'] ?? 0;
-    final canAfford = game.state.gold >= price;
+  // === DOKTOR BOLUMU ===
+  Widget _buildDoctorSection(GladiatorGame game) {
+    final doctor = schoolData!['doctor'];
+    final medicines = doctor['medicines'] as List;
 
-    IconData getIcon() {
-      switch (feast['icon']) {
-        case 'wine':
-          return Icons.wine_bar;
-        case 'crown':
-          return Icons.emoji_events;
-        default:
-          return Icons.restaurant;
-      }
-    }
+    // Doktor var mi kontrol et
+    final hasDoctor = game.state.staff.any((s) => s.role.toString().contains('doctor'));
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        color: GameConstants.primaryDark.withAlpha(220),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: canAfford ? GameConstants.warmOrange.withAlpha(80) : GameConstants.cardBorder),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+    // Yarali gladyatorler
+    final injuredGladiators = game.state.gladiators.where((g) => g.health < 100).toList();
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        children: [
+          // Kart
+          Container(
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: Colors.black.withAlpha(150),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: GameConstants.healthColor.withAlpha(60)),
+            ),
+            child: Row(
               children: [
-                // İkon
                 Container(
-                  width: 50,
-                  height: 50,
+                  width: 80,
+                  height: 100,
                   decoration: BoxDecoration(
-                    color: GameConstants.warmOrange.withAlpha(30),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: GameConstants.healthColor.withAlpha(60)),
                   ),
-                  child: Icon(getIcon(), color: GameConstants.warmOrange, size: 28),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(9),
+                    child: Image.asset(
+                      doctor['image'] ?? 'assets/doktor.jpg',
+                      fit: BoxFit.cover,
+                      errorBuilder: (ctx, err, stack) => Container(
+                        color: GameConstants.healthColor.withAlpha(30),
+                        child: Icon(Icons.healing, color: GameConstants.healthColor, size: 40),
+                      ),
+                    ),
+                  ),
                 ),
-
-                const SizedBox(width: 14),
-
-                // Bilgiler
+                const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        feast['name'] ?? '',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: canAfford ? GameConstants.textLight : GameConstants.textMuted,
+                      Text(doctor['name'] ?? 'Medicus', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: GameConstants.textLight)),
+                      Text(doctor['title'] ?? 'Doktor', style: TextStyle(fontSize: 11, color: GameConstants.healthColor)),
+                      const SizedBox(height: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: hasDoctor ? GameConstants.success.withAlpha(30) : GameConstants.danger.withAlpha(30),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(
+                          hasDoctor ? 'GOREVDE (+15 bonus)' : 'ISE ALINMADI',
+                          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: hasDoctor ? GameConstants.success : GameConstants.danger),
                         ),
                       ),
+                      const SizedBox(height: 6),
                       Text(
-                        feast['description'] ?? '',
-                        style: TextStyle(fontSize: 11, color: GameConstants.textMuted),
+                        '${injuredGladiators.length} yarali gladyator',
+                        style: TextStyle(fontSize: 11, color: injuredGladiators.isNotEmpty ? GameConstants.danger : GameConstants.textMuted),
                       ),
                     ],
                   ),
                 ),
               ],
             ),
+          ),
 
-            const SizedBox(height: 14),
+          const SizedBox(height: 12),
 
-            // Alt bilgi ve buton
-            Row(
-              children: [
-                // Moral bonus
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: GameConstants.gold.withAlpha(20),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(Icons.mood, color: GameConstants.gold, size: 16),
-                      const SizedBox(width: 4),
-                      Text(
-                        '+$moraleBonus Moral (Tüm Gladyatörler)',
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: GameConstants.gold),
-                      ),
-                    ],
-                  ),
-                ),
+          // Ilaclar
+          Text('ILAC & BITKILER', style: TextStyle(fontSize: 11, color: GameConstants.textMuted, letterSpacing: 1)),
+          const SizedBox(height: 8),
 
-                const Spacer(),
-
-                // Satın al butonu
-                GestureDetector(
-                  onTap: canAfford ? () => _giveFeast(game, price, moraleBonus, feast['name']) : null,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: canAfford ? GameConstants.warmOrange : GameConstants.cardBorder,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.paid, color: canAfford ? Colors.black : GameConstants.textMuted, size: 16),
-                        const SizedBox(width: 4),
-                        Text(
-                          '$price',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: canAfford ? Colors.black : GameConstants.textMuted,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+          ...medicines.map((med) => _buildMedicineRow(med, game, injuredGladiators)),
+        ],
       ),
     );
   }
 
-  void _giveFeast(GladiatorGame game, int price, int moraleBonus, String feastName) {
-    final success = game.giveFeast(price, moraleBonus);
-    if (success) {
-      _showPopup(context, feastName, true, 'Ziyafet verildi! Tüm gladyatörlere +$moraleBonus Moral');
-    } else {
-      _showPopup(context, feastName, false, 'Yeterli altın yok!');
-    }
-  }
+  Widget _buildMedicineRow(Map<String, dynamic> med, GladiatorGame game, List injuredGladiators) {
+    final price = med['price'] ?? 0;
+    final heal = med['heal_amount'] ?? 0;
+    final canAfford = game.state.gold >= price;
+    final hasInjured = injuredGladiators.isNotEmpty;
 
-  // === GLADYATÖRLER BÖLÜMÜ ===
-  Widget _buildGladiatorsSection(GladiatorGame game) {
-    if (game.state.gladiators.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.sports_mma, color: GameConstants.textMuted, size: 50),
-            const SizedBox(height: 12),
-            Text('Henüz gladyatör yok', style: TextStyle(color: GameConstants.textMuted)),
-            Text('Pazardan satın alabilirsin', style: TextStyle(color: GameConstants.textMuted, fontSize: 12)),
-          ],
-        ),
-      );
-    }
-
-    return ListView.builder(
-      padding: const EdgeInsets.all(12),
-      itemCount: game.state.gladiators.length,
-      itemBuilder: (context, index) {
-        final gladiator = game.state.gladiators[index];
-        return _buildGladiatorCard(gladiator, game);
-      },
-    );
-  }
-
-  Widget _buildGladiatorCard(dynamic gladiator, GladiatorGame game) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(14),
+      margin: const EdgeInsets.only(bottom: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-        color: GameConstants.primaryDark.withAlpha(220),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: gladiator.isInjured ? GameConstants.danger.withAlpha(100) : GameConstants.bloodRed.withAlpha(60),
-        ),
+        color: Colors.black.withAlpha(120),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: canAfford && hasInjured ? GameConstants.healthColor.withAlpha(40) : Colors.transparent),
       ),
-      child: Column(
+      child: Row(
         children: [
-          // Üst kısım
-          Row(
-            children: [
-              // Avatar
-              Container(
-                width: 55,
-                height: 55,
-                decoration: BoxDecoration(
-                  color: GameConstants.bloodRed.withAlpha(30),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: GameConstants.bloodRed.withAlpha(60)),
-                ),
-                child: Center(
-                  child: Text(
-                    gladiator.name[0],
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: GameConstants.bloodRed),
-                  ),
-                ),
-              ),
-
-              const SizedBox(width: 12),
-
-              // İsim ve origin
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          gladiator.name,
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: GameConstants.textLight),
-                        ),
-                        if (gladiator.isInjured) ...[
-                          const SizedBox(width: 8),
-                          Icon(Icons.healing, color: GameConstants.danger, size: 16),
-                        ],
-                      ],
-                    ),
-                    Text(
-                      '${gladiator.origin} | ${gladiator.age} yaş',
-                      style: TextStyle(fontSize: 11, color: GameConstants.textMuted),
-                    ),
-                  ],
-                ),
-              ),
-
-              // Maaş
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text('MAAŞ', style: TextStyle(fontSize: 9, color: GameConstants.textMuted)),
-                  Text(
-                    '${gladiator.salary}',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: GameConstants.gold),
-                  ),
-                ],
-              ),
-            ],
+          Icon(Icons.local_pharmacy, color: GameConstants.healthColor.withAlpha(canAfford && hasInjured ? 255 : 100), size: 20),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(med['name'] ?? '', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: canAfford ? GameConstants.textLight : GameConstants.textMuted)),
+                Text(med['description'] ?? '', style: TextStyle(fontSize: 10, color: GameConstants.textMuted)),
+              ],
+            ),
           ),
-
-          const SizedBox(height: 12),
-
-          // Statlar
-          Row(
-            children: [
-              _buildMiniStat('HP', gladiator.health, GameConstants.healthColor),
-              _buildMiniStat('GÜÇ', gladiator.strength, GameConstants.strengthColor),
-              _buildMiniStat('ZEKA', gladiator.intelligence, GameConstants.intelligenceColor),
-              _buildMiniStat('KON', gladiator.stamina, GameConstants.staminaColor),
-              _buildMiniStat('MORAL', gladiator.morale, GameConstants.gold),
-            ],
-          ),
-
-          const SizedBox(height: 12),
-
-          // Aksiyonlar
-          Row(
-            children: [
-              Expanded(
-                child: _buildActionButton(
-                  'EĞİT',
-                  Icons.fitness_center,
-                  GameConstants.strengthColor,
-                  gladiator.canTrain ? () => _showTrainDialog(gladiator, game) : null,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: _buildActionButton(
-                  'TEDAVİ',
-                  Icons.healing,
-                  GameConstants.healthColor,
-                  gladiator.health < 100 ? () => _healGladiator(gladiator, game) : null,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: _buildActionButton(
-                  'KOV',
-                  Icons.exit_to_app,
-                  GameConstants.danger,
-                  () => _showFireDialog(gladiator, game),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMiniStat(String label, int value, Color color) {
-    return Expanded(
-      child: Column(
-        children: [
-          Text(label, style: TextStyle(fontSize: 9, color: GameConstants.textMuted)),
-          const SizedBox(height: 2),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: color.withAlpha(20),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Text(
-              '$value',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: color),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            decoration: BoxDecoration(color: GameConstants.healthColor.withAlpha(20), borderRadius: BorderRadius.circular(4)),
+            child: Text('+$heal HP', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: GameConstants.healthColor)),
+          ),
+          const SizedBox(width: 8),
+          GestureDetector(
+            onTap: canAfford && hasInjured ? () => _showHealDialog(game, price, heal, med['name'], injuredGladiators) : null,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              decoration: BoxDecoration(
+                color: canAfford && hasInjured ? GameConstants.healthColor : Colors.black26,
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Text('$price', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: canAfford && hasInjured ? Colors.white : GameConstants.textMuted)),
             ),
           ),
         ],
@@ -966,114 +966,90 @@ class _SchoolScreenState extends State<SchoolScreen> {
     );
   }
 
-  Widget _buildActionButton(String label, IconData icon, Color color, VoidCallback? onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-          color: onTap != null ? color.withAlpha(30) : Colors.black12,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: onTap != null ? color.withAlpha(80) : Colors.transparent),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 16, color: onTap != null ? color : GameConstants.textMuted),
-            const SizedBox(width: 4),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-                color: onTap != null ? color : GameConstants.textMuted,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+  // === AKSIYONLAR ===
+  void _giveFeast(GladiatorGame game, int price, int bonus, String name) {
+    final success = game.giveFeast(price, bonus);
+    if (success) _showPopup('Ziyafet', true, 'Tum gladyatorlere +$bonus Moral');
+  }
+
+  void _giveGift(GladiatorGame game, int price, int bonus, String name) {
+    final success = game.giveGiftToWife(price, bonus);
+    if (success) _showPopup(name, true, 'Domina\'nin morali +$bonus');
+  }
+
+  void _tryForChild(GladiatorGame game) {
+    final success = game.tryForChild();
+    if (success) _showPopup('VARIS', true, 'Bir varise sahip oldunuz! +50 Itibar');
   }
 
   void _showTrainDialog(dynamic gladiator, GladiatorGame game) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: GameConstants.primaryBrown,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => Padding(
-        padding: const EdgeInsets.all(20),
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: GameConstants.primaryDark,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('EĞİTİM SEÇ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: GameConstants.gold)),
-            const SizedBox(height: 16),
-            ListTile(
-              leading: Icon(Icons.fitness_center, color: GameConstants.strengthColor),
-              title: Text('Güç Eğitimi', style: TextStyle(color: GameConstants.textLight)),
-              subtitle: Text('+${GameConstants.trainingStatGain} Güç | ${GameConstants.trainingCostBase} altın', style: TextStyle(color: GameConstants.textMuted)),
-              onTap: () {
-                Navigator.pop(ctx);
-                _trainGladiator(gladiator, game, 'strength');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.psychology, color: GameConstants.intelligenceColor),
-              title: Text('Zeka Eğitimi', style: TextStyle(color: GameConstants.textLight)),
-              subtitle: Text('+${GameConstants.trainingStatGain} Zeka | ${GameConstants.trainingCostBase} altın', style: TextStyle(color: GameConstants.textMuted)),
-              onTap: () {
-                Navigator.pop(ctx);
-                _trainGladiator(gladiator, game, 'intelligence');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.directions_run, color: GameConstants.staminaColor),
-              title: Text('Kondisyon Eğitimi', style: TextStyle(color: GameConstants.textLight)),
-              subtitle: Text('+${GameConstants.trainingStatGain} Kondisyon | ${GameConstants.trainingCostBase} altın', style: TextStyle(color: GameConstants.textMuted)),
-              onTap: () {
-                Navigator.pop(ctx);
-                _trainGladiator(gladiator, game, 'stamina');
-              },
-            ),
+            Text('EGITIM SEC', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: GameConstants.gold)),
+            const SizedBox(height: 12),
+            _buildTrainOption('Guc', 'strength', GameConstants.strengthColor, gladiator, game, ctx),
+            _buildTrainOption('Zeka', 'intelligence', GameConstants.intelligenceColor, gladiator, game, ctx),
+            _buildTrainOption('Kondisyon', 'stamina', GameConstants.staminaColor, gladiator, game, ctx),
+            const SizedBox(height: 8),
           ],
         ),
       ),
     );
   }
 
-  void _trainGladiator(dynamic gladiator, GladiatorGame game, String stat) {
-    final success = game.trainGladiator(gladiator.id, stat);
-    _showPopup(context, 'Eğitim', success, success ? 'Eğitim tamamlandı!' : 'Eğitim yapılamadı!');
-  }
-
-  void _healGladiator(dynamic gladiator, GladiatorGame game) {
-    final success = game.healGladiator(gladiator.id);
-    _showPopup(context, 'Tedavi', success, success ? 'Tedavi uygulandı!' : 'Tedavi yapılamadı!');
+  Widget _buildTrainOption(String label, String stat, Color color, dynamic gladiator, GladiatorGame game, BuildContext ctx) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(ctx);
+        final success = game.trainGladiator(gladiator.id, stat);
+        _showPopup('Egitim', success, success ? '$label egitimi tamamlandi!' : 'Basarisiz!');
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 8),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: color.withAlpha(20),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: color.withAlpha(60)),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.fitness_center, color: color, size: 20),
+            const SizedBox(width: 10),
+            Text('$label Egitimi', style: TextStyle(fontSize: 14, color: GameConstants.textLight)),
+            const Spacer(),
+            Text('${GameConstants.trainingCostBase}g', style: TextStyle(fontSize: 12, color: GameConstants.gold)),
+          ],
+        ),
+      ),
+    );
   }
 
   void _showFireDialog(dynamic gladiator, GladiatorGame game) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: GameConstants.primaryBrown,
+        backgroundColor: GameConstants.primaryDark,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        title: Text('GLADYATÖRÜ KOV', style: TextStyle(color: GameConstants.danger)),
-        content: Text(
-          '${gladiator.name} kovulacak. Diğer gladyatörlerin morali düşecek.\n\nEmin misin?',
-          style: TextStyle(color: GameConstants.textLight),
-        ),
+        title: Text('KOV', style: TextStyle(color: GameConstants.danger)),
+        content: Text('${gladiator.name} kovulsun mu?', style: TextStyle(color: GameConstants.textLight)),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: Text('İPTAL', style: TextStyle(color: GameConstants.textMuted)),
-          ),
+          TextButton(onPressed: () => Navigator.pop(ctx), child: Text('IPTAL', style: TextStyle(color: GameConstants.textMuted))),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: GameConstants.danger),
             onPressed: () {
               Navigator.pop(ctx);
               game.fireGladiator(gladiator.id);
-              _showPopup(context, gladiator.name, false, 'Gladyatör kovuldu!');
             },
             child: const Text('KOV'),
           ),
@@ -1082,67 +1058,87 @@ class _SchoolScreenState extends State<SchoolScreen> {
     );
   }
 
-  // === POPUP ===
-  void _showPopup(BuildContext context, String title, bool success, String message) {
+  void _showHealDialog(GladiatorGame game, int price, int heal, String medName, List injuredGladiators) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: GameConstants.primaryDark,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('KIMI TEDAVI ET?', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: GameConstants.healthColor)),
+            const SizedBox(height: 12),
+            ...injuredGladiators.map((g) => GestureDetector(
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    _healGladiator(game, g, price, heal, medName);
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 8),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: GameConstants.healthColor.withAlpha(20),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: GameConstants.healthColor.withAlpha(60)),
+                    ),
+                    child: Row(
+                      children: [
+                        Text(g.name, style: TextStyle(fontSize: 14, color: GameConstants.textLight)),
+                        const Spacer(),
+                        Text('HP: ${g.health}', style: TextStyle(fontSize: 12, color: GameConstants.danger)),
+                      ],
+                    ),
+                  ),
+                )),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _healGladiator(GladiatorGame game, dynamic gladiator, int price, int heal, String medName) {
+    final success = game.healGladiatorWithMedicine(gladiator.id, price, heal);
+    if (success) {
+      final hasDoctor = game.state.staff.any((s) => s.role.toString().contains('doctor'));
+      final totalHeal = hasDoctor ? heal + 15 : heal;
+      _showPopup(medName, true, '${gladiator.name} +$totalHeal HP');
+    }
+  }
+
+  void _showPopup(String title, bool success, String message) {
     showDialog(
       context: context,
       barrierDismissible: true,
       builder: (ctx) => Center(
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 40),
-          padding: const EdgeInsets.all(20),
+          margin: const EdgeInsets.symmetric(horizontal: 50),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: GameConstants.primaryDark,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: success ? GameConstants.gold : GameConstants.danger,
-              width: 2,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: (success ? GameConstants.gold : GameConstants.danger).withAlpha(50),
-                blurRadius: 20,
-                spreadRadius: 2,
-              ),
-            ],
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: success ? GameConstants.gold : GameConstants.danger, width: 2),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                success ? Icons.check_circle : Icons.error,
-                color: success ? GameConstants.gold : GameConstants.danger,
-                size: 50,
-              ),
-              const SizedBox(height: 12),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: success ? GameConstants.gold : GameConstants.danger,
-                  letterSpacing: 2,
-                ),
-              ),
+              Icon(success ? Icons.check_circle : Icons.error, color: success ? GameConstants.gold : GameConstants.danger, size: 40),
               const SizedBox(height: 8),
-              Text(
-                message,
-                style: TextStyle(fontSize: 14, color: GameConstants.textLight),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
+              Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: success ? GameConstants.gold : GameConstants.danger)),
+              const SizedBox(height: 4),
+              Text(message, style: TextStyle(fontSize: 12, color: GameConstants.textLight), textAlign: TextAlign.center),
+              const SizedBox(height: 12),
               GestureDetector(
                 onTap: () => Navigator.pop(ctx),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: success ? GameConstants.gold : GameConstants.danger,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    'TAMAM',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                  decoration: BoxDecoration(color: success ? GameConstants.gold : GameConstants.danger, borderRadius: BorderRadius.circular(6)),
+                  child: Text('TAMAM', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black)),
                 ),
               ),
             ],

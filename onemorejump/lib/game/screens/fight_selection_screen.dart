@@ -407,9 +407,7 @@ class _FighterCard extends StatelessWidget {
     final availableGladiators = game.state.availableForFight;
 
     if (availableGladiators.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: const Text('Savaşabilecek gladyatör yok!'), backgroundColor: GameConstants.danger),
-      );
+      _showCustomPopup(context, 'UYARI', 'Savaşabilecek gladyatör yok!', false);
       return;
     }
 
@@ -439,6 +437,43 @@ class _FighterCard extends StatelessWidget {
         ),
       );
     }
+  }
+
+  void _showCustomPopup(BuildContext context, String title, String message, bool success) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (ctx) => Center(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 50),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: GameConstants.primaryDark,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: success ? GameConstants.gold : GameConstants.danger, width: 2),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(success ? Icons.check_circle : Icons.error, color: success ? GameConstants.gold : GameConstants.danger, size: 40),
+              const SizedBox(height: 8),
+              Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: success ? GameConstants.gold : GameConstants.danger)),
+              const SizedBox(height: 4),
+              Text(message, style: TextStyle(fontSize: 12, color: GameConstants.textLight), textAlign: TextAlign.center),
+              const SizedBox(height: 12),
+              GestureDetector(
+                onTap: () => Navigator.pop(ctx),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                  decoration: BoxDecoration(color: success ? GameConstants.gold : GameConstants.danger, borderRadius: BorderRadius.circular(6)),
+                  child: Text('TAMAM', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black)),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -617,10 +652,42 @@ class _GladiatorSelectionSheetState extends State<_GladiatorSelectionSheet> {
       widget.game.state.modifyReputation(reputationReward);
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Arena savaşı başlıyor!'),
-        backgroundColor: GameConstants.gold,
+    _showCustomPopup(context, 'ARENA', 'Arena savaşı başlıyor!', true);
+  }
+
+  void _showCustomPopup(BuildContext context, String title, String message, bool success) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (ctx) => Center(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 50),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: GameConstants.primaryDark,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: success ? GameConstants.gold : GameConstants.danger, width: 2),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(success ? Icons.check_circle : Icons.error, color: success ? GameConstants.gold : GameConstants.danger, size: 40),
+              const SizedBox(height: 8),
+              Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: success ? GameConstants.gold : GameConstants.danger)),
+              const SizedBox(height: 4),
+              Text(message, style: TextStyle(fontSize: 12, color: GameConstants.textLight), textAlign: TextAlign.center),
+              const SizedBox(height: 12),
+              GestureDetector(
+                onTap: () => Navigator.pop(ctx),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                  decoration: BoxDecoration(color: success ? GameConstants.gold : GameConstants.danger, borderRadius: BorderRadius.circular(6)),
+                  child: Text('TAMAM', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black)),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -835,10 +902,42 @@ class _BetSelectionSheetState extends State<_BetSelectionSheet> {
       widget.game.state.modifyGold(bet * 2);
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(bet > 0 ? 'Savaş başlıyor! Bahis: $bet' : 'Savaş başlıyor!'),
-        backgroundColor: GameConstants.bloodRed,
+    _showCustomPopup(context, 'YERALTI', bet > 0 ? 'Savaş başlıyor! Bahis: $bet' : 'Savaş başlıyor!', true);
+  }
+
+  void _showCustomPopup(BuildContext context, String title, String message, bool success) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (ctx) => Center(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 50),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: GameConstants.primaryDark,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: success ? GameConstants.gold : GameConstants.danger, width: 2),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(success ? Icons.check_circle : Icons.error, color: success ? GameConstants.gold : GameConstants.danger, size: 40),
+              const SizedBox(height: 8),
+              Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: success ? GameConstants.gold : GameConstants.danger)),
+              const SizedBox(height: 4),
+              Text(message, style: TextStyle(fontSize: 12, color: GameConstants.textLight), textAlign: TextAlign.center),
+              const SizedBox(height: 12),
+              GestureDetector(
+                onTap: () => Navigator.pop(ctx),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                  decoration: BoxDecoration(color: success ? GameConstants.gold : GameConstants.danger, borderRadius: BorderRadius.circular(6)),
+                  child: Text('TAMAM', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black)),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

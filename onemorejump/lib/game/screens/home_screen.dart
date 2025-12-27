@@ -8,6 +8,7 @@ import 'arena_screen.dart';
 import 'diplomacy_screen.dart';
 import 'school_screen.dart';
 import 'market_screen.dart';
+import 'colosseum_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -162,6 +163,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
 
+                    // ORTA - COLOSSEUM (5. hafta ve katlarında açık)
+                    Positioned(
+                      top: 0,
+                      bottom: 80,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: _ColosseumIcon(
+                          isOpen: game.state.week % 5 == 0,
+                          currentWeek: game.state.week,
+                          onTap: () => _navigateTo(context, game, const ColosseumScreen()),
+                        ),
+                      ),
+                    ),
+
                     // En alt orta - HAFTA GEÇİR
                     Positioned(
                       bottom: 20,
@@ -231,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
           // Hafta
-          _buildStatItem('HAFTA', '${game.state.week}', null),
+          _buildStatItem('', '${game.state.week}. HAFTA', null),
 
           // İtibar
           _buildStatItem('İTİBAR', '${game.state.reputation}', Icons.star),
@@ -331,7 +347,7 @@ class _WeeklyExpensesSheet extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'HAFTA ${game.state.week} - MASRAFLAR',
+                      '${game.state.week}. HAFTA - MASRAFLAR',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -542,12 +558,7 @@ class _WeeklyExpensesSheet extends StatelessWidget {
             onPressed: () {
               Navigator.pop(ctx);
               game.fireGladiator(id);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('$name kovuldu. Diğer gladyatörlerin morali düştü.'),
-                  backgroundColor: GameConstants.danger,
-                ),
-              );
+              _showCustomPopup(context, 'KOVULDU', '$name kovuldu. Diğer gladyatörlerin morali düştü.', false);
             },
             child: const Text('KOV'),
           ),
@@ -577,12 +588,7 @@ class _WeeklyExpensesSheet extends StatelessWidget {
             onPressed: () {
               Navigator.pop(ctx);
               game.fireStaff(id);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('$name kovuldu.'),
-                  backgroundColor: GameConstants.warning,
-                ),
-              );
+              _showCustomPopup(context, 'KOVULDU', '$name kovuldu.', false);
             },
             child: const Text('KOV'),
           ),
@@ -595,11 +601,47 @@ class _WeeklyExpensesSheet extends StatelessWidget {
     Navigator.pop(context);
     final result = game.paySalaries();
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(result.message),
-        backgroundColor: result.rebellionRisk ? GameConstants.danger : GameConstants.success,
-        duration: const Duration(seconds: 3),
+    _showCustomPopup(
+      context,
+      result.rebellionRisk ? 'TEHLİKE!' : 'HAFTA GEÇTİ',
+      result.message,
+      !result.rebellionRisk,
+    );
+  }
+
+  void _showCustomPopup(BuildContext context, String title, String message, bool success) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (ctx) => Center(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 50),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: GameConstants.primaryDark,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: success ? GameConstants.gold : GameConstants.danger, width: 2),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(success ? Icons.check_circle : Icons.error, color: success ? GameConstants.gold : GameConstants.danger, size: 40),
+              const SizedBox(height: 8),
+              Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: success ? GameConstants.gold : GameConstants.danger)),
+              const SizedBox(height: 4),
+              Text(message, style: TextStyle(fontSize: 12, color: GameConstants.textLight), textAlign: TextAlign.center),
+              const SizedBox(height: 12),
+              GestureDetector(
+                onTap: () => Navigator.pop(ctx),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                  decoration: BoxDecoration(color: success ? GameConstants.gold : GameConstants.danger, borderRadius: BorderRadius.circular(6)),
+                  child: Text('TAMAM', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black)),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -770,6 +812,110 @@ class _CornerIcon extends StatelessWidget {
                   blurRadius: 6,
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Colosseum ikonu - ortada büyük
+class _ColosseumIcon extends StatelessWidget {
+  final bool isOpen;
+  final int currentWeek;
+  final VoidCallback onTap;
+
+  const _ColosseumIcon({
+    required this.isOpen,
+    required this.currentWeek,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final nextOpenWeek = ((currentWeek ~/ 5) + 1) * 5;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Ana ikon container
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: isOpen
+                  ? GameConstants.gold.withAlpha(30)
+                  : GameConstants.primaryDark.withAlpha(200),
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: isOpen ? GameConstants.gold : Colors.grey.shade600,
+                width: 3,
+              ),
+              boxShadow: isOpen
+                  ? [
+                      BoxShadow(
+                        color: GameConstants.gold.withAlpha(60),
+                        blurRadius: 20,
+                        spreadRadius: 5,
+                      ),
+                    ]
+                  : [
+                      BoxShadow(
+                        color: Colors.black.withAlpha(60),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+            ),
+            child: Icon(
+              Icons.stadium,
+              size: 50,
+              color: isOpen ? GameConstants.gold : Colors.grey.shade500,
+            ),
+          ),
+          const SizedBox(height: 10),
+
+          // Başlık
+          Text(
+            'COLOSSEUM',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: isOpen ? GameConstants.gold : Colors.grey.shade400,
+              letterSpacing: 2,
+              shadows: [
+                Shadow(
+                  color: Colors.black,
+                  blurRadius: 6,
+                ),
+              ],
+            ),
+          ),
+
+          // Durum
+          const SizedBox(height: 4),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            decoration: BoxDecoration(
+              color: isOpen
+                  ? GameConstants.success.withAlpha(50)
+                  : Colors.grey.shade800.withAlpha(150),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: isOpen
+                    ? GameConstants.success.withAlpha(100)
+                    : Colors.grey.shade700,
+              ),
+            ),
+            child: Text(
+              isOpen ? 'AÇIK!' : '$nextOpenWeek. haftada açılır',
+              style: TextStyle(
+                fontSize: 11,
+                color: isOpen ? GameConstants.success : Colors.grey.shade400,
+                fontWeight: isOpen ? FontWeight.bold : FontWeight.normal,
+              ),
             ),
           ),
         ],

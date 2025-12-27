@@ -64,6 +64,48 @@ class Rival {
 // Personel rolleri
 enum StaffRole { doctor, trainer, servant }
 
+// Görev türleri
+enum MissionType { fixFight, rentGladiator, sabotage, senatorFavor, training, poison, bribe, patronage }
+
+// Aktif görev
+class ActiveMission {
+  final String id;
+  final String missionId;
+  final MissionType type;
+  final String title;
+  final String giverId;
+  final String? targetGladiatorId;
+  final int rewardGold;
+  final int penaltyReputation;
+  final int? healthDamage;
+  final int? moraleChange;
+  final int? riskCaught;
+  final int? costGold;
+  final int? durationWeeks;
+  int remainingWeeks;
+  bool isCompleted;
+  bool isFailed;
+
+  ActiveMission({
+    required this.id,
+    required this.missionId,
+    required this.type,
+    required this.title,
+    required this.giverId,
+    this.targetGladiatorId,
+    this.rewardGold = 0,
+    this.penaltyReputation = 0,
+    this.healthDamage,
+    this.moraleChange,
+    this.riskCaught,
+    this.costGold,
+    this.durationWeeks,
+    this.remainingWeeks = 1,
+    this.isCompleted = false,
+    this.isFailed = false,
+  });
+}
+
 // Ev personeli
 class Staff {
   final String id;
@@ -97,6 +139,7 @@ class GameState {
   List<FightOpportunity> fights;
   List<Rival> rivals;
   List<Staff> staff;
+  List<ActiveMission> activeMissions;
 
   // Ev / Okul
   bool hasWife;
@@ -114,6 +157,7 @@ class GameState {
     List<FightOpportunity>? fights,
     List<Rival>? rivals,
     List<Staff>? staff,
+    List<ActiveMission>? activeMissions,
     this.hasWife = true,
     this.wifeName = 'Lucretia',
     this.wifeMorale = 50,
@@ -122,7 +166,8 @@ class GameState {
   })  : gladiators = gladiators ?? createStartingGladiators(),
         fights = fights ?? _createInitialFights(),
         rivals = rivals ?? _createRivals(),
-        staff = staff ?? _createInitialStaff();
+        staff = staff ?? _createInitialStaff(),
+        activeMissions = activeMissions ?? [];
 
   // Savaşabilir gladyatörler
   List<Gladiator> get availableForFight => gladiators.where((g) => g.canFight).toList();
@@ -193,6 +238,7 @@ class GameState {
     fights = _createInitialFights();
     rivals = _createRivals();
     staff = _createInitialStaff();
+    activeMissions = [];
     hasWife = true;
     wifeName = 'Lucretia';
     wifeMorale = 50;

@@ -2,90 +2,144 @@
   "wife": {
     "name": "Lucretia",
     "title": "Domina",
-    "image": "assets/karin.png",
+    "image": "assets/karin.jpg",
     "morale_required_for_child": 100,
     "dialogues": [
       {
         "id": "dialogue_1",
-        "week": 1,
-        "text": "Kocam, bu ludus'u büyütmek için birlikte çalışmalıyız. Bir varis... Roma'nın geleceği için önemli.",
+        "text": "Kocam, bu ludus'u buyutmek icin birlikte calismaliyiz. Bir varis... Roma'nin gelecegi icin onemli.",
         "mood": "hopeful"
       },
       {
         "id": "dialogue_2",
-        "week": 2,
-        "text": "Gladyatörlerimiz güçleniyor. Ama bir çocuk olmadan bu mirasın ne anlamı var?",
+        "text": "Gladyatorlerimiz gucleniyor. Ama bir cocuk olmadan bu mirasin ne anlami var?",
         "mood": "thoughtful"
       },
       {
         "id": "dialogue_3",
-        "week": 3,
-        "text": "Senatör Albinius'un karısı yeni bir kolye takmış. Belki bana da bir hediye...",
+        "text": "Senator Albinius'un karisi yeni bir kolye takmis. Belki bana da bir hediye...",
         "mood": "jealous"
       },
       {
         "id": "dialogue_4",
-        "week": 4,
-        "text": "Bugün tapınağa gittim. Tanrılardan bir varis diledim. Umarım dualarım kabul olur.",
+        "text": "Bugun tapinaga gittim. Tanrilardan bir varis diledim. Umarim dualarim kabul olur.",
         "mood": "prayerful"
       },
       {
         "id": "dialogue_5",
-        "week": 5,
-        "text": "Diğer domina'lar beni küçümsüyor. Çocuksuz bir kadın... Roma'da hiçbir şey değiliz.",
+        "text": "Diger domina'lar beni kucumsuyor. Cocuksuz bir kadin... Roma'da hicbir sey degiliz.",
         "mood": "sad"
       },
       {
         "id": "dialogue_6",
-        "week": 6,
-        "text": "Bana özen göster kocam. Hediyeler güzel ama asıl ihtiyacım senin ilgin.",
+        "text": "Bana ozen goster kocam. Hediyeler guzel ama asil ihtiyacim senin ilgin.",
         "mood": "loving"
       },
       {
         "id": "dialogue_7",
-        "week": 7,
-        "text": "Gladyatör pazarı iyi gidiyor duydum. Belki karını da mutlu etmenin zamanı gelmiştir?",
+        "text": "Gladyator pazari iyi gidiyor duydum. Belki karini da mutlu etmenin zamani gelmistir?",
         "mood": "expectant"
       },
       {
         "id": "dialogue_8",
-        "week": 8,
-        "text": "Kocam, seni her geçen gün daha çok seviyorum. Bir varis... hayallerimizin tacı olur.",
+        "text": "Kocam, seni her gecen gun daha cok seviyorum. Bir varis... hayallerimizin taci olur.",
         "mood": "romantic"
       }
     ],
     "gifts": [
       {
         "id": "gift_1",
-        "name": "Gül Buketi",
-        "description": "Mısır'dan taze güller",
+        "name": "Gul Buketi",
+        "description": "Misir'dan taze guller",
         "price": 50,
-        "morale_bonus": 10,
-        "image": "assets/gift_rose.png"
+        "morale_bonus": 10
       },
       {
         "id": "gift_2",
-        "name": "İpek Kumaş",
-        "description": "Çin'den nadir ipek",
+        "name": "Ipek Kumas",
+        "description": "Cin'den nadir ipek",
         "price": 150,
-        "morale_bonus": 20,
-        "image": "assets/gift_silk.png"
+        "morale_bonus": 20
       },
       {
         "id": "gift_3",
-        "name": "Altın Kolye",
-        "description": "Roma ustasının eseri",
+        "name": "Altin Kolye",
+        "description": "Roma ustasinin eseri",
         "price": 300,
-        "morale_bonus": 35,
-        "image": "assets/gift_necklace.png"
+        "morale_bonus": 35
       },
       {
         "id": "gift_4",
-        "name": "Elmas Küpe",
-        "description": "Hint elmasları",
+        "name": "Elmas Kupe",
+        "description": "Hint elmaslari",
         "price": 500,
-        "morale_bonus": 50,
-        "image": "assets/gift_earring.png"
+        "morale_bonus": 50
+      }
+    ]
+  },
+  "doctore": {
+    "name": "Oenomaus",
+    "title": "Doctore",
+    "image": "assets/doctore.jpg",
+    "dialogues": [
+      {
+        "id": "doc_dialogue_1",
+        "text": "Bu adamlar kilic tutmayi bilmeden arenaya cikamazlar. Egitim her seydir."
+      },
+      {
+        "id": "doc_dialogue_2",
+        "text": "Zafer kanla kazanilir, ama akilla korunur. Gladyatorlerine bunu ogret."
+      },
+      {
+        "id": "doc_dialogue_3",
+        "text": "Ben de bir zamanlar o kumda savaştım. Simdi onlara hayatta kalmayi ogretiyorum."
+      },
+      {
+        "id": "doc_dialogue_4",
+        "text": "Zayif olan olur. Guclu olan hayatta kalir. Bu Roma'nin yasasi."
+      },
+      {
+        "id": "doc_dialogue_5",
+        "text": "Moral dusuk olan gladyator, olmus gladyatordur. Onlara umut ver."
+      },
+      {
+        "id": "doc_dialogue_6",
+        "text": "Her dovus bir ders. Kaybedenler icin son ders olabilir."
+      }
+    ]
+  },
+  "doctor": {
+    "name": "Medicus",
+    "title": "Doktor",
+    "image": "assets/doktor.jpg",
+    "medicines": [
+      {
+        "id": "med_1",
+        "name": "Sifa Otlari",
+        "description": "Temel yaralar icin",
+        "price": 30,
+        "heal_amount": 15
+      },
+      {
+        "id": "med_2",
+        "name": "Anadolu Merhemi",
+        "description": "Derin kesikler icin",
+        "price": 60,
+        "heal_amount": 30
+      },
+      {
+        "id": "med_3",
+        "name": "Misir Iksiri",
+        "description": "Agir yaralar icin",
+        "price": 100,
+        "heal_amount": 50
+      },
+      {
+        "id": "med_4",
+        "name": "Roma Panzehiri",
+        "description": "Tam iyilesme",
+        "price": 200,
+        "heal_amount": 100
       }
     ]
   },
@@ -93,52 +147,23 @@
     {
       "id": "feast_1",
       "name": "Basit Ziyafet",
-      "description": "Ekmek, şarap ve zeytin",
+      "description": "Ekmek, sarap ve zeytin",
       "price": 100,
-      "morale_bonus": 10,
-      "icon": "food"
+      "morale_bonus": 10
     },
     {
       "id": "feast_2",
       "name": "Roma Ziyafeti",
-      "description": "Et, balık ve bol şarap",
+      "description": "Et, balik ve bol sarap",
       "price": 250,
-      "morale_bonus": 20,
-      "icon": "wine"
+      "morale_bonus": 20
     },
     {
       "id": "feast_3",
-      "name": "İmparator Sofrası",
+      "name": "Imparator Sofrasi",
       "description": "En nadide yemekler",
       "price": 500,
-      "morale_bonus": 35,
-      "icon": "crown"
-    }
-  ],
-  "training_types": [
-    {
-      "id": "train_strength",
-      "name": "Güç Eğitimi",
-      "stat": "strength",
-      "price": 30,
-      "gain": 5,
-      "icon": "fitness_center"
-    },
-    {
-      "id": "train_intelligence",
-      "name": "Taktik Eğitimi",
-      "stat": "intelligence",
-      "price": 30,
-      "gain": 5,
-      "icon": "psychology"
-    },
-    {
-      "id": "train_stamina",
-      "name": "Dayanıklılık",
-      "stat": "stamina",
-      "price": 30,
-      "gain": 5,
-      "icon": "directions_run"
+      "morale_bonus": 35
     }
   ]
 }
