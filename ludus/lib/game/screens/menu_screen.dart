@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../gladiator_game.dart';
 import '../constants.dart';
 import '../services/save_service.dart';
+import 'tutorial_screen.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -178,8 +179,28 @@ class _MenuScreenState extends State<MenuScreen> {
     }
   }
 
-  void _startNewGame(GladiatorGame game) {
-    game.startGame();
+  void _startNewGame(GladiatorGame game) async {
+    // TODO: Test için her seferinde göster, sonra kaldır
+    // final tutorialSeen = await SaveService.hasTutorialSeen();
+    const tutorialSeen = false; // Test için her zaman göster
+
+    if (!tutorialSeen && mounted) {
+      // Tutorial'ı göster
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => TutorialScreen(
+            onComplete: () {
+              Navigator.pop(context);
+              SaveService.setTutorialSeen();
+              game.startGame();
+            },
+          ),
+        ),
+      );
+    } else {
+      game.startGame();
+    }
   }
 
   void _showNewGameConfirmation(BuildContext context, GladiatorGame game) {

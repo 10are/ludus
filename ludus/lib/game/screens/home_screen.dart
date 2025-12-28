@@ -39,11 +39,12 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           body: Stack(
             children: [
-              // Arka plan resmi
+              // Arka plan resmi (animated gif)
               Positioned.fill(
                 child: Image.asset(
-                  'assets/unnamed.jpg',
+                  'assets/arena.gif',
                   fit: BoxFit.cover,
+                  gaplessPlayback: true,
                 ),
               ),
 

@@ -7,6 +7,7 @@ import '../models/gladiator.dart';
 class SaveService {
   static const String _autoSaveKey = 'ludus_auto_save';
   static const String _settingsKey = 'ludus_settings';
+  static const String _tutorialKey = 'ludus_tutorial_seen';
 
   /// Oyun kaydı var mı kontrol et
   static Future<bool> hasSaveData() async {
@@ -81,6 +82,18 @@ class SaveService {
       print('Load settings error: $e');
       return {'musicEnabled': true, 'sfxEnabled': true};
     }
+  }
+
+  /// Tutorial görüldü mü kontrol et
+  static Future<bool> hasTutorialSeen() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_tutorialKey) ?? false;
+  }
+
+  /// Tutorial görüldü olarak işaretle
+  static Future<void> setTutorialSeen() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_tutorialKey, true);
   }
 
   /// GameState -> JSON
