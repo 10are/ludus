@@ -9,6 +9,7 @@ import 'diplomacy_screen.dart';
 import 'school_screen.dart';
 import 'market_screen.dart';
 import 'colosseum_screen.dart';
+import 'gambling_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -148,6 +149,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         label: 'Pazar',
                         color: GameConstants.gold,
                         onTap: () => _navigateTo(context, game, const MarketScreen()),
+                      ),
+                    ),
+
+                    // Orta alt - KUMAR
+                    Positioned(
+                      bottom: 100,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: _CornerIcon(
+                          icon: Icons.casino,
+                          label: 'Kumar',
+                          color: const Color(0xFF9C27B0),
+                          onTap: () => _navigateTo(context, game, const GamblingScreen()),
+                        ),
                       ),
                     ),
 
