@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:audioplayers/audioplayers.dart';
 import '../constants.dart';
 import '../models/gladiator.dart';
 
@@ -206,6 +207,10 @@ class _FightScreenState extends State<FightScreen> with TickerProviderStateMixin
   late Animation<Offset> _slideAnimation;
   late Animation<double> _scaleAnimation;
 
+  // Audio players
+  final AudioPlayer _warMusicPlayer = AudioPlayer();
+  final AudioPlayer _resultMusicPlayer = AudioPlayer();
+
   @override
   void initState() {
     super.initState();
@@ -240,11 +245,16 @@ class _FightScreenState extends State<FightScreen> with TickerProviderStateMixin
   void dispose() {
     _fadeController.dispose();
     _slideController.dispose();
+    _warMusicPlayer.dispose();
+    _resultMusicPlayer.dispose();
     super.dispose();
   }
 
   void _startFight() async {
     await FightCommentary.load();
+
+    // Savas muzigini baslat
+    _warMusicPlayer.play(AssetSource('warmusic.mp3'));
 
     _outcome = FightCalculator.calculate(
       player: widget.player,
@@ -315,20 +325,23 @@ class _FightScreenState extends State<FightScreen> with TickerProviderStateMixin
       _fadeController.forward();
       _slideController.forward();
 
-      // Gosterim suresi - son cumle daha uzun
-      final duration = i == _commentary.length - 1 ? 2500 : 1800;
+      // Gosterim suresi - daha yavas (3000ms normal, 4000ms son)
+      final duration = i == _commentary.length - 1 ? 4000 : 3000;
       await Future.delayed(Duration(milliseconds: duration));
 
       // Fade out
       if (mounted && i < _commentary.length - 1) {
         await _fadeController.reverse();
-        await Future.delayed(const Duration(milliseconds: 200));
+        await Future.delayed(const Duration(milliseconds: 300));
       }
     }
 
     await Future.delayed(const Duration(milliseconds: 500));
 
     if (mounted) {
+      // War music durdur, sonuc muzigini cal
+      _warMusicPlayer.stop();
+      _resultMusicPlayer.play(AssetSource('deat.mp3'));
       setState(() => _showResult = true);
     }
   }
@@ -515,71 +528,7 @@ class _FightScreenState extends State<FightScreen> with TickerProviderStateMixin
               ),
 
               const Spacer(flex: 3),
-
-              // Alt bilgi - zar sonuclari
-              if (_outcome != null)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 40),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildDiceDisplay(widget.player.name, _outcome!.playerRoll, _outcome!.playerCritical, true),
-                      const SizedBox(width: 30),
-                      Text(
-                        'VS',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: _accentColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(width: 30),
-                      _buildDiceDisplay(widget.enemyName, _outcome!.enemyRoll, _outcome!.enemyCritical, false),
-                    ],
-                  ),
-                ),
             ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildDiceDisplay(String name, int roll, bool isCritical, bool isPlayer) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: isCritical ? _accentColor : Colors.black.withAlpha(180),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: isCritical ? _accentColor : _accentColor.withAlpha(100),
-              width: 2,
-            ),
-            boxShadow: isCritical
-                ? [BoxShadow(color: _accentColor.withAlpha(100), blurRadius: 12)]
-                : null,
-          ),
-          child: Center(
-            child: Text(
-              '$roll',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: isCritical ? Colors.black : Colors.white,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 6),
-        Text(
-          name.length > 8 ? '${name.substring(0, 8)}...' : name,
-          style: TextStyle(
-            fontSize: 10,
-            color: Colors.white.withAlpha(180),
           ),
         ),
       ],

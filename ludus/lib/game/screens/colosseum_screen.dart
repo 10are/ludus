@@ -696,7 +696,7 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
 
           // Gladyator kartlari - yatay kaydirmali
           SizedBox(
-            height: 160,
+            height: 190,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: widget.availableGladiators.length,
@@ -707,7 +707,7 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
                 return GestureDetector(
                   onTap: () => setState(() => selectedGladiatorId = g.id),
                   child: Container(
-                    width: 110,
+                    width: 130,
                     margin: EdgeInsets.only(
                       left: index == 0 ? 0 : 8,
                     ),
@@ -734,6 +734,7 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
                         children: [
                           // Gladyator gorseli
                           Expanded(
+                            flex: 3,
                             child: Stack(
                               fit: StackFit.expand,
                               children: [
@@ -779,75 +780,57 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
                                       child: Icon(Icons.check, size: 12, color: Colors.black),
                                     ),
                                   ),
-
-                                // HP ve Guc - altta
-                                Positioned(
-                                  bottom: 4,
-                                  left: 4,
-                                  right: 4,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      // HP
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                                        decoration: BoxDecoration(
-                                          color: Colors.black.withAlpha(150),
-                                          borderRadius: BorderRadius.circular(4),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(Icons.favorite, size: 8, color: _getHealthColor(g.health)),
-                                            const SizedBox(width: 2),
-                                            Text(
-                                              '${g.health}',
-                                              style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: _getHealthColor(g.health)),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      // Guc
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                                        decoration: BoxDecoration(
-                                          color: Colors.black.withAlpha(150),
-                                          borderRadius: BorderRadius.circular(4),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(Icons.flash_on, size: 8, color: accentColor),
-                                            const SizedBox(width: 2),
-                                            Text(
-                                              '${g.overallPower}',
-                                              style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: accentColor),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ],
                             ),
                           ),
 
-                          // Isim - altta
+                          // Bilgi alani - isim ve statlar
                           Container(
                             width: double.infinity,
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-                            color: Colors.black.withAlpha(80),
-                            child: Text(
-                              g.name,
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: isSelected ? accentColor : GameConstants.textLight,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
+                            padding: const EdgeInsets.all(6),
+                            color: Colors.black.withAlpha(100),
+                            child: Column(
+                              children: [
+                                // Isim
+                                Text(
+                                  g.name,
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                    color: isSelected ? accentColor : GameConstants.textLight,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const SizedBox(height: 4),
+                                // Statlar - 4 tane yan yana
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    _buildStatBadge(Icons.favorite, g.health, _getHealthColor(g.health)),
+                                    _buildStatBadge(Icons.flash_on, g.strength, Colors.orange),
+                                    _buildStatBadge(Icons.psychology, g.intelligence, Colors.blue),
+                                    _buildStatBadge(Icons.directions_run, g.stamina, Colors.green),
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                                // Toplam guc
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                  decoration: BoxDecoration(
+                                    color: accentColor.withAlpha(40),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    'GUC: ${g.overallPower}',
+                                    style: TextStyle(
+                                      fontSize: 9,
+                                      fontWeight: FontWeight.bold,
+                                      color: accentColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -908,6 +891,24 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
     if (health > 50) return GameConstants.success;
     if (health > 25) return GameConstants.gold;
     return GameConstants.danger;
+  }
+
+  Widget _buildStatBadge(IconData icon, int value, Color color) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 10, color: color),
+        const SizedBox(height: 1),
+        Text(
+          '$value',
+          style: TextStyle(
+            fontSize: 8,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildDialogueView(BuildContext context) {
