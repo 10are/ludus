@@ -196,8 +196,6 @@ class FightScreen extends StatefulWidget {
 class _FightScreenState extends State<FightScreen> with TickerProviderStateMixin {
   FightOutcome? _outcome;
   List<String> _commentary = [];
-  int _currentLine = 0;
-  bool _showResult = false;
   bool _isLoading = true;
   String _currentText = '';
 
@@ -206,6 +204,13 @@ class _FightScreenState extends State<FightScreen> with TickerProviderStateMixin
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
   late Animation<double> _scaleAnimation;
+
+  // Blood splash - kan.png kullaniyor
+  late AnimationController _bloodSplashController;
+  late AnimationController _resultRevealController;
+  bool _showBloodSplash = false;
+  bool _showResultContent = false;
+  bool _skipRequested = false;
 
   // Audio players
   final AudioPlayer _warMusicPlayer = AudioPlayer();
@@ -238,6 +243,17 @@ class _FightScreenState extends State<FightScreen> with TickerProviderStateMixin
       CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic),
     );
 
+    // Blood splash animasyonu
+    _bloodSplashController = AnimationController(
+      duration: const Duration(milliseconds: 1800),
+      vsync: this,
+    );
+
+    _resultRevealController = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+
     _startFight();
   }
 
@@ -245,6 +261,8 @@ class _FightScreenState extends State<FightScreen> with TickerProviderStateMixin
   void dispose() {
     _fadeController.dispose();
     _slideController.dispose();
+    _bloodSplashController.dispose();
+    _resultRevealController.dispose();
     _warMusicPlayer.dispose();
     _resultMusicPlayer.dispose();
     super.dispose();
@@ -310,12 +328,16 @@ class _FightScreenState extends State<FightScreen> with TickerProviderStateMixin
     }
   }
 
+  void _skipToResult() {
+    if (_skipRequested) return;
+    _skipRequested = true;
+  }
+
   Future<void> _playCommentary() async {
     for (int i = 0; i < _commentary.length; i++) {
-      if (!mounted) return;
+      if (!mounted || _skipRequested) break;
 
       setState(() {
-        _currentLine = i;
         _currentText = _commentary[i];
       });
 
@@ -327,22 +349,53 @@ class _FightScreenState extends State<FightScreen> with TickerProviderStateMixin
 
       // Gosterim suresi - daha yavas (3000ms normal, 4000ms son)
       final duration = i == _commentary.length - 1 ? 4000 : 3000;
-      await Future.delayed(Duration(milliseconds: duration));
+
+      // Skip kontrolu ile bekleme
+      for (int ms = 0; ms < duration && !_skipRequested; ms += 100) {
+        await Future.delayed(const Duration(milliseconds: 100));
+        if (!mounted) return;
+      }
 
       // Fade out
-      if (mounted && i < _commentary.length - 1) {
+      if (mounted && i < _commentary.length - 1 && !_skipRequested) {
         await _fadeController.reverse();
         await Future.delayed(const Duration(milliseconds: 300));
       }
     }
 
-    await Future.delayed(const Duration(milliseconds: 500));
+    if (!_skipRequested) {
+      await Future.delayed(const Duration(milliseconds: 500));
+    }
 
     if (mounted) {
       // War music durdur, sonuc muzigini cal
       _warMusicPlayer.stop();
       _resultMusicPlayer.play(AssetSource('deat.mp3'));
-      setState(() => _showResult = true);
+
+      // Kan sicramasi animasyonunu baslat
+      await _startBloodSplashTransition();
+    }
+  }
+
+  Future<void> _startBloodSplashTransition() async {
+    if (!mounted) return;
+
+    setState(() {
+      _showBloodSplash = true;
+    });
+
+    // Kan sicramasi animasyonu
+    _bloodSplashController.forward();
+
+    // Animasyon tamamlanana kadar bekle
+    await Future.delayed(const Duration(milliseconds: 1500));
+
+    // Sonucu goster
+    if (mounted) {
+      setState(() {
+        _showResultContent = true;
+      });
+      _resultRevealController.forward();
     }
   }
 
@@ -378,7 +431,121 @@ class _FightScreenState extends State<FightScreen> with TickerProviderStateMixin
       backgroundColor: Colors.black,
       body: _isLoading
           ? _buildLoadingScene()
-          : (_showResult ? _buildResultScene() : _buildCinematicScene()),
+          : (_showBloodSplash ? _buildBloodSplashScene() : _buildCinematicScene()),
+    );
+  }
+
+  Widget _buildBloodSplashScene() {
+    return AnimatedBuilder(
+      animation: _bloodSplashController,
+      builder: (context, child) {
+        final progress = _bloodSplashController.value;
+
+        // Ease out cubic - hizli basla yavas bitir
+        final easedProgress = 1 - pow(1 - progress, 3).toDouble();
+
+        // Flash efekti - baslangicta parlak
+        final flashOpacity = progress < 0.2 ? (0.2 - progress) / 0.2 : 0.0;
+
+        return Stack(
+          fit: StackFit.expand,
+          children: [
+            // Arka plan - siyah
+            Container(color: Colors.black),
+
+            // Kan gorseli - buyuyerek ve fade out yaparak
+            Center(
+              child: Transform.scale(
+                scale: 0.5 + easedProgress * 2.5, // 0.5x -> 3x buyuyor
+                child: Opacity(
+                  opacity: (1 - progress * 0.3).clamp(0.0, 1.0),
+                  child: Image.asset(
+                    'assets/kan.png',
+                    fit: BoxFit.contain,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                  ),
+                ),
+              ),
+            ),
+
+            // Kirmizi flash - darbe ani
+            if (flashOpacity > 0)
+              Container(
+                color: Color.fromARGB(
+                  (flashOpacity * 200).toInt(),
+                  150, 0, 0,
+                ),
+              ),
+
+            // Vignette efekti
+            Container(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withAlpha((80 * easedProgress).toInt()),
+                    Colors.black.withAlpha((180 * easedProgress).toInt()),
+                  ],
+                  stops: const [0.3, 0.7, 1.0],
+                ),
+              ),
+            ),
+
+            // Sinematik siyah bantlar
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              height: 50,
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black,
+                      Colors.black.withAlpha(150),
+                      Colors.transparent,
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: 50,
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      Colors.black,
+                      Colors.black.withAlpha(150),
+                      Colors.transparent,
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            // Sonuc ekrani (fade in ile)
+            if (_showResultContent)
+              AnimatedBuilder(
+                animation: _resultRevealController,
+                builder: (context, child) {
+                  return Opacity(
+                    opacity: _resultRevealController.value,
+                    child: _buildResultScene(),
+                  );
+                },
+              ),
+          ],
+        );
+      },
     );
   }
 
@@ -529,6 +696,46 @@ class _FightScreenState extends State<FightScreen> with TickerProviderStateMixin
 
               const Spacer(flex: 3),
             ],
+          ),
+        ),
+
+        // GEC (Skip) butonu - sag alt
+        Positioned(
+          right: 20,
+          bottom: 40,
+          child: GestureDetector(
+            onTap: _skipToResult,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.black.withAlpha(150),
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(
+                  color: _accentColor.withAlpha(100),
+                  width: 1,
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'GEÇ',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: _accentColor,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Icon(
+                    Icons.skip_next,
+                    color: _accentColor,
+                    size: 20,
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ],
