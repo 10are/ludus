@@ -6,6 +6,7 @@ import '../gladiator_game.dart';
 import '../constants.dart';
 import '../models/gladiator.dart';
 import 'fight_screen.dart';
+import 'components/dialogue_component.dart';
 
 class FightSelectionScreen extends StatefulWidget {
   final bool isArena;
@@ -25,6 +26,7 @@ class _FightSelectionScreenState extends State<FightSelectionScreen> {
   void initState() {
     super.initState();
     _loadFighters();
+    PreFightDialogueHelper.loadDialogues();
   }
 
   Future<void> _loadFighters() async {
@@ -55,7 +57,7 @@ class _FightSelectionScreenState extends State<FightSelectionScreen> {
         return Scaffold(
           body: Stack(
             children: [
-              // Arka plan görseli - TAM GÖRÜNÜR
+              // Arka plan gorseli - TAM GORUNUR
               Positioned.fill(
                 child: Image.asset(
                   widget.isArena ? 'assets/arena.png' : 'assets/yeralti.png',
@@ -74,17 +76,17 @@ class _FightSelectionScreenState extends State<FightSelectionScreen> {
                 ),
               ),
 
-              // İçerik
+              // Icerik
               SafeArea(
                 child: Column(
                   children: [
-                    // Üst bar
+                    // Ust bar
                     _buildTopBar(context, game),
 
-                    // Boşluk - arka plan görünsün
+                    // Bosluk - arka plan gorunsun
                     const Spacer(),
 
-                    // Alt kısımda sabit kartlar
+                    // Alt kisimda sabit kartlar
                     SizedBox(
                       height: 300,
                       child: isLoading
@@ -138,7 +140,7 @@ class _FightSelectionScreenState extends State<FightSelectionScreen> {
 
           const SizedBox(width: 12),
 
-          // Başlık
+          // Baslik
           Text(
             widget.isArena ? 'ARENA' : 'YERALTI',
             style: TextStyle(
@@ -152,7 +154,7 @@ class _FightSelectionScreenState extends State<FightSelectionScreen> {
 
           const Spacer(),
 
-          // Altın
+          // Altin
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
@@ -176,7 +178,7 @@ class _FightSelectionScreenState extends State<FightSelectionScreen> {
   }
 }
 
-// Savaşçı kartı - KÜÇÜK VE KOMPAKT
+// Savasci karti - KUCUK VE KOMPAKT
 class _FighterCard extends StatelessWidget {
   final Map<String, dynamic> fighter;
   final bool isArena;
@@ -221,12 +223,12 @@ class _FighterCard extends StatelessWidget {
               : const ColorFilter.mode(Colors.transparent, BlendMode.multiply),
           child: Column(
             children: [
-              // Görsel
+              // Gorsel
               Expanded(
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    // Asker görseli
+                    // Asker gorseli
                     if (imagePath != null)
                       Image.asset(
                         imagePath,
@@ -259,7 +261,7 @@ class _FighterCard extends StatelessWidget {
                       ),
                     ),
 
-                    // Sıra numarası
+                    // Sira numarasi
                     Positioned(
                       top: 6,
                       left: 6,
@@ -299,7 +301,7 @@ class _FighterCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 child: Column(
                   children: [
-                    // İsim ve Unvan
+                    // Isim ve Unvan
                     Text(
                       fighter['name'] ?? 'Bilinmeyen',
                       style: TextStyle(
@@ -322,7 +324,7 @@ class _FighterCard extends StatelessWidget {
 
                     const SizedBox(height: 4),
 
-                    // Statlar - küçük ikonlarla
+                    // Statlar - kucuk ikonlarla
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -335,7 +337,7 @@ class _FighterCard extends StatelessWidget {
 
                     const SizedBox(height: 4),
 
-                    // Ödül
+                    // Odul
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -350,7 +352,7 @@ class _FighterCard extends StatelessWidget {
 
                     const SizedBox(height: 6),
 
-                    // Savaş butonu
+                    // Savas butonu
                     if (!isDefeated)
                       GestureDetector(
                         onTap: () => _showBetDialog(context),
@@ -362,7 +364,7 @@ class _FighterCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
-                            'SAVAŞ',
+                            'SAVAS',
                             style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.black),
                             textAlign: TextAlign.center,
                           ),
@@ -377,7 +379,7 @@ class _FighterCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
-                          'YENİLDİ',
+                          'YENILDI',
                           style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: GameConstants.success),
                           textAlign: TextAlign.center,
                         ),
@@ -409,11 +411,11 @@ class _FighterCard extends StatelessWidget {
     final availableGladiators = game.state.availableForFight;
 
     if (availableGladiators.isEmpty) {
-      _showCustomPopup(context, 'UYARI', 'Savaşabilecek gladyatör yok!', false);
+      _showCustomPopup(context, 'UYARI', 'Savasabilecek gladyator yok!', false);
       return;
     }
 
-    // Arena modunda bahis yok, direkt gladyatör seç
+    // Arena modunda bahis yok, direkt gladyator sec
     if (isArena) {
       showModalBottomSheet(
         context: context,
@@ -423,10 +425,11 @@ class _FighterCard extends StatelessWidget {
           fighter: fighter,
           game: game,
           availableGladiators: availableGladiators,
+          isArena: true,
         ),
       );
     } else {
-      // Yeraltı modunda bahis var
+      // Yeralti modunda bahis var
       showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,
@@ -479,16 +482,20 @@ class _FighterCard extends StatelessWidget {
   }
 }
 
-// ARENA - GLADYATÖR SEÇİM EKRANI (BAHİS YOK)
+// ARENA/YERALTI - GLADYATOR SECIM EKRANI
 class _GladiatorSelectionSheet extends StatefulWidget {
   final Map<String, dynamic> fighter;
   final GladiatorGame game;
   final List availableGladiators;
+  final bool isArena;
+  final int betAmount;
 
   const _GladiatorSelectionSheet({
     required this.fighter,
     required this.game,
     required this.availableGladiators,
+    required this.isArena,
+    this.betAmount = 0,
   });
 
   @override
@@ -497,11 +504,20 @@ class _GladiatorSelectionSheet extends StatefulWidget {
 
 class _GladiatorSelectionSheetState extends State<_GladiatorSelectionSheet> {
   String? selectedGladiatorId;
+  bool showDialogue = false;
+  int moraleBonus = 0;
+  Map<String, dynamic>? currentDialogue;
 
   @override
   Widget build(BuildContext context) {
+    final accentColor = widget.isArena ? GameConstants.gold : GameConstants.bloodRed;
     final reward = widget.fighter['reward'] ?? 0;
     final reputationReward = widget.fighter['reputation_reward'] ?? 0;
+
+    // Diyalog gosteriliyor mu?
+    if (showDialogue && selectedGladiatorId != null) {
+      return _buildDialogueView(context, accentColor);
+    }
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.55,
@@ -509,14 +525,14 @@ class _GladiatorSelectionSheetState extends State<_GladiatorSelectionSheet> {
       decoration: BoxDecoration(
         color: GameConstants.primaryDark,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-        border: Border.all(color: GameConstants.gold.withAlpha(60)),
+        border: Border.all(color: accentColor.withAlpha(60)),
       ),
       child: Column(
         children: [
-          // Başlık
+          // Baslik
           Text(
             '${widget.fighter['name']}',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: GameConstants.gold),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: accentColor),
           ),
           Text(
             widget.fighter['title'] ?? '',
@@ -525,13 +541,13 @@ class _GladiatorSelectionSheetState extends State<_GladiatorSelectionSheet> {
 
           const SizedBox(height: 12),
 
-          // Ödül bilgisi
+          // Odul bilgisi
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: GameConstants.cardBg,
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: GameConstants.gold.withAlpha(40)),
+              border: Border.all(color: accentColor.withAlpha(40)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -541,25 +557,27 @@ class _GladiatorSelectionSheetState extends State<_GladiatorSelectionSheet> {
                     Icon(Icons.paid, color: GameConstants.gold, size: 20),
                     const SizedBox(height: 4),
                     Text('$reward', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: GameConstants.gold)),
-                    Text('Altın', style: TextStyle(fontSize: 10, color: GameConstants.textMuted)),
+                    Text('Altin', style: TextStyle(fontSize: 10, color: GameConstants.textMuted)),
                   ],
                 ),
-                Container(width: 1, height: 40, color: GameConstants.cardBorder),
-                Column(
-                  children: [
-                    Icon(Icons.star, color: GameConstants.warmOrange, size: 20),
-                    const SizedBox(height: 4),
-                    Text('+$reputationReward', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: GameConstants.warmOrange)),
-                    Text('İtibar', style: TextStyle(fontSize: 10, color: GameConstants.textMuted)),
-                  ],
-                ),
+                if (widget.isArena) ...[
+                  Container(width: 1, height: 40, color: GameConstants.cardBorder),
+                  Column(
+                    children: [
+                      Icon(Icons.star, color: GameConstants.warmOrange, size: 20),
+                      const SizedBox(height: 4),
+                      Text('+$reputationReward', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: GameConstants.warmOrange)),
+                      Text('Itibar', style: TextStyle(fontSize: 10, color: GameConstants.textMuted)),
+                    ],
+                  ),
+                ],
               ],
             ),
           ),
 
           const SizedBox(height: 12),
 
-          Text('SAVAŞÇI SEÇ', style: TextStyle(fontSize: 11, color: GameConstants.textMuted, letterSpacing: 1)),
+          Text('SAVASCI SEC', style: TextStyle(fontSize: 11, color: GameConstants.textMuted, letterSpacing: 1)),
           const SizedBox(height: 6),
 
           Expanded(
@@ -575,24 +593,42 @@ class _GladiatorSelectionSheetState extends State<_GladiatorSelectionSheet> {
                     margin: const EdgeInsets.only(bottom: 6),
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: isSelected ? GameConstants.gold.withAlpha(30) : GameConstants.cardBg,
+                      color: isSelected ? accentColor.withAlpha(30) : GameConstants.cardBg,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: isSelected ? GameConstants.gold : GameConstants.cardBorder,
+                        color: isSelected ? accentColor : GameConstants.cardBorder,
                         width: isSelected ? 2 : 1,
                       ),
                     ),
                     child: Row(
                       children: [
+                        // Gladyator gorseli
                         Container(
-                          width: 36,
-                          height: 36,
+                          width: 44,
+                          height: 44,
                           decoration: BoxDecoration(
-                            color: GameConstants.bloodRed.withAlpha(50),
                             borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: accentColor.withAlpha(100)),
                           ),
-                          child: Center(
-                            child: Text(g.name[0], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: GameConstants.bloodRed)),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(7),
+                            child: g.imagePath != null
+                                ? Image.asset(
+                                    g.imagePath!,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (_, __, ___) => Container(
+                                      color: GameConstants.bloodRed.withAlpha(50),
+                                      child: Center(
+                                        child: Text(g.name[0], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: GameConstants.bloodRed)),
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    color: GameConstants.bloodRed.withAlpha(50),
+                                    child: Center(
+                                      child: Text(g.name[0], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: GameConstants.bloodRed)),
+                                    ),
+                                  ),
                           ),
                         ),
                         const SizedBox(width: 10),
@@ -601,11 +637,11 @@ class _GladiatorSelectionSheetState extends State<_GladiatorSelectionSheet> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(g.name, style: TextStyle(color: GameConstants.textLight, fontWeight: FontWeight.bold, fontSize: 13)),
-                              Text('Güç: ${g.overallPower} | HP: ${g.health}%', style: TextStyle(color: GameConstants.textMuted, fontSize: 10)),
+                              Text('Guc: ${g.overallPower} | HP: ${g.health}%', style: TextStyle(color: GameConstants.textMuted, fontSize: 10)),
                             ],
                           ),
                         ),
-                        if (isSelected) Icon(Icons.check_circle, color: GameConstants.gold, size: 20),
+                        if (isSelected) Icon(Icons.check_circle, color: accentColor, size: 20),
                       ],
                     ),
                   ),
@@ -621,18 +657,19 @@ class _GladiatorSelectionSheetState extends State<_GladiatorSelectionSheet> {
             child: ElevatedButton(
               onPressed: selectedGladiatorId != null
                   ? () {
-                      Navigator.pop(context);
-                      _startArenaFight(context, selectedGladiatorId!);
+                      // Diyalogu goster
+                      currentDialogue = PreFightDialogueHelper.getRandomDialogue();
+                      setState(() => showDialogue = true);
                     }
                   : null,
               style: ElevatedButton.styleFrom(
-                backgroundColor: GameConstants.gold,
+                backgroundColor: accentColor,
                 disabledBackgroundColor: GameConstants.cardBorder,
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               ),
               child: Text(
-                'ARENAYA GİR',
+                widget.isArena ? 'ARENAYA GIR' : 'SAVASA GIR',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
               ),
             ),
@@ -642,37 +679,87 @@ class _GladiatorSelectionSheetState extends State<_GladiatorSelectionSheet> {
     );
   }
 
-  void _startArenaFight(BuildContext context, String gladiatorId) {
-    final gladiator = widget.availableGladiators.firstWhere((g) => g.id == gladiatorId) as Gladiator;
+  Widget _buildDialogueView(BuildContext context, Color accentColor) {
+    final gladiator = widget.availableGladiators.firstWhere((g) => g.id == selectedGladiatorId) as Gladiator;
+    final dialogue = currentDialogue!;
+    final options = List<Map<String, dynamic>>.from(dialogue['options']);
+
+    // Sike secenegi ekle (sadece yeralti icin)
+    if (!widget.isArena) {
+      final riggedOption = PreFightDialogueHelper.getRiggedOption();
+      if (riggedOption != null) {
+        options.add(riggedOption);
+      }
+    }
+
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.7,
+      decoration: BoxDecoration(
+        color: GameConstants.primaryDark,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      child: SingleChildScrollView(
+        child: DialogueComponent(
+          speakerName: gladiator.name,
+          speakerTitle: 'Gladyatorun',
+          speakerImage: gladiator.imagePath,
+          dialogueText: dialogue['text'],
+          accentColor: accentColor,
+          options: options.map((opt) => DialogueOption(
+            text: opt['text'],
+            morale: opt['morale'] ?? 0,
+          )).toList(),
+          onOptionSelected: (morale) {
+            moraleBonus = morale;
+            Navigator.pop(context);
+            _startFight(context, gladiator);
+          },
+        ),
+      ),
+    );
+  }
+
+  void _startFight(BuildContext context, Gladiator gladiator) {
     final reward = widget.fighter['reward'] ?? 0;
     final reputationReward = widget.fighter['reputation_reward'] ?? 0;
+    final enemyName = widget.fighter['name'] ?? 'Rakip';
+
+    // Bahis miktarini dus (yeralti icin)
+    if (widget.betAmount > 0) {
+      widget.game.state.modifyGold(-widget.betAmount);
+    }
 
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => FightScreen(
           player: gladiator,
-          enemyName: widget.fighter['name'] ?? 'Rakip',
+          enemyName: enemyName,
           enemyTitle: widget.fighter['title'] ?? '',
           enemyImage: widget.fighter['image'],
           enemyHealth: widget.fighter['health'] ?? 50,
           enemyStrength: widget.fighter['strength'] ?? 50,
           enemyIntelligence: widget.fighter['intelligence'] ?? 50,
           enemyStamina: widget.fighter['stamina'] ?? 50,
-          goldReward: reward,
-          reputationReward: reputationReward,
-          fightType: 'arena',
+          goldReward: widget.isArena ? reward : (reward + widget.betAmount),
+          reputationReward: widget.isArena ? reputationReward : 0,
+          fightType: widget.isArena ? 'arena' : 'underground',
+          moraleBonus: moraleBonus,
           onFightEnd: (outcome) {
-            // Sonuçları uygula
+            // Sonuclari uygula
             if (outcome.playerWon) {
               widget.game.state.modifyGold(outcome.goldReward);
               widget.game.state.modifyReputation(outcome.reputationReward);
+              // Bahis kazanildiysa 2x ver
+              if (widget.betAmount > 0) {
+                widget.game.state.modifyGold(widget.betAmount);
+              }
             }
 
             // Hasar uygula
             gladiator.takeDamage(outcome.playerDamage);
 
-            // Ölüm kontrolü
+            // Olum kontrolu
             if (outcome.playerDied) {
               widget.game.state.gladiators.remove(gladiator);
             }
@@ -685,7 +772,7 @@ class _GladiatorSelectionSheetState extends State<_GladiatorSelectionSheet> {
   }
 }
 
-// YERALTI - BAHİS VE SAVAŞÇI SEÇİM EKRANI
+// YERALTI - BAHIS VE SAVASCI SECIM EKRANI
 class _BetSelectionSheet extends StatefulWidget {
   final Map<String, dynamic> fighter;
   final GladiatorGame game;
@@ -705,15 +792,14 @@ class _BetSelectionSheet extends StatefulWidget {
 
 class _BetSelectionSheetState extends State<_BetSelectionSheet> {
   int betAmount = 0;
-  String? selectedGladiatorId;
 
   @override
   Widget build(BuildContext context) {
-    final accentColor = widget.isArena ? GameConstants.gold : GameConstants.bloodRed;
+    final accentColor = GameConstants.bloodRed;
     final maxBet = widget.game.state.gold;
 
     return Container(
-      height: MediaQuery.of(context).size.height * 0.65,
+      height: MediaQuery.of(context).size.height * 0.4,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: GameConstants.primaryDark,
@@ -722,19 +808,19 @@ class _BetSelectionSheetState extends State<_BetSelectionSheet> {
       ),
       child: Column(
         children: [
-          // Başlık
+          // Baslik
           Text(
             '${widget.fighter['name']}',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: accentColor),
           ),
           Text(
-            'ile savaşacaksın',
+            'ile savasacaksin',
             style: TextStyle(fontSize: 11, color: GameConstants.textMuted),
           ),
 
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
 
-          // BAHİS BÖLÜMÜ
+          // BAHIS BOLUMU
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -751,7 +837,7 @@ class _BetSelectionSheetState extends State<_BetSelectionSheet> {
                       children: [
                         Icon(Icons.casino, color: GameConstants.gold, size: 16),
                         const SizedBox(width: 6),
-                        Text('BAHİS', style: TextStyle(fontSize: 11, color: GameConstants.textMuted)),
+                        Text('BAHIS', style: TextStyle(fontSize: 11, color: GameConstants.textMuted)),
                       ],
                     ),
                     Text('Mevcut: $maxBet', style: TextStyle(fontSize: 11, color: GameConstants.gold)),
@@ -790,143 +876,46 @@ class _BetSelectionSheetState extends State<_BetSelectionSheet> {
 
                 if (betAmount > 0)
                   Text(
-                    'Kazanırsan: +${betAmount * 2} (2x)',
+                    'Kazanirsan: +${betAmount * 2} (2x)',
                     style: TextStyle(fontSize: 12, color: GameConstants.success, fontWeight: FontWeight.bold),
                   ),
               ],
             ),
           ),
 
-          const SizedBox(height: 12),
-
-          Text('SAVAŞÇI SEÇ', style: TextStyle(fontSize: 11, color: GameConstants.textMuted, letterSpacing: 1)),
-          const SizedBox(height: 6),
-
-          Expanded(
-            child: ListView.builder(
-              itemCount: widget.availableGladiators.length,
-              itemBuilder: (context, index) {
-                final g = widget.availableGladiators[index];
-                final isSelected = selectedGladiatorId == g.id;
-
-                return GestureDetector(
-                  onTap: () => setState(() => selectedGladiatorId = g.id),
-                  child: Container(
-                    margin: const EdgeInsets.only(bottom: 6),
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: isSelected ? accentColor.withAlpha(30) : GameConstants.cardBg,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: isSelected ? accentColor : GameConstants.cardBorder,
-                        width: isSelected ? 2 : 1,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 36,
-                          height: 36,
-                          decoration: BoxDecoration(
-                            color: GameConstants.bloodRed.withAlpha(50),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Center(
-                            child: Text(g.name[0], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: GameConstants.bloodRed)),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(g.name, style: TextStyle(color: GameConstants.textLight, fontWeight: FontWeight.bold, fontSize: 13)),
-                              Text('Güç: ${g.overallPower} | HP: ${g.health}%', style: TextStyle(color: GameConstants.textMuted, fontSize: 10)),
-                            ],
-                          ),
-                        ),
-                        if (isSelected) Icon(Icons.check_circle, color: accentColor, size: 20),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-
-          const SizedBox(height: 10),
+          const Spacer(),
 
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: selectedGladiatorId != null
-                  ? () {
-                      Navigator.pop(context);
-                      _startUndergroundFight(context, selectedGladiatorId!, betAmount);
-                    }
-                  : null,
+              onPressed: () {
+                Navigator.pop(context);
+                // Gladyator secim ekranini ac
+                showModalBottomSheet(
+                  context: context,
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  builder: (ctx) => _GladiatorSelectionSheet(
+                    fighter: widget.fighter,
+                    game: widget.game,
+                    availableGladiators: widget.availableGladiators,
+                    isArena: false,
+                    betAmount: betAmount,
+                  ),
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: accentColor,
-                disabledBackgroundColor: GameConstants.cardBorder,
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               ),
               child: Text(
-                betAmount > 0 ? 'SAVAŞ (Bahis: $betAmount)' : 'SAVAŞ',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                betAmount > 0 ? 'DEVAM (Bahis: $betAmount)' : 'DEVAM',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  void _startUndergroundFight(BuildContext context, String gladiatorId, int bet) {
-    final gladiator = widget.availableGladiators.firstWhere((g) => g.id == gladiatorId) as Gladiator;
-    final reward = widget.fighter['reward'] ?? 100;
-
-    // Bahis miktarını düş
-    if (bet > 0) {
-      widget.game.state.modifyGold(-bet);
-    }
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => FightScreen(
-          player: gladiator,
-          enemyName: widget.fighter['name'] ?? 'Rakip',
-          enemyTitle: widget.fighter['title'] ?? 'Yeraltı Savaşçısı',
-          enemyImage: widget.fighter['image'],
-          enemyHealth: widget.fighter['health'] ?? 50,
-          enemyStrength: widget.fighter['strength'] ?? 50,
-          enemyIntelligence: widget.fighter['intelligence'] ?? 50,
-          enemyStamina: widget.fighter['stamina'] ?? 50,
-          goldReward: reward + bet, // Bahis + ödül
-          reputationReward: 0, // Yeraltı'da itibar yok
-          fightType: 'underground',
-          onFightEnd: (outcome) {
-            // Sonuçları uygula
-            if (outcome.playerWon) {
-              widget.game.state.modifyGold(outcome.goldReward);
-              // Bahis kazanıldıysa 2x ver
-              if (bet > 0) {
-                widget.game.state.modifyGold(bet); // Bahis geri + kar
-              }
-            }
-
-            // Hasar uygula
-            gladiator.takeDamage(outcome.playerDamage);
-
-            // Ölüm kontrolü
-            if (outcome.playerDied) {
-              widget.game.state.gladiators.remove(gladiator);
-            }
-
-            widget.game.refreshState();
-          },
-        ),
       ),
     );
   }

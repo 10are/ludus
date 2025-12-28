@@ -36,6 +36,7 @@ class FightCalculator {
     required int enemyStamina,
     required int goldReward,
     required int reputationReward,
+    int moraleBonus = 0, // Moral bonusu (-4 ile +2 arası)
   }) {
     final playerTotalStats = player.health + player.strength + player.intelligence + player.stamina;
     final enemyTotalStats = enemyHealth + enemyStrength + enemyIntelligence + enemyStamina;
@@ -55,7 +56,8 @@ class FightCalculator {
     final playerCritical = playerRoll == 10;
     final enemyCritical = enemyRoll == 10;
 
-    final playerTotal = playerRoll + playerBonus;
+    // Moral bonusu uygula
+    final playerTotal = playerRoll + playerBonus + moraleBonus;
     final enemyTotal = enemyRoll + enemyBonus;
 
     final playerWon = playerTotal > enemyTotal;
@@ -117,6 +119,7 @@ class FightScreen extends StatefulWidget {
   final int reputationReward;
   final String fightType;
   final Function(FightOutcome) onFightEnd;
+  final int moraleBonus; // Savaş öncesi diyalogdan gelen moral bonusu
 
   const FightScreen({
     super.key,
@@ -132,6 +135,7 @@ class FightScreen extends StatefulWidget {
     required this.reputationReward,
     required this.fightType,
     required this.onFightEnd,
+    this.moraleBonus = 0,
   });
 
   @override
@@ -158,6 +162,7 @@ class _FightScreenState extends State<FightScreen> {
       enemyStamina: widget.enemyStamina,
       goldReward: widget.goldReward,
       reputationReward: widget.reputationReward,
+      moraleBonus: widget.moraleBonus,
     );
 
     // 2 saniye bekle

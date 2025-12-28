@@ -1,0 +1,98 @@
+{
+  "dialogues": [
+    {
+      "id": "encourage_1",
+      "text": "Efendim, arenaya girmeden once son emirlerinizi bekliyorum.",
+      "options": [
+        {
+          "text": "Mars seni korusun! Zaferle don!",
+          "morale": 2
+        },
+        {
+          "text": "Rakibinin zayif noktasini bul.",
+          "morale": 1
+        },
+        {
+          "text": "Git ve savas.",
+          "morale": 0
+        }
+      ]
+    },
+    {
+      "id": "encourage_2",
+      "text": "Efendim, kalabalik beni bekliyor. Ne dersiniz?",
+      "options": [
+        {
+          "text": "Roma seni alkislayacak! Onlara unutamayacaklari bir gosteri sun!",
+          "morale": 2
+        },
+        {
+          "text": "Sogukkanli ol, aceleci davranma.",
+          "morale": 1
+        },
+        {
+          "text": "Bekletme onlari.",
+          "morale": 0
+        }
+      ]
+    },
+    {
+      "id": "encourage_3",
+      "text": "Efendim, bu savas icin hazir hissediyorum. Soz verir misiniz?",
+      "options": [
+        {
+          "text": "Kazanirsan ozgurlugune bir adim daha yaklasacaksin!",
+          "morale": 2
+        },
+        {
+          "text": "Sadece hayatta kal, gerisi onemli degil.",
+          "morale": 1
+        },
+        {
+          "text": "Soz veremem. Simdi git.",
+          "morale": 0
+        }
+      ]
+    },
+    {
+      "id": "encourage_4",
+      "text": "Efendim, dualarinizi istiyorum.",
+      "options": [
+        {
+          "text": "Jupiter ve Mars seninle! Dusmani yere ser!",
+          "morale": 2
+        },
+        {
+          "text": "Tanrilar cesur olanlari korur.",
+          "morale": 1
+        },
+        {
+          "text": "Tanrilar mesgul, kendin halledeceksin.",
+          "morale": 0
+        }
+      ]
+    },
+    {
+      "id": "encourage_5",
+      "text": "Efendim, rakibim guclu gorunuyor. Tavsiyeniz?",
+      "options": [
+        {
+          "text": "Guc her sey degildir! Zekanla yen onu!",
+          "morale": 2
+        },
+        {
+          "text": "Savunmada kal, firsatini bekle.",
+          "morale": 1
+        },
+        {
+          "text": "Ben ne bileyim, sen gladyatorsun.",
+          "morale": 0
+        }
+      ]
+    }
+  ],
+  "rigged_option": {
+    "text": "Bu savasi kaybedeceksin. Anlastik.",
+    "morale": -4
+  }
+}

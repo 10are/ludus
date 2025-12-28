@@ -6,6 +6,7 @@ import '../gladiator_game.dart';
 import '../constants.dart';
 import '../models/gladiator.dart';
 import 'fight_screen.dart';
+import 'components/dialogue_component.dart' show DialogueComponent, DialogueOption, PreFightDialogueHelper;
 
 class ColosseumScreen extends StatefulWidget {
   const ColosseumScreen({super.key});
@@ -581,11 +582,25 @@ class _ColosseumGladiatorSelectionSheet extends StatefulWidget {
 
 class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSelectionSheet> {
   String? selectedGladiatorId;
+  bool showDialogue = false;
+  int moraleBonus = 0;
+  Map<String, dynamic>? currentDialogue;
+
+  @override
+  void initState() {
+    super.initState();
+    PreFightDialogueHelper.loadDialogues();
+  }
 
   @override
   Widget build(BuildContext context) {
     final reward = widget.fighter['reward'] ?? 0;
     final reputationReward = widget.fighter['reputation_reward'] ?? 0;
+
+    // Diyalog gosteriliyor mu?
+    if (showDialogue && selectedGladiatorId != null) {
+      return _buildDialogueView(context);
+    }
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.55,
@@ -597,7 +612,7 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
       ),
       child: Column(
         children: [
-          // Başlık
+          // Baslik
           Text(
             '${widget.fighter['name']}',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: GameConstants.gold),
@@ -609,7 +624,7 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
 
           const SizedBox(height: 12),
 
-          // Ödül bilgisi
+          // Odul bilgisi
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -625,7 +640,7 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
                     Icon(Icons.paid, color: GameConstants.gold, size: 20),
                     const SizedBox(height: 4),
                     Text('$reward', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: GameConstants.gold)),
-                    Text('Altın', style: TextStyle(fontSize: 10, color: GameConstants.textMuted)),
+                    Text('Altin', style: TextStyle(fontSize: 10, color: GameConstants.textMuted)),
                   ],
                 ),
                 Container(width: 1, height: 40, color: GameConstants.cardBorder),
@@ -634,7 +649,7 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
                     Icon(Icons.star, color: GameConstants.warmOrange, size: 20),
                     const SizedBox(height: 4),
                     Text('+$reputationReward', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: GameConstants.warmOrange)),
-                    Text('İtibar', style: TextStyle(fontSize: 10, color: GameConstants.textMuted)),
+                    Text('Itibar', style: TextStyle(fontSize: 10, color: GameConstants.textMuted)),
                   ],
                 ),
               ],
@@ -643,7 +658,7 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
 
           const SizedBox(height: 12),
 
-          Text('SAVAŞÇI SEÇ', style: TextStyle(fontSize: 11, color: GameConstants.textMuted, letterSpacing: 1)),
+          Text('SAVASCI SEC', style: TextStyle(fontSize: 11, color: GameConstants.textMuted, letterSpacing: 1)),
           const SizedBox(height: 6),
 
           Expanded(
@@ -668,15 +683,33 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
                     ),
                     child: Row(
                       children: [
+                        // Gladyator gorseli
                         Container(
-                          width: 36,
-                          height: 36,
+                          width: 44,
+                          height: 44,
                           decoration: BoxDecoration(
-                            color: GameConstants.bloodRed.withAlpha(50),
                             borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: GameConstants.gold.withAlpha(100)),
                           ),
-                          child: Center(
-                            child: Text(g.name[0], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: GameConstants.bloodRed)),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(7),
+                            child: g.imagePath != null
+                                ? Image.asset(
+                                    g.imagePath!,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (_, __, ___) => Container(
+                                      color: GameConstants.bloodRed.withAlpha(50),
+                                      child: Center(
+                                        child: Text(g.name[0], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: GameConstants.bloodRed)),
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    color: GameConstants.bloodRed.withAlpha(50),
+                                    child: Center(
+                                      child: Text(g.name[0], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: GameConstants.bloodRed)),
+                                    ),
+                                  ),
                           ),
                         ),
                         const SizedBox(width: 10),
@@ -685,7 +718,7 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(g.name, style: TextStyle(color: GameConstants.textLight, fontWeight: FontWeight.bold, fontSize: 13)),
-                              Text('Güç: ${g.overallPower} | HP: ${g.health}%', style: TextStyle(color: GameConstants.textMuted, fontSize: 10)),
+                              Text('Guc: ${g.overallPower} | HP: ${g.health}%', style: TextStyle(color: GameConstants.textMuted, fontSize: 10)),
                             ],
                           ),
                         ),
@@ -705,8 +738,9 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
             child: ElevatedButton(
               onPressed: selectedGladiatorId != null
                   ? () {
-                      Navigator.pop(context);
-                      _startColosseumFight(context, selectedGladiatorId!);
+                      // Diyalogu goster
+                      currentDialogue = PreFightDialogueHelper.getRandomDialogue();
+                      setState(() => showDialogue = true);
                     }
                   : null,
               style: ElevatedButton.styleFrom(
@@ -716,7 +750,7 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               ),
               child: const Text(
-                'COLOSSEUM\'A GİR',
+                'COLOSSEUM\'A GIR',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
               ),
             ),
@@ -726,18 +760,50 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
     );
   }
 
-  void _startColosseumFight(BuildContext context, String gladiatorId) {
-    final gladiator = widget.availableGladiators.firstWhere((g) => g.id == gladiatorId) as Gladiator;
+  Widget _buildDialogueView(BuildContext context) {
+    final gladiator = widget.availableGladiators.firstWhere((g) => g.id == selectedGladiatorId) as Gladiator;
+    final dialogue = currentDialogue!;
+    final options = List<Map<String, dynamic>>.from(dialogue['options']);
+
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.7,
+      decoration: BoxDecoration(
+        color: GameConstants.primaryDark,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      child: SingleChildScrollView(
+        child: DialogueComponent(
+          speakerName: gladiator.name,
+          speakerTitle: 'Gladyatorun',
+          speakerImage: gladiator.imagePath,
+          dialogueText: dialogue['text'],
+          accentColor: GameConstants.gold,
+          options: options.map((opt) => DialogueOption(
+            text: opt['text'],
+            morale: opt['morale'] ?? 0,
+          )).toList(),
+          onOptionSelected: (morale) {
+            moraleBonus = morale;
+            Navigator.pop(context);
+            _startColosseumFight(context, gladiator);
+          },
+        ),
+      ),
+    );
+  }
+
+  void _startColosseumFight(BuildContext context, Gladiator gladiator) {
     final reward = widget.fighter['reward'] ?? 500;
     final reputationReward = widget.fighter['reputation_reward'] ?? 50;
+    final enemyName = widget.fighter['name'] ?? 'Sampiyon';
 
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => FightScreen(
           player: gladiator,
-          enemyName: widget.fighter['name'] ?? 'Şampiyon',
-          enemyTitle: widget.fighter['title'] ?? 'Colosseum Savaşçısı',
+          enemyName: enemyName,
+          enemyTitle: widget.fighter['title'] ?? 'Colosseum Savascisi',
           enemyImage: widget.fighter['image'],
           enemyHealth: widget.fighter['health'] ?? 80,
           enemyStrength: widget.fighter['strength'] ?? 70,
@@ -746,8 +812,9 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
           goldReward: reward,
           reputationReward: reputationReward,
           fightType: 'colosseum',
+          moraleBonus: moraleBonus,
           onFightEnd: (outcome) {
-            // Sonuçları uygula
+            // Sonuclari uygula
             if (outcome.playerWon) {
               widget.game.state.modifyGold(outcome.goldReward);
               widget.game.state.modifyReputation(outcome.reputationReward);
@@ -756,7 +823,7 @@ class _ColosseumGladiatorSelectionSheetState extends State<_ColosseumGladiatorSe
             // Hasar uygula
             gladiator.takeDamage(outcome.playerDamage);
 
-            // Ölüm kontrolü
+            // Olum kontrolu
             if (outcome.playerDied) {
               widget.game.state.gladiators.remove(gladiator);
             }
