@@ -204,6 +204,7 @@ class GameState {
     // Gladyatörler dinlensin
     for (final glad in gladiators) {
       glad.weeklyRest();
+      glad.resetNutrition(); // Beslenme durumu resetle
     }
 
     // Yeni dövüşler oluştur

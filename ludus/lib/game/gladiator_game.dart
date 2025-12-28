@@ -45,7 +45,37 @@ class GladiatorGame extends ChangeNotifier {
     final hasTrainer = state.staff.any((s) => s.role == StaffRole.trainer);
     if (hasTrainer) gainAmount += 2;
 
+    // Beslenme bonusu (yemek +2, su +1)
+    gainAmount += gladiator.nutritionBonus;
+
     gladiator.trainStat(stat, gainAmount);
+
+    notifyListeners();
+    return true;
+  }
+
+  // === BESLENME SİSTEMİ ===
+  bool buyFood(String gladiatorId, int price) {
+    if (state.gold < price) return false;
+
+    final gladiator = state.gladiators.firstWhere((g) => g.id == gladiatorId);
+    if (gladiator.hasFood) return false; // Zaten alınmış
+
+    state.modifyGold(-price);
+    gladiator.hasFood = true;
+
+    notifyListeners();
+    return true;
+  }
+
+  bool buyWater(String gladiatorId, int price) {
+    if (state.gold < price) return false;
+
+    final gladiator = state.gladiators.firstWhere((g) => g.id == gladiatorId);
+    if (gladiator.hasWater) return false; // Zaten alınmış
+
+    state.modifyGold(-price);
+    gladiator.hasWater = true;
 
     notifyListeners();
     return true;

@@ -166,6 +166,8 @@ class SaveService {
       'wins': g.wins,
       'losses': g.losses,
       'isInjured': g.isInjured,
+      'hasFood': g.hasFood,
+      'hasWater': g.hasWater,
     };
   }
 
@@ -187,7 +189,9 @@ class SaveService {
     )
       ..wins = json['wins'] as int
       ..losses = json['losses'] as int
-      ..isInjured = json['isInjured'] as bool;
+      ..isInjured = json['isInjured'] as bool
+      ..hasFood = json['hasFood'] as bool? ?? false
+      ..hasWater = json['hasWater'] as bool? ?? false;
   }
 
   /// FightOpportunity -> JSON

@@ -713,6 +713,10 @@ class _SchoolScreenState extends State<SchoolScreen> {
     // Egitmen var mi kontrol et
     final hasTrainer = game.state.staff.any((s) => s.role.toString().contains('trainer'));
 
+    // Beslenme fiyatlari
+    const foodPrice = 15;
+    const waterPrice = 10;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -804,6 +808,45 @@ class _SchoolScreenState extends State<SchoolScreen> {
 
           const SizedBox(height: 16),
 
+          // Beslenme Yonetimi Basligi
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: GameConstants.warmOrange.withAlpha(30),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: GameConstants.warmOrange.withAlpha(60)),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.restaurant, color: GameConstants.warmOrange, size: 18),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('ANTRENMAN BESLENMESI', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: GameConstants.warmOrange, letterSpacing: 1)),
+                      Text('Yemek +2, Su +1 egitim bonusu (haftalik)', style: TextStyle(fontSize: 9, color: GameConstants.textMuted)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          // Gladyator listesi - beslenme secimi
+          if (game.state.gladiators.isEmpty)
+            Container(
+              padding: const EdgeInsets.all(20),
+              child: Text('Gladyator yok', style: TextStyle(color: GameConstants.textMuted)),
+            )
+          else
+            ...game.state.gladiators.map((gladiator) => _buildNutritionRow(gladiator, game, foodPrice, waterPrice)),
+
+          const SizedBox(height: 16),
+
           // Bilgi
           Container(
             padding: const EdgeInsets.all(12),
@@ -818,13 +861,208 @@ class _SchoolScreenState extends State<SchoolScreen> {
                 Expanded(
                   child: Text(
                     hasTrainer
-                        ? 'Doctore gladyatorlerini egitmene yardimci oluyor. Egitim bonusu: +2'
+                        ? 'Doctore gladyatorlerini egitmene yardimci oluyor. Egitim bonusu: +2\nBeslenme bonuslari hafta sonunda sifirlanir.'
                         : 'Pazardan bir egitmen ise alarak gladyatorlerini daha hizli gelistirebilirsin.',
                     style: TextStyle(fontSize: 11, color: GameConstants.textMuted, height: 1.3),
                   ),
                 ),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNutritionRow(dynamic gladiator, GladiatorGame game, int foodPrice, int waterPrice) {
+    final canAffordFood = game.state.gold >= foodPrice;
+    final canAffordWater = game.state.gold >= waterPrice;
+    final totalBonus = gladiator.nutritionBonus;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.black.withAlpha(120),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: totalBonus > 0 ? GameConstants.warmOrange.withAlpha(60) : Colors.transparent,
+        ),
+      ),
+      child: Column(
+        children: [
+          // Gladyator ismi ve bonus
+          Row(
+            children: [
+              Container(
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  color: GameConstants.bloodRed.withAlpha(30),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(6),
+                  child: Image.asset(
+                    'assets/defaultasker.png',
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Icon(Icons.person, color: GameConstants.bloodRed, size: 18),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(gladiator.name, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: GameConstants.textLight)),
+                    Text(gladiator.origin ?? '', style: TextStyle(fontSize: 9, color: GameConstants.textMuted)),
+                  ],
+                ),
+              ),
+              if (totalBonus > 0)
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: GameConstants.success.withAlpha(30),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text('+$totalBonus', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: GameConstants.success)),
+                ),
+            ],
+          ),
+
+          const SizedBox(height: 8),
+
+          // Yemek ve Su butonlari
+          Row(
+            children: [
+              // Yemek
+              Expanded(
+                child: GestureDetector(
+                  onTap: gladiator.hasFood
+                      ? null
+                      : canAffordFood
+                          ? () {
+                              final success = game.buyFood(gladiator.id, foodPrice);
+                              if (success) {
+                                SaveService.autoSave(game.state);
+                                _showPopup('Yemek', true, '${gladiator.name} icin yemek alindi (+2 egitim)');
+                              }
+                            }
+                          : null,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    decoration: BoxDecoration(
+                      color: gladiator.hasFood
+                          ? GameConstants.success.withAlpha(40)
+                          : canAffordFood
+                              ? GameConstants.warmOrange.withAlpha(30)
+                              : Colors.black26,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: gladiator.hasFood
+                            ? GameConstants.success.withAlpha(80)
+                            : canAffordFood
+                                ? GameConstants.warmOrange.withAlpha(60)
+                                : Colors.transparent,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          gladiator.hasFood ? Icons.check_circle : Icons.restaurant,
+                          size: 14,
+                          color: gladiator.hasFood
+                              ? GameConstants.success
+                              : canAffordFood
+                                  ? GameConstants.warmOrange
+                                  : GameConstants.textMuted,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          gladiator.hasFood ? 'YEMEK OK' : 'YEMEK ($foodPrice)',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: gladiator.hasFood
+                                ? GameConstants.success
+                                : canAffordFood
+                                    ? GameConstants.warmOrange
+                                    : GameConstants.textMuted,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(width: 8),
+
+              // Su
+              Expanded(
+                child: GestureDetector(
+                  onTap: gladiator.hasWater
+                      ? null
+                      : canAffordWater
+                          ? () {
+                              final success = game.buyWater(gladiator.id, waterPrice);
+                              if (success) {
+                                SaveService.autoSave(game.state);
+                                _showPopup('Su', true, '${gladiator.name} icin su alindi (+1 egitim)');
+                              }
+                            }
+                          : null,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    decoration: BoxDecoration(
+                      color: gladiator.hasWater
+                          ? GameConstants.success.withAlpha(40)
+                          : canAffordWater
+                              ? Colors.blue.withAlpha(30)
+                              : Colors.black26,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: gladiator.hasWater
+                            ? GameConstants.success.withAlpha(80)
+                            : canAffordWater
+                                ? Colors.blue.withAlpha(60)
+                                : Colors.transparent,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          gladiator.hasWater ? Icons.check_circle : Icons.water_drop,
+                          size: 14,
+                          color: gladiator.hasWater
+                              ? GameConstants.success
+                              : canAffordWater
+                                  ? Colors.blue
+                                  : GameConstants.textMuted,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          gladiator.hasWater ? 'SU OK' : 'SU ($waterPrice)',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: gladiator.hasWater
+                                ? GameConstants.success
+                                : canAffordWater
+                                    ? Colors.blue
+                                    : GameConstants.textMuted,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

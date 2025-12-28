@@ -25,6 +25,10 @@ class Gladiator {
   int losses;
   bool isInjured;
 
+  // Haftalık beslenme (her hafta resetlenir)
+  bool hasFood; // Yemek alındı mı
+  bool hasWater; // Su alındı mı
+
   Gladiator({
     required this.id,
     required this.name,
@@ -41,6 +45,8 @@ class Gladiator {
     this.wins = 0,
     this.losses = 0,
     this.isInjured = false,
+    this.hasFood = false,
+    this.hasWater = false,
   });
 
   // Genel güç puanı (dövüş için)
@@ -55,6 +61,20 @@ class Gladiator {
 
   // Eğitilebilir mi?
   bool get canTrain => !isInjured && health > 30 && stamina > 20;
+
+  // Beslenme bonusu (yemek +2, su +1)
+  int get nutritionBonus {
+    int bonus = 0;
+    if (hasFood) bonus += 2;
+    if (hasWater) bonus += 1;
+    return bonus;
+  }
+
+  // Haftalık beslenme resetle
+  void resetNutrition() {
+    hasFood = false;
+    hasWater = false;
+  }
 
   // Stat artırma
   void trainStat(String stat, int amount) {
