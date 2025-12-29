@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../gladiator_game.dart';
 import '../constants.dart';
+import 'story_intro_screen.dart';
 
 class GameOverScreen extends StatelessWidget {
   const GameOverScreen({super.key});
@@ -79,7 +80,17 @@ class GameOverScreen extends StatelessWidget {
 
                     // Tekrar dene
                     GestureDetector(
-                      onTap: () => game.startGame(),
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ChangeNotifierProvider.value(
+                              value: game,
+                              child: const StoryIntroScreen(),
+                            ),
+                          ),
+                        );
+                      },
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(vertical: 16),

@@ -4,6 +4,7 @@ import '../gladiator_game.dart';
 import '../constants.dart';
 import '../services/save_service.dart';
 import '../services/audio_service.dart';
+import 'story_intro_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -315,9 +316,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onPressed: () async {
               Navigator.pop(ctx);
               await SaveService.deleteSave();
-              game.startGame();
               if (context.mounted) {
-                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (_) => ChangeNotifierProvider.value(
+                      value: game,
+                      child: const StoryIntroScreen(),
+                    ),
+                  ),
+                  (route) => false, // Tüm önceki route'ları temizle
+                );
               }
             },
             child: Text('YENİ OYUN', style: TextStyle(color: GameConstants.textLight)),

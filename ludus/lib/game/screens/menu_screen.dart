@@ -4,6 +4,7 @@ import '../gladiator_game.dart';
 import '../constants.dart';
 import '../services/save_service.dart';
 import 'tutorial_screen.dart';
+import 'story_intro_screen.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -180,26 +181,17 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   void _startNewGame(GladiatorGame game) async {
-    // TODO: Test için her seferinde göster, sonra kaldır
-    // final tutorialSeen = await SaveService.hasTutorialSeen();
-    const tutorialSeen = false; // Test için her zaman göster
-
-    if (!tutorialSeen && mounted) {
-      // Tutorial'ı göster
+    // Hikaye giriş ekranına git
+    if (mounted) {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => TutorialScreen(
-            onComplete: () {
-              Navigator.pop(context);
-              SaveService.setTutorialSeen();
-              game.startGame();
-            },
+          builder: (_) => ChangeNotifierProvider.value(
+            value: game,
+            child: const StoryIntroScreen(),
           ),
         ),
       );
-    } else {
-      game.startGame();
     }
   }
 
