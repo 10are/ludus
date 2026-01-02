@@ -405,18 +405,9 @@ class _WeeklyEventScreenState extends State<WeeklyEventScreen>
     );
   }
 
+  // Mount&Blade tarzı tutarlı renk - tüm diyaloglar için aynı Roma bronz tonu
   Color _getEventColor() {
-    final type = widget.event['type'] as String?;
-    switch (type) {
-      case 'wife':
-        return Colors.pink.shade300;
-      case 'doctore':
-        return GameConstants.bronze;
-      case 'gladiator':
-        return GameConstants.bloodRed;
-      default:
-        return GameConstants.gold;
-    }
+    return GameConstants.bronze;
   }
 
   String _getEventTypeText() {

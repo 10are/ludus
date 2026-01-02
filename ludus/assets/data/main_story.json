@@ -1,0 +1,2216 @@
+{
+  "characters": {
+    "caesar": {
+      "id": "caesar",
+      "name": "Julius Caesar",
+      "title": "Roma Diktatörü",
+      "description": "Roma'nın mutlak hükümdarı. Babanın ölümünden sorumlu olabilir."
+    },
+    "brutus": {
+      "id": "brutus",
+      "name": "Marcus Brutus",
+      "title": "Senatör",
+      "description": "Gizli isyancı. Sezar'a karşı komplo kuruyor."
+    },
+    "cassius": {
+      "id": "cassius",
+      "name": "Gaius Cassius",
+      "title": "Senatör",
+      "description": "Brutus'un sağ kolu. Acımasız ve hesapçı."
+    },
+    "praetorian_commander": {
+      "id": "praetorian_commander",
+      "name": "Quintus Maximus",
+      "title": "Praetorian Komutanı",
+      "description": "Sezar'ın güvenlik şefi. Sadakat yolunda müttefikin."
+    },
+    "egyptian_merchant": {
+      "id": "egyptian_merchant",
+      "name": "Ptolemy",
+      "title": "Tüccar",
+      "description": "Mısırlı silah ve zehir kaçakçısı."
+    },
+    "fathers_friend": {
+      "id": "fathers_friend",
+      "name": "Marcus Aurelius",
+      "title": "Eski Lanista",
+      "description": "Babanın en yakın arkadaşı. Gerçekleri biliyor."
+    },
+    "spy": {
+      "id": "spy",
+      "name": "Corvus",
+      "title": "Casus",
+      "description": "Gölgelerde çalışan gizemli figür."
+    }
+  },
+
+  "prologue_events": [
+    {
+      "id": "prologue_1_fathers_letter",
+      "week": 1,
+      "type": "critical",
+      "title": "Babanın Mirası",
+      "scene": "Babanın eski çalışma odasındasın. Masanın gizli çekmecesinde bir mektup buluyorsun.",
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "Ludus artık senin. Ama babanın ani ölümü hala gizemini koruyor."
+        },
+        {
+          "speaker": "narrator",
+          "text": "Masanın altındaki gizli bölmede sararmış bir parşömen buluyorsun."
+        },
+        {
+          "speaker": "fathers_letter",
+          "text": "Oğlum, eğer bunu okuyorsan, ben artık yokum. Sezar'ın Roma'yı yok edeceğini biliyorum. Onu durdurmak için bir plan yaptım ama yakalandım. Şimdi karar senin: İntikamımı al ya da Roma'ya sadık kal. Her iki yol da tehlikeli. Mektubun arkasında Brutus'un adresi var."
+        }
+      ],
+      "choices": [
+        {
+          "id": "burn_letter",
+          "text": "Mektubu yak - Roma'ya sadık kalacağım",
+          "path": "loyalty",
+          "effects": {
+            "caesar_relation": 10,
+            "security": 10,
+            "family_loyalty": 10
+          },
+          "consequence": "Ateşe attığın mektupla birlikte babanın intikam planı da kül oluyor. Roma'ya ve Sezar'a sadık kalacaksın.",
+          "triggers_event": "loyalty_path_start"
+        },
+        {
+          "id": "keep_letter",
+          "text": "Mektubu sakla - Babanın intikamını alacağım",
+          "path": "vengeance",
+          "effects": {
+            "conspiracy_heat": 10,
+            "security": -5
+          },
+          "consequence": "Mektubu göğsüne yakın saklıyorsun. Brutus ile iletişime geçme zamanı gelecek.",
+          "triggers_event": "vengeance_path_start"
+        }
+      ]
+    },
+    {
+      "id": "prologue_2_wife_concern",
+      "week": 2,
+      "type": "family",
+      "requires_wife": true,
+      "title": "Karının Endişesi",
+      "scene": "Gece geç saatlerde. Karın uykusuz gözlerle yanına geliyor.",
+      "dialogue": [
+        {
+          "speaker": "wife",
+          "text": "Bir süredir çok dalgınsın. Babanın ölümünden beri farklısın. Ne oldu o mektupla?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "tell_truth",
+          "text": "Her şeyi anlat",
+          "effects": {
+            "wife_morale": 10,
+            "family_loyalty": 15,
+            "security": -10
+          },
+          "consequence": "Karın şokta ama seninle. 'Yanındayım' diyor gözyaşları içinde.",
+          "path_specific": {
+            "vengeance": {
+              "triggers_event": "wife_knows_vengeance"
+            },
+            "loyalty": {
+              "triggers_event": "wife_knows_loyalty"
+            }
+          }
+        },
+        {
+          "id": "lie",
+          "text": "Sadece iş stresi, merak etme",
+          "effects": {
+            "wife_morale": -5,
+            "family_loyalty": -5,
+            "security": 5
+          },
+          "consequence": "Karın sana inanmıyor ama sessiz kalıyor. Gözlerinde bir şüphe var."
+        }
+      ]
+    },
+    {
+      "id": "prologue_3_stranger_visit",
+      "week": 3,
+      "type": "story",
+      "title": "Gizemli Ziyaretçi",
+      "scene": "Kapında pelerinli bir adam bekliyor. Yüzünü göremiyorsun.",
+      "dialogue": [
+        {
+          "speaker": "stranger",
+          "text": "Babanı tanırdım. O öldüğünde yanındaydım. Sana bir şey göstermem lazım ama önce... hangi taraftasın?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "trust_stranger",
+          "text": "İçeri al ve dinle",
+          "effects": {
+            "security": -10
+          },
+          "path_specific": {
+            "vengeance": {
+              "effects": {
+                "conspiracy_heat": 5
+              },
+              "triggers_event": "stranger_reveals_vengeance",
+              "consequence": "Adam pelerinini indiriyor - Marcus Aurelius, babanın en yakın arkadaşı. 'Brutus seni bekliyor' diyor."
+            },
+            "loyalty": {
+              "effects": {
+                "caesar_relation": 5
+              },
+              "triggers_event": "stranger_reveals_loyalty",
+              "consequence": "Adam pelerinini indiriyor - Quintus Maximus, Praetorian komutanı. 'Sezar senin sadakatini test etmek istiyor' diyor."
+            },
+            "none": {
+              "triggers_event": "path_choice_reminder",
+              "consequence": "Adam bekliyor. 'Önce karar ver. Mektubu yaktın mı?' Daha kritik kararı vermeden devam edemezsin."
+            }
+          }
+        },
+        {
+          "id": "refuse_stranger",
+          "text": "Git buradan, yabancılarla işim yok",
+          "effects": {
+            "security": 15
+          },
+          "consequence": "Adam gülümsüyor. 'Akıllıca. Ama kaçış yok. Yakında tekrar görüşürüz.' Gölgelere karışıyor.",
+          "triggers_delayed_event": {
+            "event_id": "stranger_returns",
+            "delay_weeks": 3
+          }
+        }
+      ]
+    }
+  ],
+
+  "chapter1_events": [
+    {
+      "id": "ch1_4_first_contact_vengeance",
+      "week": 4,
+      "type": "story",
+      "requires_path": "vengeance",
+      "title": "Brutus ile Buluşma",
+      "scene": "Karanlık bir tavernada. Etrafta şüpheli gözler var.",
+      "dialogue": [
+        {
+          "speaker": "brutus",
+          "text": "Baban cesur bir adamdı. Sezar'ın tiranlığını görebilen nadir kişilerdendi. Şimdi sen onun yerini alacak mısın?"
+        },
+        {
+          "speaker": "brutus",
+          "text": "Sana gladyatörler lazım. Bana ise güvenilir adamlar. Arena, Sezar'a en yakın olabileceğimiz yer."
+        }
+      ],
+      "choices": [
+        {
+          "id": "join_conspiracy",
+          "text": "Planınız nedir?",
+          "effects": {
+            "conspiracy_heat": 15,
+            "add_ally": "brutus"
+          },
+          "consequence": "Brutus gülümsüyor. 'Mart ayının ortasında. Colosseum'da. Sezar orada olacak. Ve sen de.'",
+          "triggers_event": "conspiracy_begins"
+        },
+        {
+          "id": "need_time",
+          "text": "Düşünmem lazım",
+          "effects": {
+            "conspiracy_heat": 5
+          },
+          "consequence": "Brutus başını sallıyor. 'Fazla zamanın yok. Her geçen gün Sezar güçleniyor.'",
+          "triggers_delayed_event": {
+            "event_id": "brutus_pressure",
+            "delay_weeks": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch1_4_first_contact_loyalty",
+      "week": 4,
+      "type": "story",
+      "requires_path": "loyalty",
+      "title": "Sezar'ın Teklifi",
+      "scene": "Praetorian muhafızları seni saraya getiriyor. Sezar'ın huzuruna çıkıyorsun.",
+      "dialogue": [
+        {
+          "speaker": "caesar",
+          "text": "Babanı tanırdım. Hain idi ama sen... sen farklı görünüyorsun."
+        },
+        {
+          "speaker": "caesar",
+          "text": "Roma'ya sadık adamlara ihtiyacım var. Gözlerim ve kulaklarım ol. Karşılığında ludusun koruma altında olacak."
+        }
+      ],
+      "choices": [
+        {
+          "id": "accept_caesar",
+          "text": "Roma'ya ve size hizmet edeceğim",
+          "effects": {
+            "caesar_relation": 25,
+            "security": 20,
+            "reputation": 50,
+            "add_ally": "praetorian_commander"
+          },
+          "consequence": "Sezar gülümsüyor. 'Akıllıca. Quintus sana yardım edecek. İsyancıları bul.'",
+          "triggers_event": "loyalty_mission_start"
+        },
+        {
+          "id": "hesitate",
+          "text": "Ne tür hizmet bekliyorsunuz?",
+          "effects": {
+            "caesar_relation": 5
+          },
+          "consequence": "Sezar'ın gözleri kısılıyor. 'Şüpheci olmak iyidir. Ama sadakatsizlik... ölümcüldür. Düşün.'",
+          "triggers_delayed_event": {
+            "event_id": "caesar_second_chance",
+            "delay_weeks": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch1_5_training_secret",
+      "week": 5,
+      "type": "story",
+      "title": "Doctore'nin Sırrı",
+      "scene": "Gece geç saatlerde arenada. Doctore tek başına antrenman yapıyor.",
+      "dialogue": [
+        {
+          "speaker": "doctore",
+          "text": "Dominus... Babanızla yıllarca çalıştım. Onun planlarını biliyordum. Şimdi siz de aynı yolda mısınız?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "trust_doctore",
+          "text": "Hangi yoldan bahsediyorsun?",
+          "effects": {
+            "security": -5
+          },
+          "path_specific": {
+            "vengeance": {
+              "consequence": "Doctore diz çöküyor. 'Gladyatörlerinizi en iyi savaşçılar yapacağım. Sezar'a karşı.'",
+              "effects": {
+                "add_ally": "doctore",
+                "training_bonus": 5
+              }
+            },
+            "loyalty": {
+              "consequence": "Doctore'nin yüzü düşüyor. 'Anlıyorum. Roma'ya sadıksınız. Ben de öyle olacağım.'",
+              "effects": {
+                "security": 5
+              }
+            }
+          }
+        },
+        {
+          "id": "dismiss_doctore",
+          "text": "Sadece işini yap",
+          "effects": {
+            "security": 10
+          },
+          "consequence": "Doctore eğiliyor. 'Evet Dominus.' Ama gözlerinde bir şey değişti."
+        }
+      ]
+    },
+    {
+      "id": "ch1_6_first_threat",
+      "week": 6,
+      "type": "threat",
+      "title": "İlk Saldırı",
+      "scene": "Gece yarısı. Ludusun duvarlarında gölgeler hareket ediyor.",
+      "dialogue": [
+        {
+          "speaker": "guard",
+          "text": "Dominus! Saldırı var! Maskeli adamlar!"
+        }
+      ],
+      "threat": {
+        "type": "raid",
+        "severity": 3,
+        "source": "unknown",
+        "base_effects": {
+          "gold": -100,
+          "gladiator_damage": 10,
+          "security": -10
+        }
+      },
+      "defense_options": [
+        {
+          "id": "fight_back",
+          "text": "Gladyatörlerle karşı koy!",
+          "requires": {
+            "min_gladiators": 2
+          },
+          "security_bonus": 20,
+          "success_text": "Saldırganları püskürtüyorsun. Bir tanesi kaçarken düşürdüğü madalyon Solonius'un armasını taşıyor.",
+          "failure_text": "Çok güçlüler. Depoları yağmalıyorlar. 200 altın kayıp.",
+          "failure_effects": {
+            "gold": -200
+          }
+        },
+        {
+          "id": "hide_valuables",
+          "text": "Değerli eşyaları sakla",
+          "security_bonus": 0,
+          "success_text": "Değerli eşyaları kurtarıyorsun ama saldırganlar gladyatörlere zarar veriyor.",
+          "failure_text": "Her şeyi buluyorlar. Büyük kayıp.",
+          "failure_effects": {
+            "gold": -300,
+            "gladiator_damage": 20
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch1_7_market_opportunity",
+      "week": 7,
+      "type": "opportunity",
+      "title": "Karaborsa Teklifi",
+      "scene": "Pazarda. Mısırlı bir tüccar yanına yaklaşıyor.",
+      "dialogue": [
+        {
+          "speaker": "egyptian_merchant",
+          "text": "Efendim, isminizi duydum. Özel mallarım var... zehirler, gizli silahlar, bilgi. İlgilenir misiniz?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "accept_merchant",
+          "text": "Ne tür bilgi?",
+          "effects": {
+            "security": -10,
+            "add_ally": "egyptian_merchant"
+          },
+          "path_specific": {
+            "vengeance": {
+              "consequence": "Ptolemy gülümsüyor. 'Sezar'ın güvenlik rotaları, muhafız değişimleri... 500 altına.'",
+              "shop_unlocks": ["poison", "secret_weapons", "intel"]
+            },
+            "loyalty": {
+              "consequence": "Ptolemy'nin teklifini not ediyorsun. Bunu Sezar'a bildirmek güzel bir sadakat gösterisi olur.",
+              "triggers_event": "report_merchant_to_caesar"
+            }
+          }
+        },
+        {
+          "id": "refuse_merchant",
+          "text": "Karaborsa ile işim olmaz",
+          "effects": {
+            "security": 10,
+            "reputation": 10
+          },
+          "consequence": "Ptolemy omuz silkiyor. 'Bilge bir karar. Ya da aptalca. Zaman gösterecek.'"
+        }
+      ]
+    },
+    {
+      "id": "ch1_8_gladiator_secret",
+      "week": 8,
+      "type": "gladiator_event",
+      "title": "Gladyatörün İtirafı",
+      "scene": "En deneyimli gladyatörün yanına geliyor, yüzünde ciddi bir ifade var.",
+      "requires_gladiator": true,
+      "dialogue": [
+        {
+          "speaker": "gladiator",
+          "text": "Dominus, söylemem gereken bir şey var. Geçen hafta gelen adamlar... bana para teklif ettiler."
+        },
+        {
+          "speaker": "gladiator",
+          "text": "Hareketlerinizi izlememi istediler. Kabul ettim ama... vicdanım rahat değil."
+        }
+      ],
+      "choices": [
+        {
+          "id": "forgive_use",
+          "text": "Afederim. Ama şimdi onlara yanlış bilgi vereceksin",
+          "effects": {
+            "gladiator_morale": 20,
+            "security": 15
+          },
+          "consequence": "Gladyatör dizlerinin üzerine çöküyor. 'Teşekkürler Dominus. Onları kandıracağım.'",
+          "triggers_event": "double_agent_gladiator"
+        },
+        {
+          "id": "punish",
+          "text": "Hainliğin cezası ağırdır",
+          "effects": {
+            "gladiator_morale": -30,
+            "gladiator_damage": 30,
+            "security": 5
+          },
+          "consequence": "Kamçı sesleri ludusta yankılanıyor. Diğer gladyatörler korku içinde izliyor."
+        },
+        {
+          "id": "sell_traitor",
+          "text": "Seni satıyorum. Git başkasına ihanet et",
+          "effects": {
+            "gold": 200,
+            "security": 10,
+            "remove_gladiator": true
+          },
+          "consequence": "Gladyatör zincire vurularak götürülüyor. 'Pişman olacaksınız Dominus!'"
+        }
+      ]
+    },
+    {
+      "id": "ch1_9_wife_pregnancy",
+      "week": 9,
+      "type": "family",
+      "requires_wife": true,
+      "title": "Müjdeli Haber",
+      "scene": "Karın seni heyecanla karşılıyor.",
+      "dialogue": [
+        {
+          "speaker": "wife",
+          "text": "Kocacığım! Harika bir haberim var! Ben... hamile olabilirim!"
+        }
+      ],
+      "choices": [
+        {
+          "id": "happy",
+          "text": "Bu harika! Bir varis!",
+          "effects": {
+            "wife_morale": 25,
+            "family_loyalty": 15
+          },
+          "consequence": "Karını kucaklıyorsun. Gözlerinde yaşlar var. Artık korumanız gereken biri daha var.",
+          "triggers_delayed_event": {
+            "event_id": "child_born",
+            "delay_weeks": 20
+          }
+        },
+        {
+          "id": "worried",
+          "text": "Şimdi mi? Tehlikeli zamanlarda...",
+          "effects": {
+            "wife_morale": -10,
+            "family_loyalty": -5
+          },
+          "consequence": "Karının yüzü düşüyor. 'Ben mutlu olacağını sanmıştım...' Odadan çıkıyor."
+        }
+      ]
+    },
+    {
+      "id": "ch1_10_chapter_end",
+      "week": 10,
+      "type": "chapter_end",
+      "title": "Yolların Ayrımı",
+      "scene": "İlk bölümün sonu. Ludusun balkonundan Roma'ya bakıyorsun.",
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "On hafta geçti. Artık kim olduğunu biliyorsun. Ama asıl sınav şimdi başlıyor."
+        }
+      ],
+      "path_specific": {
+        "vengeance": {
+          "dialogue": [
+            {
+              "speaker": "narrator",
+              "text": "Brutus'un adamları seninle. Komplo büyüyor. Ama Sezar'ın casusları her yerde."
+            }
+          ],
+          "effects": {
+            "chapter_progress": 100,
+            "conspiracy_heat": 10
+          }
+        },
+        "loyalty": {
+          "dialogue": [
+            {
+              "speaker": "narrator",
+              "text": "Sezar sana güveniyor. İsyancıları avlıyorsun. Ama karanlıkta bekleyen düşmanlar var."
+            }
+          ],
+          "effects": {
+            "chapter_progress": 100,
+            "caesar_relation": 10
+          }
+        }
+      },
+      "next_chapter": "chapter2"
+    }
+  ],
+
+  "chapter2_events": [
+    {
+      "id": "ch2_11_rising_tension",
+      "week": 11,
+      "type": "story",
+      "title": "Artan Gerilim",
+      "scene": "Yeni bölüm başlıyor. Roma'da hava değişiyor.",
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "Senatoda fısıltılar artıyor. Herkes bir şeyler planlıyor. Ve sen ortasındasın."
+        }
+      ],
+      "path_specific": {
+        "vengeance": {
+          "dialogue": [
+            {
+              "speaker": "brutus",
+              "text": "Cassius bizimle. Elli senatör daha ikna edildi. Ama daha fazla altın lazım."
+            }
+          ],
+          "choices": [
+            {
+              "id": "fund_conspiracy",
+              "text": "Ne kadar lazım?",
+              "effects": {
+                "gold": -500,
+                "conspiracy_heat": 10,
+                "add_ally": "cassius"
+              },
+              "consequence": "500 altın. Ağır bir bedel ama komplo güçleniyor."
+            },
+            {
+              "id": "refuse_fund",
+              "text": "Paramı başka şeylere harcamalıyım",
+              "effects": {
+                "conspiracy_heat": -5
+              },
+              "consequence": "Brutus hayal kırıklığıyla bakıyor. 'İntikam ucuza gelmez, dostum.'"
+            }
+          ]
+        },
+        "loyalty": {
+          "dialogue": [
+            {
+              "speaker": "praetorian_commander",
+              "text": "İsyancı hücresi tespit ettik. Seninle paylaşacağım bilgiler var."
+            }
+          ],
+          "choices": [
+            {
+              "id": "hunt_rebels",
+              "text": "Neredeler?",
+              "effects": {
+                "caesar_relation": 15,
+                "add_enemy": "rebel_cell"
+              },
+              "consequence": "İsyancıları yakalamak için operasyon başlatıyorsun.",
+              "triggers_event": "rebel_hunt"
+            },
+            {
+              "id": "wait",
+              "text": "Daha fazla bilgi toplayalım",
+              "effects": {
+                "security": 10
+              },
+              "consequence": "Acele etmiyorsun. Dikkatli olmak hayat kurtarır."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ch2_12_rival_challenge",
+      "week": 12,
+      "type": "challenge",
+      "title": "Rakibin Meydan Okuması",
+      "scene": "Solonius ludusunun önünde beliriyor, arkasında silahlı adamları var.",
+      "dialogue": [
+        {
+          "speaker": "solonius",
+          "text": "Babanın mirası senin için çok ağır! Ludusunu satın almak istiyorum. Yoksa... zorla alırım."
+        }
+      ],
+      "choices": [
+        {
+          "id": "accept_duel",
+          "text": "Arena'da konuşalım. Gladyatörler karar versin",
+          "effects": {
+            "reputation": 30
+          },
+          "triggers_event": "solonius_arena_duel",
+          "consequence": "Solonius sırıtıyor. 'Kabul. Bir hafta sonra, küçük arenada. Kaybeden ludusunu kapatır.'"
+        },
+        {
+          "id": "refuse_negotiate",
+          "text": "Defol git! Burada senin işin yok",
+          "effects": {
+            "add_enemy": "solonius",
+            "security": -15
+          },
+          "consequence": "Solonius'un yüzü kararıyor. 'Pişman olacaksın.' Dönüp gidiyor.",
+          "triggers_delayed_event": {
+            "event_id": "solonius_revenge",
+            "delay_weeks": 3
+          }
+        },
+        {
+          "id": "bribe",
+          "text": "500 altın ve barış yapalım",
+          "requires": {
+            "min_gold": 500
+          },
+          "effects": {
+            "gold": -500,
+            "security": 10
+          },
+          "consequence": "Solonius altınları alıyor. 'Akıllıca. Şimdilik.' Geçici bir barış."
+        }
+      ]
+    },
+    {
+      "id": "ch2_14_spy_network",
+      "week": 14,
+      "type": "story",
+      "title": "Casus Ağı",
+      "scene": "Gizemli bir mesaj alıyorsun: 'Gece yarısı, eski su kemerinin altında. Yalnız gel.'",
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "Tehlikeli olabilir. Ama bilgi güçtür."
+        }
+      ],
+      "choices": [
+        {
+          "id": "go_alone",
+          "text": "Yalnız git",
+          "effects": {
+            "security": -20
+          },
+          "triggers_event": "spy_meeting",
+          "consequence": "Karanlıkta bir figür beliriyor. Corvus adında bir casus. Satılık bilgileri var."
+        },
+        {
+          "id": "bring_guards",
+          "text": "Muhafızlarla git",
+          "effects": {
+            "security": 10
+          },
+          "consequence": "Vardiğında kimse yok. Mesaj sahibi muhafızları görmüş olmalı. Fırsat kaçtı."
+        },
+        {
+          "id": "ignore",
+          "text": "Tuzak olabilir, gitme",
+          "effects": {
+            "security": 15
+          },
+          "consequence": "Dikkatli davranıyorsun. Ama merak içinde kalıyorsun."
+        }
+      ]
+    },
+    {
+      "id": "ch2_15_family_crisis",
+      "week": 15,
+      "type": "family",
+      "requires_wife": true,
+      "title": "Aile Krizi",
+      "scene": "Karın ağlayarak odana giriyor.",
+      "dialogue": [
+        {
+          "speaker": "wife",
+          "text": "Birisi beni takip ediyor! Pazara giderken, eve dönerken... hep aynı adam!"
+        }
+      ],
+      "choices": [
+        {
+          "id": "hire_guards",
+          "text": "Sana özel muhafızlar tutacağım",
+          "effects": {
+            "gold": -100,
+            "wife_morale": 20,
+            "family_loyalty": 10,
+            "security": 5
+          },
+          "consequence": "İki eski gladyatörü karının koruması olarak görevlendiriyorsun."
+        },
+        {
+          "id": "investigate",
+          "text": "O adamı bulmam lazım",
+          "effects": {
+            "security": -10
+          },
+          "triggers_event": "stalker_investigation",
+          "consequence": "Takipçiyi araştırmaya başlıyorsun."
+        },
+        {
+          "id": "dismiss",
+          "text": "Abartıyorsun, paranoyak olma",
+          "effects": {
+            "wife_morale": -20,
+            "family_loyalty": -15
+          },
+          "consequence": "Karın sana inanamayarak bakıyor. 'Sen... sen beni korumayacak mısın?'",
+          "triggers_delayed_event": {
+            "event_id": "wife_kidnap_attempt",
+            "delay_weeks": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch2_17_arena_fame",
+      "week": 17,
+      "type": "opportunity",
+      "title": "Arena'da Şöhret",
+      "scene": "Gladyatörün büyük bir zafer kazandı. Halk onu seviyor.",
+      "requires_gladiator": true,
+      "dialogue": [
+        {
+          "speaker": "crowd",
+          "text": "Spartacus! Spartacus! Spartacus!"
+        },
+        {
+          "speaker": "narrator",
+          "text": "Halk gladyatörünü 'Yeni Spartacus' olarak çağırıyor. Bu tehlikeli bir isim."
+        }
+      ],
+      "choices": [
+        {
+          "id": "embrace_fame",
+          "text": "Bu şöhreti kullan - İsyan sembolü olsun",
+          "requires_path": "vengeance",
+          "effects": {
+            "reputation": 50,
+            "conspiracy_heat": 20,
+            "gladiator_morale": 30
+          },
+          "consequence": "Gladyatörün artık bir sembol. İsyancılar için umut, Sezar için tehdit."
+        },
+        {
+          "id": "suppress_fame",
+          "text": "Bu ismi yasakla - Tehlikeli",
+          "effects": {
+            "reputation": -20,
+            "gladiator_morale": -15,
+            "security": 15
+          },
+          "consequence": "Gladyatörün hayal kırıklığına uğruyor ama Sezar'ın dikkatini çekmiyorsun."
+        },
+        {
+          "id": "report_to_caesar",
+          "text": "Sezar'a bildir - Sadakatini göster",
+          "requires_path": "loyalty",
+          "effects": {
+            "caesar_relation": 20,
+            "gladiator_morale": -30,
+            "security": 20
+          },
+          "consequence": "Sezar memnun. 'Akıllıca. Spartacus isyanını bir daha yaşamayacağız.'"
+        }
+      ]
+    },
+    {
+      "id": "ch2_18_betrayal_hint",
+      "week": 18,
+      "type": "story",
+      "title": "İhanet Kokusu",
+      "scene": "Gece geç saatlerde uyanıyorsun. Eşinin yatağı boş.",
+      "requires_wife": true,
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "Karının odasından mum ışığı sızıyor. İçeride biriyle konuşuyor."
+        }
+      ],
+      "choices": [
+        {
+          "id": "spy_on_wife",
+          "text": "Sessizce dinle",
+          "effects": {
+            "family_loyalty": -10
+          },
+          "triggers_event": "wife_secret_revealed",
+          "consequence": "Kulak kabartıyorsun..."
+        },
+        {
+          "id": "confront",
+          "text": "İçeri dal",
+          "effects": {
+            "wife_morale": -15
+          },
+          "path_specific": {
+            "vengeance": {
+              "consequence": "Karın Marcus Aurelius ile konuşuyor. 'O da komploda. Sana yardım etmek istiyor.'",
+              "effects": {
+                "add_ally": "fathers_friend",
+                "wife_morale": 10
+              }
+            },
+            "loyalty": {
+              "consequence": "Karın bir Praetorian ile konuşuyor. Sezar seni izliyor - karın aracılığıyla.",
+              "effects": {
+                "wife_loyalty_revealed": true,
+                "security": 20
+              }
+            }
+          }
+        },
+        {
+          "id": "ignore",
+          "text": "Yatağa geri dön, bilmemesi gereken şeyler var",
+          "effects": {
+            "security": 5
+          },
+          "consequence": "Bazı şeyleri bilmemek daha iyi. Ama merak içini kemiriyor."
+        }
+      ]
+    },
+    {
+      "id": "ch2_20_child_born",
+      "week": 20,
+      "type": "family",
+      "requires_wife": true,
+      "requires_event": "child_born",
+      "title": "Varis Doğdu!",
+      "scene": "Çığlıklar duyuluyor evden. Ebe koşarak geliyor.",
+      "dialogue": [
+        {
+          "speaker": "midwife",
+          "text": "Dominus! Gelin! Çocuğunuz doğdu!"
+        }
+      ],
+      "auto_effect": {
+        "add_child": true,
+        "family_loyalty": 20,
+        "wife_morale": 30
+      },
+      "choices": [
+        {
+          "id": "name_after_father",
+          "text": "Babamın adını veriyorum",
+          "effects": {
+            "reputation": 20
+          },
+          "consequence": "Çocuğun adı artık ailenin onurunu taşıyor.",
+          "child_name": "father"
+        },
+        {
+          "id": "name_strategic",
+          "text": "Sezar'ın onuruna bir isim",
+          "requires_path": "loyalty",
+          "effects": {
+            "caesar_relation": 15
+          },
+          "consequence": "Sezar bu jesti duyacak ve memnun olacak.",
+          "child_name": "Julius"
+        },
+        {
+          "id": "name_freedom",
+          "text": "Özgürlük anlamına gelen bir isim",
+          "requires_path": "vengeance",
+          "effects": {
+            "conspiracy_heat": 5
+          },
+          "consequence": "Libertas. Özgürlük. Gizli bir mesaj.",
+          "child_name": "Libertas"
+        }
+      ]
+    },
+    {
+      "id": "ch2_22_colosseum_invitation",
+      "week": 22,
+      "type": "opportunity",
+      "title": "Colosseum Daveti",
+      "scene": "Resmi bir mektup geliyor. Sezar'ın mührünü taşıyor.",
+      "dialogue": [
+        {
+          "speaker": "letter",
+          "text": "Roma Diktatörü Julius Sezar, sizi Colosseum'daki büyük oyunlara davet ediyor. Gladyatörlerinizin katılımı beklenmektedir."
+        }
+      ],
+      "choices": [
+        {
+          "id": "accept_gladly",
+          "text": "Büyük bir onur! Kabul ediyorum",
+          "effects": {
+            "reputation": 50,
+            "caesar_relation": 10
+          },
+          "consequence": "Colosseum kapıları açılıyor. Büyük sahne hazır.",
+          "unlocks": ["colosseum_fights"]
+        },
+        {
+          "id": "accept_reluctantly",
+          "text": "Kabul et ama dikkatli ol",
+          "effects": {
+            "reputation": 30,
+            "security": 10
+          },
+          "consequence": "Fırsat ve tehlike iç içe. Hazırlıklı olmalısın.",
+          "unlocks": ["colosseum_fights"]
+        }
+      ]
+    },
+    {
+      "id": "ch2_25_chapter_end",
+      "week": 25,
+      "type": "chapter_end",
+      "title": "Gölgelerin Eşiğinde",
+      "scene": "İkinci bölüm sona eriyor. Büyük savaş yaklaşıyor.",
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "Yirmi beş hafta. Artık Roma'nın tanıdığı bir isimsin. Ama asıl tehlike şimdi başlıyor."
+        }
+      ],
+      "path_specific": {
+        "vengeance": {
+          "dialogue": [
+            {
+              "speaker": "brutus",
+              "text": "Plan hazır. Mart'ın ortasında Sezar Colosseum'da olacak. Ve biz de."
+            }
+          ],
+          "effects": {
+            "chapter_progress": 100
+          }
+        },
+        "loyalty": {
+          "dialogue": [
+            {
+              "speaker": "praetorian_commander",
+              "text": "İsyancılar harekete geçecek. Sezar'ı korumalıyız."
+            }
+          ],
+          "effects": {
+            "chapter_progress": 100
+          }
+        }
+      },
+      "next_chapter": "chapter3"
+    }
+  ],
+
+  "chapter3_events": [
+    {
+      "id": "ch3_26_shadows_begin",
+      "week": 26,
+      "type": "story",
+      "title": "Gölgeler Beliriyor",
+      "scene": "Üçüncü bölüm. Roma karanlık bir hal alıyor.",
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "Gerilim had safhada. Herkes birbirini izliyor. Güvenebileceğin kişiler azalıyor."
+        }
+      ],
+      "path_specific": {
+        "vengeance": {
+          "choices": [
+            {
+              "id": "accelerate_plan",
+              "text": "Planı hızlandır",
+              "effects": {
+                "conspiracy_heat": 20,
+                "security": -15
+              },
+              "consequence": "Risk artıyor ama zaman daralıyor."
+            },
+            {
+              "id": "be_patient",
+              "text": "Sabırlı ol, doğru anı bekle",
+              "effects": {
+                "security": 10
+              },
+              "consequence": "Dikkatli adımlar. Ama Brutus sabırsızlanıyor."
+            }
+          ]
+        },
+        "loyalty": {
+          "choices": [
+            {
+              "id": "set_trap",
+              "text": "İsyancılara tuzak kur",
+              "effects": {
+                "caesar_relation": 20,
+                "security": -10
+              },
+              "consequence": "Tehlikeli bir oyun başlıyor.",
+              "triggers_event": "rebel_trap"
+            },
+            {
+              "id": "gather_evidence",
+              "text": "Daha fazla kanıt topla",
+              "effects": {
+                "security": 15
+              },
+              "consequence": "Sabırla çalışıyorsun. Gerçekler ortaya çıkacak."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ch3_28_assassination_attempt",
+      "week": 28,
+      "type": "threat",
+      "title": "Suikast Girişimi!",
+      "scene": "Gecenin karanlığında odasında uyurken bir gölge beliriyor.",
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "Bıçağın parıltısını son anda görüyorsun!"
+        }
+      ],
+      "threat": {
+        "type": "assassination",
+        "severity": 7,
+        "source_by_path": {
+          "vengeance": "Sezar'ın casusları",
+          "loyalty": "İsyancılar"
+        },
+        "base_effects": {
+          "health": -50,
+          "security": -20
+        }
+      },
+      "defense_options": [
+        {
+          "id": "fight",
+          "text": "Suikastçıyla savaş!",
+          "security_bonus": 30,
+          "success_text": "Suikastçıyı alt ediyorsun. Son nefesinde 'Bu daha başlangıç' diyor.",
+          "failure_text": "Bıçak omzuna saplanıyor. Ağır yaralısın ama hayattasın.",
+          "failure_effects": {
+            "health": -30,
+            "week_skip": 1
+          }
+        },
+        {
+          "id": "call_guards",
+          "text": "Muhafızları çağır!",
+          "security_bonus": 10,
+          "success_text": "Muhafızlar suikastçıyı yakalıyor. Sorguya çekeceksin.",
+          "success_triggers": "interrogate_assassin",
+          "failure_text": "Suikastçı kaçıyor ama seni yaralıyor.",
+          "failure_effects": {
+            "health": -20
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch3_30_big_crisis",
+      "week": 30,
+      "type": "crisis",
+      "title": "Büyük Kriz",
+      "scene": "Her şey bir anda değişiyor.",
+      "path_specific": {
+        "vengeance": {
+          "dialogue": [
+            {
+              "speaker": "spy",
+              "text": "Dominus! Sezar'ın casusları Brutus'un evini basacak! Yarın gece!"
+            }
+          ],
+          "choices": [
+            {
+              "id": "warn_brutus",
+              "text": "Brutus'u uyar!",
+              "effects": {
+                "conspiracy_heat": 30,
+                "add_ally": "brutus_inner"
+              },
+              "consequence": "Brutus kaçıyor ama komplo tehlikeye giriyor.",
+              "triggers_event": "conspiracy_exposed"
+            },
+            {
+              "id": "let_happen",
+              "text": "Müdahale etme, kendini koru",
+              "effects": {
+                "security": 20,
+                "remove_ally": "brutus"
+              },
+              "consequence": "Brutus yakalanıyor. Komplo çöküyor. Ama sen güvendesin.",
+              "triggers_event": "change_path_offer"
+            }
+          ]
+        },
+        "loyalty": {
+          "dialogue": [
+            {
+              "speaker": "praetorian_commander",
+              "text": "İsyancılar saldırıya geçecek! Ludusun hedef!"
+            }
+          ],
+          "choices": [
+            {
+              "id": "defend_ludus",
+              "text": "Ludus'u savun!",
+              "effects": {
+                "security": -20
+              },
+              "triggers_event": "ludus_siege",
+              "consequence": "Büyük bir savaş başlıyor."
+            },
+            {
+              "id": "evacuate",
+              "text": "Aileyi kaçır, ludus'u feda et",
+              "effects": {
+                "gold": -500,
+                "family_loyalty": 30,
+                "reputation": -30
+              },
+              "consequence": "Ludus hasar görüyor ama ailen güvende."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ch3_32_wife_choice",
+      "week": 32,
+      "type": "family",
+      "requires_wife": true,
+      "title": "Karının Kararı",
+      "scene": "Karın ciddi bir yüz ifadesiyle karşında.",
+      "dialogue": [
+        {
+          "speaker": "wife",
+          "text": "Artık her şeyi biliyorum. Ve bir karar vermem lazım."
+        }
+      ],
+      "path_specific": {
+        "vengeance": {
+          "dialogue": [
+            {
+              "speaker": "wife",
+              "text": "Sezar'a karşı komplo kuruyorsun. Ben de seninle miyim... yoksa ailemizi korumak için seni ihbar mı etmeliyim?"
+            }
+          ],
+          "choices": [
+            {
+              "id": "convince_wife",
+              "text": "Bu ailemiz için. Roma'nın geleceği için",
+              "requires": {
+                "min_family_loyalty": 60
+              },
+              "effects": {
+                "wife_morale": 20,
+                "family_loyalty": 20,
+                "add_ally": "wife"
+              },
+              "consequence": "Karın sana sarılıyor. 'Sonuna kadar yanındayım.'"
+            },
+            {
+              "id": "threaten_wife",
+              "text": "Bizi ele verirsen...",
+              "effects": {
+                "wife_morale": -40,
+                "family_loyalty": -30,
+                "wife_loyalty": false
+              },
+              "consequence": "Karının gözlerinde korku ve nefret. Bu iyi bitmeyecek.",
+              "triggers_delayed_event": {
+                "event_id": "wife_betrayal",
+                "delay_weeks": 5
+              }
+            }
+          ]
+        },
+        "loyalty": {
+          "dialogue": [
+            {
+              "speaker": "wife",
+              "text": "Sezar için çalışıyorsun. İnsanları ihbar ediyorsun. Bu doğru mu?"
+            }
+          ],
+          "choices": [
+            {
+              "id": "justify",
+              "text": "Roma'yı koruyorum. Ailemizi koruyorum",
+              "requires": {
+                "min_family_loyalty": 50
+              },
+              "effects": {
+                "wife_morale": 10,
+                "family_loyalty": 10
+              },
+              "consequence": "Karın başını sallıyor. 'Umarım haklısındır.'"
+            },
+            {
+              "id": "lie",
+              "text": "Hayır, bunlar dedikodu",
+              "effects": {
+                "wife_morale": -10,
+                "family_loyalty": -15
+              },
+              "consequence": "Karın sana inanmıyor. Aranızda bir duvar örülüyor."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ch3_35_child_danger",
+      "week": 35,
+      "type": "family",
+      "requires_child": true,
+      "title": "Çocuğun Tehlikede!",
+      "scene": "Uşak soluk soluğa koşarak geliyor.",
+      "dialogue": [
+        {
+          "speaker": "servant",
+          "text": "Dominus! Genç efendiyi/hanımı kaçırmaya çalıştılar! Muhafızlar son anda engelledi!"
+        }
+      ],
+      "choices": [
+        {
+          "id": "increase_security",
+          "text": "Güvenliği artır - 300 altın",
+          "requires": {
+            "min_gold": 300
+          },
+          "effects": {
+            "gold": -300,
+            "security": 25,
+            "family_loyalty": 15
+          },
+          "consequence": "Ev artık bir kale gibi. Ama düşman hala dışarıda."
+        },
+        {
+          "id": "send_away",
+          "text": "Çocuğu güvenli bir yere gönder",
+          "effects": {
+            "children_safe": true,
+            "family_loyalty": -10,
+            "wife_morale": -20
+          },
+          "consequence": "Çocuk uzak bir villa'ya gönderiliyor. Güvende ama uzakta."
+        },
+        {
+          "id": "retaliate",
+          "text": "Saldırganları bul ve cezalandır!",
+          "effects": {
+            "security": -15,
+            "reputation": 20
+          },
+          "triggers_event": "hunt_kidnappers",
+          "consequence": "İntikam zamanı. Kimse ailene dokunamaz."
+        }
+      ]
+    },
+    {
+      "id": "ch3_38_traitor_revealed",
+      "week": 38,
+      "type": "story",
+      "title": "Hain Ortaya Çıkıyor",
+      "scene": "Yıllardır güvendiğin biri... hain çıkıyor.",
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "Gerçek acıtır. Ama bilmek güçtür."
+        }
+      ],
+      "path_specific": {
+        "vengeance": {
+          "dialogue": [
+            {
+              "speaker": "spy",
+              "text": "Cassius... Sezar'ın adamıymış. Komplonun içinden bilgi sızdırıyormuş."
+            }
+          ],
+          "choices": [
+            {
+              "id": "eliminate_cassius",
+              "text": "Cassius'u ortadan kaldır",
+              "effects": {
+                "remove_ally": "cassius",
+                "conspiracy_heat": -20,
+                "security": 15
+              },
+              "consequence": "Bir hain daha az. Ama Brutus üzgün.",
+              "triggers_event": "cassius_elimination"
+            },
+            {
+              "id": "use_cassius",
+              "text": "Onu kullan - yanlış bilgi ver",
+              "effects": {
+                "security": 25
+              },
+              "consequence": "Cassius'a yanlış bilgi veriyorsun. Sezar yanılacak.",
+              "triggers_event": "double_cross"
+            }
+          ]
+        },
+        "loyalty": {
+          "dialogue": [
+            {
+              "speaker": "praetorian_commander",
+              "text": "Doctore... isyancılarla çalışıyormuş. Gladyatörleri ayaklandırmaya çalışıyor."
+            }
+          ],
+          "choices": [
+            {
+              "id": "arrest_doctore",
+              "text": "Doctore'yi tutuklat",
+              "effects": {
+                "remove_ally": "doctore",
+                "gladiator_morale": -30,
+                "caesar_relation": 20
+              },
+              "consequence": "Doctore zincire vurularak götürülüyor. Gladyatörler şok içinde."
+            },
+            {
+              "id": "confront_doctore",
+              "text": "Doctore ile yüzleş",
+              "effects": {
+                "security": -10
+              },
+              "triggers_event": "doctore_confrontation",
+              "consequence": "Doctore ile baş başa konuşma zamanı."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ch3_40_chapter_end",
+      "week": 40,
+      "type": "chapter_end",
+      "title": "Fırtına Öncesi",
+      "scene": "Üçüncü bölüm sona eriyor. Final yaklaşıyor.",
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "Kırk hafta. Artık geri dönüş yok. Son perde açılmak üzere."
+        }
+      ],
+      "path_specific": {
+        "vengeance": {
+          "dialogue": [
+            {
+              "speaker": "brutus",
+              "text": "On hafta kaldı. Sezar Colosseum'da olacak. Hazır mısın?"
+            }
+          ],
+          "effects": {
+            "chapter_progress": 100
+          }
+        },
+        "loyalty": {
+          "dialogue": [
+            {
+              "speaker": "caesar",
+              "text": "Sadakatini kanıtladın. Şimdi son bir görev: İsyancıları tamamen yok et."
+            }
+          ],
+          "effects": {
+            "chapter_progress": 100
+          }
+        }
+      },
+      "next_chapter": "chapter4"
+    }
+  ],
+
+  "chapter4_events": [
+    {
+      "id": "ch4_41_final_preparations",
+      "week": 41,
+      "type": "story",
+      "title": "Son Hazırlıklar",
+      "scene": "Final bölümü başlıyor. Her şey son hızla ilerliyor.",
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "On hafta kaldı. Her karar, her adım kritik. Geri dönüş yok."
+        }
+      ],
+      "path_specific": {
+        "vengeance": {
+          "choices": [
+            {
+              "id": "prepare_weapons",
+              "text": "Gizli silahlar hazırla - 500 altın",
+              "requires": {
+                "min_gold": 500
+              },
+              "effects": {
+                "gold": -500,
+                "conspiracy_heat": 15,
+                "final_bonus": 20
+              },
+              "consequence": "Zehirli hançerler, gizli kılıçlar... Arsenal hazır."
+            },
+            {
+              "id": "train_gladiators",
+              "text": "Gladyatörleri suikast için eğit",
+              "effects": {
+                "conspiracy_heat": 20,
+                "gladiator_morale": 20,
+                "final_bonus": 15
+              },
+              "consequence": "Gladyatörler artık sadece savaşçı değil, suikastçı."
+            }
+          ]
+        },
+        "loyalty": {
+          "choices": [
+            {
+              "id": "set_final_trap",
+              "text": "İsyancılara büyük tuzak kur",
+              "effects": {
+                "caesar_relation": 25,
+                "security": -20,
+                "final_bonus": 20
+              },
+              "consequence": "Büyük operasyon hazır. İsyancılar tuzağa düşecek."
+            },
+            {
+              "id": "strengthen_defenses",
+              "text": "Sezar'ın güvenliğini güçlendir",
+              "effects": {
+                "caesar_relation": 15,
+                "security": 20,
+                "final_bonus": 10
+              },
+              "consequence": "Colosseum'da ekstra güvenlik önlemleri alınıyor."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ch4_43_family_decision",
+      "week": 43,
+      "type": "family",
+      "title": "Aile Kararı",
+      "scene": "Finale yaklaşırken, ailen için son bir karar vermelisin.",
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "Ya her şey yolunda giderse? Ya gitmezse? Ailen ne olacak?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "send_family_away",
+          "text": "Aileni Roma'dan uzaklaştır",
+          "effects": {
+            "wife_morale": -20,
+            "family_loyalty": -10,
+            "security": 30
+          },
+          "consequence": "Ailen güvende ama finale yalnız gireceksin."
+        },
+        {
+          "id": "keep_family_close",
+          "text": "Ailen yanında kalsın",
+          "effects": {
+            "wife_morale": 10,
+            "family_loyalty": 20,
+            "security": -20
+          },
+          "consequence": "Birlikte kazanacak veya kaybedeceksiniz."
+        },
+        {
+          "id": "fake_family_death",
+          "text": "Aileni 'öldür' - sahte cenaze",
+          "requires": {
+            "min_gold": 1000
+          },
+          "effects": {
+            "gold": -1000,
+            "security": 40,
+            "wife_morale": -30
+          },
+          "consequence": "Kimse ailenin hayatta olduğunu bilmiyor. Tam gizlilik."
+        }
+      ]
+    },
+    {
+      "id": "ch4_45_final_choice",
+      "week": 45,
+      "type": "critical",
+      "title": "Son Seçim",
+      "scene": "Beş hafta kaldı. Son bir şans: Yolunu değiştirebilirsin.",
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "Bu son fırsat. Bundan sonra geri dönüş yok."
+        }
+      ],
+      "path_specific": {
+        "vengeance": {
+          "dialogue": [
+            {
+              "speaker": "spy",
+              "text": "Sezar bir teklif gönderiyor. Af ve servet karşılığında komploya ihanet et."
+            }
+          ],
+          "choices": [
+            {
+              "id": "stay_vengeance",
+              "text": "Hayır. Babamın intikamını alacağım",
+              "effects": {
+                "conspiracy_heat": 20,
+                "final_path": "vengeance_true"
+              },
+              "consequence": "Kararın kesin. Sezar ya ölecek ya da sen."
+            },
+            {
+              "id": "betray_conspiracy",
+              "text": "Kabul ediyorum. Brutus'u ele ver",
+              "effects": {
+                "path_change": "loyalty",
+                "caesar_relation": 50,
+                "remove_ally": "brutus",
+                "add_enemy": "brutus"
+              },
+              "consequence": "Hain oldun. Ama hayatta kalacaksın... belki.",
+              "triggers_event": "betray_brutus"
+            }
+          ]
+        },
+        "loyalty": {
+          "dialogue": [
+            {
+              "speaker": "brutus",
+              "text": "Son bir şans. Bize katıl. Sezar'ın tiranlığı sona ermeli."
+            }
+          ],
+          "choices": [
+            {
+              "id": "stay_loyalty",
+              "text": "Roma'ya ve Sezar'a sadığım",
+              "effects": {
+                "caesar_relation": 25,
+                "final_path": "loyalty_true"
+              },
+              "consequence": "Kararın kesin. İsyancıları yok edeceksin."
+            },
+            {
+              "id": "join_conspiracy_late",
+              "text": "Haklısın. Sezar ölmeli",
+              "effects": {
+                "path_change": "vengeance",
+                "conspiracy_heat": 30,
+                "add_ally": "brutus",
+                "add_enemy": "caesar"
+              },
+              "consequence": "Geç de olsa doğru taraftasın... belki.",
+              "triggers_event": "late_join_conspiracy"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ch4_47_ides_preparation",
+      "week": 47,
+      "type": "story",
+      "title": "Mart'ın Ortası Yaklaşıyor",
+      "scene": "Üç hafta kaldı. Colosseum'da büyük oyunlar hazırlanıyor.",
+      "dialogue": [
+        {
+          "speaker": "herald",
+          "text": "Büyük oyunlar üç hafta sonra! Sezar bizzat katılacak!"
+        }
+      ],
+      "path_specific": {
+        "vengeance": {
+          "effects": {
+            "conspiracy_heat": 15
+          },
+          "dialogue": [
+            {
+              "speaker": "brutus",
+              "text": "Plan hazır. Gladyatörlerin suikast sırasında kargaşa yaratacak. Sen yaklaş ve..."
+            }
+          ]
+        },
+        "loyalty": {
+          "effects": {
+            "caesar_relation": 10
+          },
+          "dialogue": [
+            {
+              "speaker": "praetorian_commander",
+              "text": "İstihbarat aldık. Suikast oyunlar sırasında olacak. Hazır olmalıyız."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ch4_49_eve_of_battle",
+      "week": 49,
+      "type": "story",
+      "title": "Savaş Arifesi",
+      "scene": "Bir gece kaldı. Roma sessiz ama gergin.",
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "Yarın her şey değişecek. Ya zafer ya ölüm. Üçüncü bir yol yok."
+        }
+      ],
+      "path_specific": {
+        "vengeance": {
+          "choices": [
+            {
+              "id": "pray",
+              "text": "Tanrılara dua et",
+              "effects": {
+                "luck": 10
+              },
+              "consequence": "Mars ve Fortuna'ya dua ediyorsun. Belki dinlerler."
+            },
+            {
+              "id": "final_check",
+              "text": "Son kontrolleri yap",
+              "effects": {
+                "final_bonus": 10
+              },
+              "consequence": "Her şey hazır. Planı bir kez daha gözden geçiriyorsun."
+            }
+          ]
+        },
+        "loyalty": {
+          "choices": [
+            {
+              "id": "meet_caesar",
+              "text": "Sezar ile son toplantı",
+              "effects": {
+                "caesar_relation": 15,
+                "final_bonus": 10
+              },
+              "consequence": "Sezar sana bakıyor. 'Yarın Roma'nın geleceğini belirleyeceksin.'"
+            },
+            {
+              "id": "prepare_trap",
+              "text": "Tuzağı son kez kontrol et",
+              "effects": {
+                "security": 15,
+                "final_bonus": 10
+              },
+              "consequence": "Her şey hazır. İsyancılar tuzağa yürüyecek."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ch4_50_finale",
+      "week": 50,
+      "type": "finale",
+      "title": "MART'IN ORTASI",
+      "scene": "Büyük gün geldi. Colosseum dolu. Sezar locasında.",
+      "dialogue": [
+        {
+          "speaker": "narrator",
+          "text": "Kalabalık çılgınca tezahürat yapıyor. Gladyatörler arenada. Ve sen... kaderini belirleyecek bir adım atmak üzeresin."
+        }
+      ],
+      "finale_check": true,
+      "endings": {
+        "vengeance_victory": {
+          "requirements": {
+            "path": "vengeance",
+            "min_conspiracy_heat": 0,
+            "max_conspiracy_heat": 70,
+            "allies_contain": ["brutus"],
+            "min_final_bonus": 20
+          },
+          "title": "ZAFER - Sezar Düştü",
+          "description": "Gladyatörlerin kargaşa yaratırken sen ve Brutus Sezar'a yaklaşıyorsunuz. 'Et tu, Brute?' Sezar'ın son sözleri. Diktatör düşüyor. Roma özgür... ama ne pahasına?",
+          "effects": {
+            "reputation": 500,
+            "gold": 5000
+          },
+          "epilogue": "Roma'nın yeni çağı başlıyor. Sen ise babanın intikamını aldın. Ama iç savaş kapıda..."
+        },
+        "vengeance_pyrrhic": {
+          "requirements": {
+            "path": "vengeance",
+            "family_alive": false
+          },
+          "title": "PİRUS ZAFERİ - Bedeli Ağır",
+          "description": "Sezar öldü ama ailen de. Karın, çocuğun... hepsi kurban gitti. Zafer ağzında kül tadı bırakıyor.",
+          "effects": {
+            "reputation": 300
+          },
+          "epilogue": "Babanın intikamını aldın ama soyun sona erdi. Değdi mi?"
+        },
+        "vengeance_caught": {
+          "requirements": {
+            "path": "vengeance",
+            "min_conspiracy_heat": 71
+          },
+          "title": "YAKALADIN - Arenada İdam",
+          "description": "Çok dikkat çektin. Praetorian muhafızları seni yakalıyor. Sezar'ın önünde diz çöktürülüyorsun. 'Babanın hainliği kanında' diyor ve başparmağını aşağı indiriyor.",
+          "effects": {
+            "game_over": true
+          },
+          "epilogue": "Arenada öldün, halkın gözü önünde. Ama belki... belki bu bir kıvılcım yakar."
+        },
+        "vengeance_exile": {
+          "requirements": {
+            "path": "vengeance",
+            "no_allies": true
+          },
+          "title": "KAÇIŞ - Sürgün",
+          "description": "Plan çöktü. Müttefiklerin dağıldı. Karanlıkta Roma'dan kaçıyorsun. Ama hayattasın.",
+          "effects": {
+            "gold": -1000
+          },
+          "epilogue": "Uzak diyarlarda yeni bir hayat. Belki bir gün dönersin..."
+        },
+        "loyalty_glory": {
+          "requirements": {
+            "path": "loyalty",
+            "min_caesar_relation": 60,
+            "min_security": 50
+          },
+          "title": "ROMA'NIN YILDIZI - Zafer",
+          "description": "İsyancılar tuzağa düşüyor. Brutus ve diğerleri yakalanıyor. Sezar seni kucaklıyor. 'Roma'nın en sadık evladı' ilan ediliyorsun.",
+          "effects": {
+            "reputation": 1000,
+            "gold": 10000,
+            "caesar_relation": 100
+          },
+          "epilogue": "Roma'nın en güçlü adamlarından biri oldun. Sezar'ın sağ kolu. Ama tarih seni nasıl anacak?"
+        },
+        "loyalty_tragedy": {
+          "requirements": {
+            "path": "loyalty",
+            "min_caesar_relation": 30,
+            "max_caesar_relation": 59
+          },
+          "title": "TRAJEDİ - Paranoya Kurbanı",
+          "description": "Sezar başarının ardından paranoyaklaşıyor. Herkesten şüpheleniyor. Seni de. Bir gece Praetorian'lar kapına dayanıyor...",
+          "effects": {
+            "game_over": true
+          },
+          "epilogue": "Sadakat bile yetmedi. Sezar'ın paranoyası seni yuttu."
+        },
+        "loyalty_balance": {
+          "requirements": {
+            "path": "loyalty",
+            "allies_contain": ["brutus"]
+          },
+          "title": "DENGE - Barış Yapıcı",
+          "description": "Son anda Brutus'u affettirdin. İsyancılarla barış sağladın. Sezar şüpheli ama kabul etti. Roma kan dökmeden yeni bir sayfa açıyor.",
+          "effects": {
+            "reputation": 500,
+            "caesar_relation": 30
+          },
+          "epilogue": "Ne kahraman ne hain. Ama belki de en zor yolu seçtin: barış."
+        },
+        "double_agent": {
+          "requirements": {
+            "path_changes": true
+          },
+          "title": "ÇİFTE AJAN - İki Yüzlü",
+          "description": "İki tarafı da oynadın. Şimdi ikisi de düşman. Roma'da sığınacak yer kalmadı.",
+          "effects": {
+            "game_over": true
+          },
+          "epilogue": "Herkes seni arıyor. Kaçış yok. Belki de bunu hak ettin."
+        }
+      }
+    }
+  ],
+
+  "random_events": [
+    {
+      "id": "random_tax_collector",
+      "week_min": 5,
+      "week_max": 45,
+      "chance": 15,
+      "cooldown": 10,
+      "type": "opportunity",
+      "title": "Vergi Tahsildarı",
+      "dialogue": [
+        {
+          "speaker": "tax_collector",
+          "text": "Roma'nın vergilerini topluyorum. Ludusunuz 200 altın borçlu."
+        }
+      ],
+      "choices": [
+        {
+          "id": "pay",
+          "text": "Öde",
+          "requires": { "min_gold": 200 },
+          "effects": { "gold": -200, "reputation": 10 }
+        },
+        {
+          "id": "bribe",
+          "text": "Rüşvet ver - 100 altın",
+          "requires": { "min_gold": 100 },
+          "effects": { "gold": -100, "security": -10 }
+        },
+        {
+          "id": "refuse",
+          "text": "Reddet",
+          "effects": { "reputation": -30, "add_threat": "tax_raid" }
+        }
+      ]
+    },
+    {
+      "id": "random_gladiator_escape",
+      "week_min": 8,
+      "week_max": 45,
+      "chance": 10,
+      "cooldown": 15,
+      "requires_gladiator": true,
+      "type": "crisis",
+      "title": "Kaçış Girişimi!",
+      "dialogue": [
+        {
+          "speaker": "guard",
+          "text": "Dominus! Bir gladyatör kaçmaya çalışıyor!"
+        }
+      ],
+      "choices": [
+        {
+          "id": "pursue",
+          "text": "Yakala ve cezalandır",
+          "effects": { "gladiator_morale": -20, "security": 10 }
+        },
+        {
+          "id": "let_go",
+          "text": "Bırak gitsin",
+          "effects": { "remove_gladiator": true, "gladiator_morale": 10 }
+        },
+        {
+          "id": "kill",
+          "text": "Örnek olsun diye öldür",
+          "effects": { "remove_gladiator": true, "gladiator_morale": -40, "security": 20 }
+        }
+      ]
+    },
+    {
+      "id": "random_plague",
+      "week_min": 15,
+      "week_max": 40,
+      "chance": 8,
+      "cooldown": 20,
+      "type": "crisis",
+      "title": "Veba Salgını!",
+      "dialogue": [
+        {
+          "speaker": "doctor",
+          "text": "Dominus, ludusta hastalık yayılıyor! Hızlı hareket etmeliyiz!"
+        }
+      ],
+      "choices": [
+        {
+          "id": "quarantine",
+          "text": "Karantina uygula - 1 hafta kayıp",
+          "effects": { "week_skip": 1, "security": 10 }
+        },
+        {
+          "id": "treat",
+          "text": "Doktor getir - 300 altın",
+          "requires": { "min_gold": 300 },
+          "effects": { "gold": -300 }
+        },
+        {
+          "id": "ignore",
+          "text": "Görmezden gel",
+          "effects": { "gladiator_damage_all": 20, "wife_morale": -30 }
+        }
+      ]
+    },
+    {
+      "id": "random_merchant_offer",
+      "week_min": 5,
+      "week_max": 48,
+      "chance": 20,
+      "cooldown": 8,
+      "type": "opportunity",
+      "title": "Tüccar Teklifi",
+      "dialogue": [
+        {
+          "speaker": "merchant",
+          "text": "Özel bir teklif var efendim. Çok değerli mallar, çok uygun fiyata."
+        }
+      ],
+      "choices": [
+        {
+          "id": "buy_weapons",
+          "text": "Silahlar - 200 altın (+10 güç tüm gladyatörlere)",
+          "requires": { "min_gold": 200 },
+          "effects": { "gold": -200, "gladiator_strength_all": 10 }
+        },
+        {
+          "id": "buy_armor",
+          "text": "Zırhlar - 250 altın (+15 sağlık tüm gladyatörlere)",
+          "requires": { "min_gold": 250 },
+          "effects": { "gold": -250, "gladiator_health_all": 15 }
+        },
+        {
+          "id": "buy_info",
+          "text": "Bilgi - 150 altın (+10 güvenlik)",
+          "requires": { "min_gold": 150 },
+          "effects": { "gold": -150, "security": 10 }
+        },
+        {
+          "id": "refuse",
+          "text": "İlgilenmiyorum",
+          "effects": {}
+        }
+      ]
+    },
+    {
+      "id": "random_senator_visit",
+      "week_min": 10,
+      "week_max": 45,
+      "chance": 12,
+      "cooldown": 12,
+      "type": "opportunity",
+      "title": "Senatör Ziyareti",
+      "dialogue": [
+        {
+          "speaker": "senator",
+          "text": "Ludusunuzun ünü senatoya kadar ulaştı. Özel bir gösteri düzenler misiniz?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "accept",
+          "text": "Tabii ki, şeref olur",
+          "effects": { "reputation": 50, "gold": 300 }
+        },
+        {
+          "id": "negotiate",
+          "text": "500 altına anlaşalım",
+          "effects": { "reputation": 30, "gold": 500 }
+        },
+        {
+          "id": "refuse",
+          "text": "Meşgulüm",
+          "effects": { "reputation": -20 }
+        }
+      ]
+    },
+    {
+      "id": "random_rival_sabotage",
+      "week_min": 12,
+      "week_max": 45,
+      "chance": 15,
+      "cooldown": 10,
+      "type": "threat",
+      "title": "Sabotaj!",
+      "dialogue": [
+        {
+          "speaker": "guard",
+          "text": "Dominus! Birisi su kuyumuzu zehirlemiş!"
+        }
+      ],
+      "threat": {
+        "type": "sabotage",
+        "severity": 4,
+        "base_effects": { "gladiator_damage_all": 15, "gold": -100 }
+      },
+      "defense_options": [
+        {
+          "id": "investigate",
+          "text": "Araştır",
+          "security_bonus": 15,
+          "success_text": "Suçluyu buldun: Solonius'un adamı. İntikam zamanı.",
+          "failure_text": "Suçluyu bulamadın ama hasarı sınırladın."
+        }
+      ]
+    },
+    {
+      "id": "random_rebellion_whispers",
+      "week_min": 20,
+      "week_max": 45,
+      "chance": 10,
+      "cooldown": 15,
+      "requires_gladiator": true,
+      "type": "crisis",
+      "title": "İsyan Fısıltıları",
+      "dialogue": [
+        {
+          "speaker": "spy",
+          "text": "Dominus, gladyatörler arasında isyan konuşuluyor. Lider kim belli değil."
+        }
+      ],
+      "choices": [
+        {
+          "id": "raise_morale",
+          "text": "Moral artır - Ziyafet ver (200 altın)",
+          "requires": { "min_gold": 200 },
+          "effects": { "gold": -200, "gladiator_morale": 30 }
+        },
+        {
+          "id": "find_leader",
+          "text": "Lideri bul ve cezalandır",
+          "effects": { "gladiator_morale": -20, "remove_gladiator": true, "security": 15 }
+        },
+        {
+          "id": "promise_freedom",
+          "text": "Özgürlük vaadi ver",
+          "effects": { "gladiator_morale": 40, "reputation": -20 }
+        }
+      ]
+    },
+    {
+      "id": "random_fire",
+      "week_min": 10,
+      "week_max": 48,
+      "chance": 8,
+      "cooldown": 20,
+      "type": "crisis",
+      "title": "Yangın!",
+      "dialogue": [
+        {
+          "speaker": "servant",
+          "text": "Yangın var Dominus! Depolar yanıyor!"
+        }
+      ],
+      "choices": [
+        {
+          "id": "save_gold",
+          "text": "Altınları kurtar",
+          "effects": { "gladiator_damage_all": 10 }
+        },
+        {
+          "id": "save_gladiators",
+          "text": "Gladyatörleri kurtar",
+          "effects": { "gold": -300, "gladiator_morale": 20 }
+        },
+        {
+          "id": "fight_fire",
+          "text": "Yangınla savaş",
+          "security_roll": true,
+          "success_effects": { "reputation": 20 },
+          "failure_effects": { "gold": -200, "gladiator_damage_all": 15 }
+        }
+      ]
+    },
+    {
+      "id": "random_rich_patron",
+      "week_min": 8,
+      "week_max": 45,
+      "chance": 12,
+      "cooldown": 12,
+      "type": "opportunity",
+      "title": "Zengin Patron",
+      "dialogue": [
+        {
+          "speaker": "patron",
+          "text": "Ludusunuza sponsor olmak istiyorum. Karşılığında... bazı hizmetler isteyeceğim."
+        }
+      ],
+      "choices": [
+        {
+          "id": "accept_patron",
+          "text": "Kabul et - Haftalık +50 altın, -10 özgürlük",
+          "effects": { "weekly_gold_bonus": 50, "security": -10 }
+        },
+        {
+          "id": "negotiate_patron",
+          "text": "Şartları tartış",
+          "effects": { "weekly_gold_bonus": 30, "reputation": 10 }
+        },
+        {
+          "id": "refuse_patron",
+          "text": "Bağımsızlığımı koruyorum",
+          "effects": { "reputation": 20, "security": 5 }
+        }
+      ]
+    },
+    {
+      "id": "random_old_friend",
+      "week_min": 15,
+      "week_max": 40,
+      "chance": 10,
+      "cooldown": 25,
+      "type": "story",
+      "title": "Eski Bir Dost",
+      "dialogue": [
+        {
+          "speaker": "old_friend",
+          "text": "Babanla birlikte savaştık. Şimdi sana yardım etmek istiyorum."
+        }
+      ],
+      "path_specific": {
+        "vengeance": {
+          "choices": [
+            {
+              "id": "accept_help",
+              "text": "Yardımını kabul et",
+              "effects": { "add_ally": "old_friend", "conspiracy_heat": 5 }
+            }
+          ]
+        },
+        "loyalty": {
+          "choices": [
+            {
+              "id": "report_friend",
+              "text": "Sezar'a bildir",
+              "effects": { "caesar_relation": 15, "remove_ally": "old_friend" }
+            },
+            {
+              "id": "hide_friend",
+              "text": "Gizlice yardım et",
+              "effects": { "security": -15, "family_loyalty": 10 }
+            }
+          ]
+        }
+      }
+    }
+  ],
+
+  "threats": [
+    {
+      "id": "tax_raid",
+      "type": "raid",
+      "severity": 5,
+      "delay": 2,
+      "description": "Vergi tahsildarları güçlü muhafızlarla geliyor",
+      "effects": { "gold": -400, "reputation": -30 }
+    },
+    {
+      "id": "solonius_raid",
+      "type": "raid",
+      "severity": 6,
+      "delay": 1,
+      "description": "Solonius'un adamları gece baskını yapıyor",
+      "effects": { "gold": -300, "gladiator_damage_random": 30 }
+    },
+    {
+      "id": "assassination_basic",
+      "type": "assassination",
+      "severity": 5,
+      "delay": 0,
+      "description": "Kimliği belirsiz bir suikastçı",
+      "effects": { "health": -40 }
+    },
+    {
+      "id": "kidnap_wife",
+      "type": "kidnap",
+      "severity": 7,
+      "delay": 1,
+      "description": "Karını kaçırmaya çalışıyorlar",
+      "effects": { "wife_kidnapped": true, "ransom": 1000 }
+    },
+    {
+      "id": "kidnap_child",
+      "type": "kidnap",
+      "severity": 8,
+      "delay": 1,
+      "description": "Çocuğunu kaçırmaya çalışıyorlar",
+      "effects": { "child_kidnapped": true, "ransom": 2000 }
+    },
+    {
+      "id": "gladiator_rebellion",
+      "type": "rebellion",
+      "severity": 6,
+      "delay": 2,
+      "description": "Gladyatörler ayaklanıyor",
+      "effects": { "lose_gladiators": 2, "reputation": -50 }
+    }
+  ]
+}

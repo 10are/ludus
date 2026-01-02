@@ -14,6 +14,7 @@ import 'settings_screen.dart';
 import '../services/save_service.dart';
 import 'weekly_story_screen.dart';
 import 'weekly_event_screen.dart';
+import 'main_story_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -619,18 +620,38 @@ class _WeeklyExpensesSheet extends StatelessWidget {
     Navigator.pop(context);
     final result = game.paySalaries();
 
+    // Tehditleri işle
+    final threatResults = game.processActiveThreats();
+
     // Auto-save after week advance
     await SaveService.autoSave(game.state);
 
     if (!context.mounted) return;
 
-    // Story kontrolü - hafta geçişinden sonra story var mı?
+    // Tehdit sonuçlarını göster (eğer varsa)
+    if (threatResults.hasThreats) {
+      _showThreatResults(context, game, threatResults, result);
+      return;
+    }
+
+    // Ana hikaye eventi kontrolü (öncelikli)
+    final mainStoryEvent = await game.getCurrentMainStoryEvent();
+
+    if (!context.mounted) return;
+
+    if (mainStoryEvent != null) {
+      // Ana hikaye eventi göster
+      _showMainStoryEvent(context, game, mainStoryEvent, result);
+      return;
+    }
+
+    // Weekly story kontrolü
     final story = await game.getCurrentWeekStory();
 
     if (!context.mounted) return;
 
     if (story != null) {
-      // Story göster (öncelikli)
+      // Story göster
       _showWeeklyStory(context, game, story, result);
     } else {
       // Story yoksa event kontrolü yap
@@ -651,6 +672,118 @@ class _WeeklyExpensesSheet extends StatelessWidget {
         );
       }
     }
+  }
+
+  void _showMainStoryEvent(BuildContext context, GladiatorGame game, Map<String, dynamic> event, SalaryResult weekResult) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (newContext) => ChangeNotifierProvider.value(
+          value: game,
+          child: MainStoryScreen(
+            event: event,
+            onComplete: () {
+              if (newContext.mounted) {
+                Navigator.pop(newContext);
+                // Ana hikaye bittikten sonra weekly story kontrolü
+                _checkForWeeklyStoryAfterMainStory(context, game, weekResult);
+              }
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _checkForWeeklyStoryAfterMainStory(BuildContext context, GladiatorGame game, SalaryResult weekResult) async {
+    final story = await game.getCurrentWeekStory();
+
+    if (!context.mounted) return;
+
+    if (story != null) {
+      _showWeeklyStory(context, game, story, weekResult);
+    } else {
+      _checkForEventAfterStory(context, game, weekResult);
+    }
+  }
+
+  void _showThreatResults(BuildContext context, GladiatorGame game, ThreatProcessResult threatResults, SalaryResult weekResult) {
+    // Tehdit sonuçlarını göster
+    final messages = threatResults.results.map((r) => r.message).join('\n\n');
+    final anyFailed = threatResults.anySucceeded;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: GameConstants.primaryDark,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(
+            color: anyFailed ? Colors.red : Colors.green,
+            width: 2,
+          ),
+        ),
+        title: Row(
+          children: [
+            Icon(
+              anyFailed ? Icons.warning : Icons.shield,
+              color: anyFailed ? Colors.red : Colors.green,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              anyFailed ? 'TEHDİT!' : 'GÜVENLİK',
+              style: TextStyle(
+                color: anyFailed ? Colors.red : Colors.green,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              messages,
+              style: const TextStyle(color: Colors.white),
+            ),
+            const SizedBox(height: 16),
+            // Güvenlik durumu
+            Row(
+              children: [
+                const Icon(Icons.shield, color: Colors.blue, size: 16),
+                const SizedBox(width: 8),
+                Text(
+                  'Güvenlik: ${game.state.mainStory.security}',
+                  style: const TextStyle(color: Colors.blue),
+                ),
+              ],
+            ),
+          ],
+        ),
+        actions: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: anyFailed ? Colors.red : Colors.green,
+            ),
+            onPressed: () async {
+              Navigator.pop(ctx);
+              // Tehdit sonrası ana hikaye kontrolü
+              final mainStoryEvent = await game.getCurrentMainStoryEvent();
+              if (!context.mounted) return;
+
+              if (mainStoryEvent != null) {
+                _showMainStoryEvent(context, game, mainStoryEvent, weekResult);
+              } else {
+                _checkForWeeklyStoryAfterMainStory(context, game, weekResult);
+              }
+            },
+            child: const Text('DEVAM'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _showWeeklyStory(BuildContext context, GladiatorGame game, Map<String, dynamic> story, SalaryResult weekResult) {

@@ -116,6 +116,7 @@ class SaveService {
       'seenStories': state.seenStories.toList(),
       'seenEvents': state.seenEvents.toList(),
       'storyChoices': state.storyChoices,
+      'mainStory': _mainStoryToJson(state.mainStory),
       'savedAt': DateTime.now().toIso8601String(),
     };
   }
@@ -159,6 +160,9 @@ class SaveService {
           : null,
       storyChoices: json['storyChoices'] != null
           ? Map<String, bool>.from(json['storyChoices'] as Map)
+          : null,
+      mainStory: json['mainStory'] != null
+          ? _mainStoryFromJson(json['mainStory'] as Map<String, dynamic>)
           : null,
     );
     return state;
@@ -361,6 +365,114 @@ class SaveService {
       name: json['name'] as String,
       isMale: json['isMale'] as bool,
       birthWeek: json['birthWeek'] as int,
+    );
+  }
+
+  /// MainStory -> JSON
+  static Map<String, dynamic> _mainStoryToJson(MainStory story) {
+    return {
+      'path': story.path.index,
+      'chapter': story.chapter.index,
+      'chapterProgress': story.chapterProgress,
+      'caesarRelation': story.caesarRelation,
+      'security': story.security,
+      'conspiracyHeat': story.conspiracyHeat,
+      'keyDecisions': story.keyDecisions,
+      'allies': story.allies.toList(),
+      'enemies': story.enemies.toList(),
+      'wifeAlive': story.wifeAlive,
+      'wifeLoyalty': story.wifeLoyalty,
+      'childrenSafe': story.childrenSafe,
+      'familyLoyalty': story.familyLoyalty,
+      'seenMainEvents': story.seenMainEvents.toList(),
+      'pendingEvents': story.pendingEvents.map((e) => _pendingEventToJson(e)).toList(),
+      'activeThreats': story.activeThreats.map((t) => _activeThreatToJson(t)).toList(),
+    };
+  }
+
+  /// JSON -> MainStory
+  static MainStory _mainStoryFromJson(Map<String, dynamic> json) {
+    return MainStory(
+      path: StoryPath.values[json['path'] as int? ?? 0],
+      chapter: StoryChapter.values[json['chapter'] as int? ?? 0],
+      chapterProgress: json['chapterProgress'] as int? ?? 0,
+      caesarRelation: json['caesarRelation'] as int? ?? 0,
+      security: json['security'] as int? ?? 50,
+      conspiracyHeat: json['conspiracyHeat'] as int? ?? 0,
+      keyDecisions: json['keyDecisions'] != null
+          ? Map<String, String>.from(json['keyDecisions'] as Map)
+          : null,
+      allies: json['allies'] != null
+          ? Set<String>.from(json['allies'] as List)
+          : null,
+      enemies: json['enemies'] != null
+          ? Set<String>.from(json['enemies'] as List)
+          : null,
+      wifeAlive: json['wifeAlive'] as bool? ?? true,
+      wifeLoyalty: json['wifeLoyalty'] as bool? ?? true,
+      childrenSafe: json['childrenSafe'] as bool? ?? true,
+      familyLoyalty: json['familyLoyalty'] as int? ?? 70,
+      seenMainEvents: json['seenMainEvents'] != null
+          ? Set<String>.from(json['seenMainEvents'] as List)
+          : null,
+      pendingEvents: json['pendingEvents'] != null
+          ? (json['pendingEvents'] as List)
+              .map((e) => _pendingEventFromJson(e as Map<String, dynamic>))
+              .toList()
+          : null,
+      activeThreats: json['activeThreats'] != null
+          ? (json['activeThreats'] as List)
+              .map((t) => _activeThreatFromJson(t as Map<String, dynamic>))
+              .toList()
+          : null,
+    );
+  }
+
+  /// PendingStoryEvent -> JSON
+  static Map<String, dynamic> _pendingEventToJson(PendingStoryEvent event) {
+    return {
+      'id': event.id,
+      'eventId': event.eventId,
+      'triggerWeek': event.triggerWeek,
+      'condition': event.condition,
+      'triggered': event.triggered,
+    };
+  }
+
+  /// JSON -> PendingStoryEvent
+  static PendingStoryEvent _pendingEventFromJson(Map<String, dynamic> json) {
+    return PendingStoryEvent(
+      id: json['id'] as String,
+      eventId: json['eventId'] as String,
+      triggerWeek: json['triggerWeek'] as int,
+      condition: json['condition'] as String?,
+      triggered: json['triggered'] as bool? ?? false,
+    );
+  }
+
+  /// ActiveThreat -> JSON
+  static Map<String, dynamic> _activeThreatToJson(ActiveThreat threat) {
+    return {
+      'id': threat.id,
+      'type': threat.type,
+      'source': threat.source,
+      'description': threat.description,
+      'severity': threat.severity,
+      'turnsRemaining': threat.turnsRemaining,
+      'effects': threat.effects,
+    };
+  }
+
+  /// JSON -> ActiveThreat
+  static ActiveThreat _activeThreatFromJson(Map<String, dynamic> json) {
+    return ActiveThreat(
+      id: json['id'] as String,
+      type: json['type'] as String,
+      source: json['source'] as String,
+      description: json['description'] as String,
+      severity: json['severity'] as int,
+      turnsRemaining: json['turnsRemaining'] as int,
+      effects: Map<String, dynamic>.from(json['effects'] as Map? ?? {}),
     );
   }
 

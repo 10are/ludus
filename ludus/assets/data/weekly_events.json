@@ -9,7 +9,7 @@
       "chance": 30,
       "requires_wife": true,
       "speaker": "Lucretia",
-      "speaker_image": "assets/wife.png",
+      "speaker_image": "assets/karin.jpg",
       "dialogue": "Kocacigim, pazarda cok guzel bir kolye gordum. Beni ne kadar sevdigini gostermek istemez misin?",
       "choice": {
         "question": "Lucretia'nin istegi:",
@@ -44,7 +44,7 @@
       "requires_no_child": true,
       "min_wife_morale": 70,
       "speaker": "Lucretia",
-      "speaker_image": "assets/wife.png",
+      "speaker_image": "assets/karin.jpg",
       "dialogue": "Kocacigim, artik bir cocuk sahibi olmak istiyorum. Ailemizi buyutelim mi?",
       "choice": {
         "question": "Lucretia cocuk istiyor:",
@@ -191,7 +191,7 @@
       "chance": 25,
       "requires_wife": true,
       "speaker": "Lucretia",
-      "speaker_image": "assets/wife.png",
+      "speaker_image": "assets/karin.jpg",
       "dialogue": "Kocacigim, senatorde bir davet var. Yeni bir elbise almam lazim, 100 altin yeter.",
       "choice": {
         "question": "Lucretia'nin istegi:",

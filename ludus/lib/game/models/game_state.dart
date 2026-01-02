@@ -67,6 +67,199 @@ enum StaffRole { doctor, trainer, servant }
 // Görev türleri
 enum MissionType { fixFight, rentGladiator, sabotage, senatorFavor, training, poison, bribe, patronage }
 
+// Ana hikaye yolu
+enum StoryPath { none, vengeance, loyalty }
+
+// Ana hikaye bölümü
+enum StoryChapter {
+  prologue,    // Hafta 1-3: Giriş
+  chapter1,    // Hafta 4-10: Miras
+  chapter2,    // Hafta 11-25: Yükseliş
+  chapter3,    // Hafta 26-40: Gölgeler
+  chapter4,    // Hafta 41-50: Fırtına
+  finale       // Hafta 50+: Son Perde
+}
+
+// Ana hikaye durumu
+class MainStory {
+  StoryPath path;
+  StoryChapter chapter;
+  int chapterProgress; // Bölüm içi ilerleme (0-100)
+  int caesarRelation; // Sezar ile ilişki (-100 to +100)
+  int security; // Güvenlik seviyesi (0-100) - komplo koruması
+  int conspiracyHeat; // Komplo ısısı (0-100) - yakalanma riski (sadece vengeance)
+
+  // Kritik kararlar
+  Map<String, String> keyDecisions;
+
+  // Müttefikler
+  Set<String> allies;
+  Set<String> enemies;
+
+  // Aile durumu
+  bool wifeAlive;
+  bool wifeLoyalty; // true = sana sadık, false = casusluk yapıyor
+  bool childrenSafe;
+  int familyLoyalty; // 0-100
+
+  // Görülen ana hikaye olayları
+  Set<String> seenMainEvents;
+
+  // Bekleyen olaylar (gelecek haftalarda tetiklenecek)
+  List<PendingStoryEvent> pendingEvents;
+
+  // Aktif tehditler
+  List<ActiveThreat> activeThreats;
+
+  MainStory({
+    this.path = StoryPath.none,
+    this.chapter = StoryChapter.prologue,
+    this.chapterProgress = 0,
+    this.caesarRelation = 0,
+    this.security = 50,
+    this.conspiracyHeat = 0,
+    Map<String, String>? keyDecisions,
+    Set<String>? allies,
+    Set<String>? enemies,
+    this.wifeAlive = true,
+    this.wifeLoyalty = true,
+    this.childrenSafe = true,
+    this.familyLoyalty = 70,
+    Set<String>? seenMainEvents,
+    List<PendingStoryEvent>? pendingEvents,
+    List<ActiveThreat>? activeThreats,
+  }) : keyDecisions = keyDecisions ?? {},
+       allies = allies ?? {},
+       enemies = enemies ?? {},
+       seenMainEvents = seenMainEvents ?? {},
+       pendingEvents = pendingEvents ?? [],
+       activeThreats = activeThreats ?? [];
+
+  // Güvenlik modifiye et
+  void modifySecurity(int amount) {
+    security = (security + amount).clamp(0, 100);
+  }
+
+  // Komplo ısısı modifiye et
+  void modifyConspiracyHeat(int amount) {
+    conspiracyHeat = (conspiracyHeat + amount).clamp(0, 100);
+  }
+
+  // Sezar ilişkisi modifiye et
+  void modifyCaesarRelation(int amount) {
+    caesarRelation = (caesarRelation + amount).clamp(-100, 100);
+  }
+
+  // Aile sadakati modifiye et
+  void modifyFamilyLoyalty(int amount) {
+    familyLoyalty = (familyLoyalty + amount).clamp(0, 100);
+  }
+
+  // Bölümü güncelle (haftaya göre)
+  void updateChapter(int week) {
+    if (week <= 3) {
+      chapter = StoryChapter.prologue;
+    } else if (week <= 10) {
+      chapter = StoryChapter.chapter1;
+    } else if (week <= 25) {
+      chapter = StoryChapter.chapter2;
+    } else if (week <= 40) {
+      chapter = StoryChapter.chapter3;
+    } else if (week <= 50) {
+      chapter = StoryChapter.chapter4;
+    } else {
+      chapter = StoryChapter.finale;
+    }
+  }
+
+  // Sezar ile iletişim seviyesi (itibara göre)
+  String getCaesarAccessLevel(int reputation) {
+    if (reputation < 100) return 'unknown'; // Tanınmıyor
+    if (reputation < 300) return 'known'; // Biliniyor ama iletişim yok
+    if (reputation < 500) return 'messenger'; // Haberci ile iletişim
+    if (reputation < 800) return 'audience'; // Yılda 1 huzur
+    if (reputation < 1200) return 'trusted'; // Doğrudan iletişim
+    return 'inner_circle'; // İç çember
+  }
+
+  // Reset
+  void reset() {
+    path = StoryPath.none;
+    chapter = StoryChapter.prologue;
+    chapterProgress = 0;
+    caesarRelation = 0;
+    security = 50;
+    conspiracyHeat = 0;
+    keyDecisions.clear();
+    allies.clear();
+    enemies.clear();
+    wifeAlive = true;
+    wifeLoyalty = true;
+    childrenSafe = true;
+    familyLoyalty = 70;
+    seenMainEvents.clear();
+    pendingEvents.clear();
+    activeThreats.clear();
+  }
+}
+
+// Bekleyen hikaye olayı (gelecekte tetiklenecek)
+class PendingStoryEvent {
+  final String id;
+  final String eventId; // main_story.json'daki event ID
+  final int triggerWeek; // Tetiklenme haftası
+  final String? condition; // Opsiyonel koşul
+  bool triggered;
+
+  PendingStoryEvent({
+    required this.id,
+    required this.eventId,
+    required this.triggerWeek,
+    this.condition,
+    this.triggered = false,
+  });
+}
+
+// Aktif tehdit (komplo, suikast, sabotaj vs)
+class ActiveThreat {
+  final String id;
+  final String type; // 'assassination', 'sabotage', 'kidnap', 'betrayal', 'raid'
+  final String source; // Tehdidin kaynağı
+  final String description;
+  int severity; // 1-10 şiddet
+  int turnsRemaining; // Kalan hafta (0 = bu hafta)
+  final Map<String, dynamic> effects; // Başarısız olursa etkiler
+
+  ActiveThreat({
+    required this.id,
+    required this.type,
+    required this.source,
+    required this.description,
+    required this.severity,
+    required this.turnsRemaining,
+    required this.effects,
+  });
+
+  // Tehdit dice roll hesaplama
+  // security: Oyuncunun güvenlik puanı
+  // Döner: true = tehdit savuşturuldu, false = tehdit başarılı
+  bool rollDefense(int security, int luck) {
+    // Base şans: %50
+    // Her güvenlik puanı +0.5% şans
+    // Her şiddet seviyesi -5% şans
+    // Şans bonusu: luck/10 %
+    final baseChance = 50;
+    final securityBonus = (security * 0.5).round();
+    final severityPenalty = severity * 5;
+    final luckBonus = (luck / 10).round();
+
+    final successChance = (baseChance + securityBonus - severityPenalty + luckBonus).clamp(5, 95);
+
+    final roll = DateTime.now().millisecondsSinceEpoch % 100;
+    return roll < successChance;
+  }
+}
+
 // Çocuk sınıfı
 class Child {
   final String id;
@@ -173,6 +366,9 @@ class GameState {
   // İnteraktif hikaye seçimleri (oyuncunun kararları)
   Map<String, bool> storyChoices; // Örn: {"helped_stranger": true, "trusted_uncle": false}
 
+  // Ana hikaye
+  MainStory mainStory;
+
   GameState({
     this.phase = GamePhase.menu,
     this.gold = GameConstants.startingGold,
@@ -191,15 +387,17 @@ class GameState {
     Set<String>? seenStories,
     Set<String>? seenEvents,
     Map<String, bool>? storyChoices,
+    MainStory? mainStory,
   })  : gladiators = gladiators ?? createStartingGladiators(),
-        fights = fights ?? _createInitialFights(),
+        fights = fights ?? _createWeeklyFights(week),
         rivals = rivals ?? _createRivals(),
         staff = staff ?? _createInitialStaff(),
         activeMissions = activeMissions ?? [],
         children = children ?? [],
         seenStories = seenStories ?? {},
         seenEvents = seenEvents ?? {},
-        storyChoices = storyChoices ?? {};
+        storyChoices = storyChoices ?? {},
+        mainStory = mainStory ?? MainStory();
 
   // Savaşabilir gladyatörler
   List<Gladiator> get availableForFight => gladiators.where((g) => g.canFight).toList();
@@ -244,7 +442,146 @@ class GameState {
   }
 
   void _regenerateFights() {
-    fights = _createInitialFights();
+    fights = _createWeeklyFights(week);
+  }
+
+  // Hafta bazlı dinamik dövüş oluşturma
+  static List<FightOpportunity> _createWeeklyFights(int week) {
+    final fights = <FightOpportunity>[];
+
+    // Yeraltı dövüşleri
+    final undergroundCount = GameConstants.getUndergroundFightsPerWeek(week);
+    for (int i = 0; i < undergroundCount; i++) {
+      final basePower = 20 + (i * 10);
+      final baseReward = 150 + (i * 50);
+      fights.add(FightOpportunity(
+        id: 'fight_underground_${week}_$i',
+        title: _getUndergroundFightName(i),
+        description: _getUndergroundFightDesc(i),
+        type: FightType.underground,
+        reward: GameConstants.getScaledReward(baseReward, week),
+        difficulty: GameConstants.getScaledDifficulty(1 + (i ~/ 2), week),
+        enemyPower: GameConstants.getScaledEnemyPower(basePower, week),
+        requiredReputation: 0,
+      ));
+    }
+
+    // Küçük arena dövüşleri (5. haftadan sonra)
+    if (week >= 5) {
+      final smallArenaCount = GameConstants.getSmallArenaFightsPerWeek(week);
+      for (int i = 0; i < smallArenaCount; i++) {
+        final basePower = 35 + (i * 15);
+        final baseReward = 400 + (i * 100);
+        fights.add(FightOpportunity(
+          id: 'fight_small_${week}_$i',
+          title: _getSmallArenaFightName(i),
+          description: _getSmallArenaFightDesc(i),
+          type: FightType.smallArena,
+          reward: GameConstants.getScaledReward(baseReward, week),
+          difficulty: GameConstants.getScaledDifficulty(2 + (i ~/ 2), week),
+          enemyPower: GameConstants.getScaledEnemyPower(basePower, week),
+          requiredReputation: GameConstants.getRequiredReputation(week, 'smallArena'),
+        ));
+      }
+    }
+
+    // Büyük arena dövüşleri (15. haftadan sonra)
+    if (week >= 15) {
+      final bigArenaCount = GameConstants.getBigArenaFightsPerWeek(week);
+      for (int i = 0; i < bigArenaCount; i++) {
+        final basePower = 55 + (i * 20);
+        final baseReward = 1000 + (i * 400);
+        fights.add(FightOpportunity(
+          id: 'fight_big_${week}_$i',
+          title: _getBigArenaFightName(i),
+          description: _getBigArenaFightDesc(i),
+          type: FightType.bigArena,
+          reward: GameConstants.getScaledReward(baseReward, week),
+          difficulty: GameConstants.getScaledDifficulty(4 + i, week),
+          enemyPower: GameConstants.getScaledEnemyPower(basePower, week),
+          requiredReputation: GameConstants.getRequiredReputation(week, 'bigArena'),
+        ));
+      }
+    }
+
+    // 50. Hafta: Colosseum'da Büyük Final Dövüşü (Caesar önünde)
+    if (week == GameConstants.finalWeek) {
+      fights.add(FightOpportunity(
+        id: 'fight_finale_caesar',
+        title: 'COLOSSEUM FİNALİ',
+        description: 'İmparator Caesar\'ın huzurunda son büyük dövüş. Tüm Roma izliyor!',
+        type: FightType.bigArena,
+        reward: 5000,
+        difficulty: 6,
+        enemyPower: 120, // Çok güçlü rakip
+        requiredReputation: 200,
+      ));
+    }
+
+    return fights;
+  }
+
+  // Yeraltı dövüşü isimleri
+  static String _getUndergroundFightName(int index) {
+    const names = [
+      'Karanlık Mahzen',
+      'Gece Arenası',
+      'Kanlı Bodrum',
+      'Gizli Ring',
+      'Yeraltı Kumarhanesi',
+    ];
+    return names[index.clamp(0, names.length - 1)];
+  }
+
+  static String _getUndergroundFightDesc(int index) {
+    const descs = [
+      'Yasadışı yeraltı dövüşü',
+      'Gizli kumarhane dövüşü',
+      'Ölümüne dövüş',
+      'Karanlık sokaklarda gizli maç',
+      'Zenginlerin gizli eğlencesi',
+    ];
+    return descs[index.clamp(0, descs.length - 1)];
+  }
+
+  // Küçük arena isimleri
+  static String _getSmallArenaFightName(int index) {
+    const names = [
+      'Yerel Arena',
+      'Capua Arenası',
+      'Neapolis Oyunları',
+      'Pompeii Festivali',
+    ];
+    return names[index.clamp(0, names.length - 1)];
+  }
+
+  static String _getSmallArenaFightDesc(int index) {
+    const descs = [
+      'Kasaba arenasında halka açık dövüş',
+      'Capua\'da gösteri',
+      'Neapolis şehrinde turnuva',
+      'Pompeii\'nin büyük oyunları',
+    ];
+    return descs[index.clamp(0, descs.length - 1)];
+  }
+
+  // Büyük arena isimleri
+  static String _getBigArenaFightName(int index) {
+    const names = [
+      'Colosseum',
+      'İmparator Önünde',
+      'Şampiyonlar Ligi',
+    ];
+    return names[index.clamp(0, names.length - 1)];
+  }
+
+  static String _getBigArenaFightDesc(int index) {
+    const descs = [
+      'Roma\'nın kalbinde büyük gösteri',
+      'İmparatorun huzurunda dövüş',
+      'En iyi gladyatörler arasında turnuva',
+    ];
+    return descs[index.clamp(0, descs.length - 1)];
   }
 
   // Eş morali değiştir
@@ -277,7 +614,7 @@ class GameState {
     week = 1;
     reputation = 0;
     gladiators = createStartingGladiators();
-    fights = _createInitialFights();
+    fights = _createWeeklyFights(1);
     rivals = _createRivals();
     staff = _createInitialStaff();
     activeMissions = [];
@@ -289,50 +626,8 @@ class GameState {
     seenStories = {};
     seenEvents = {};
     storyChoices = {};
+    mainStory.reset();
   }
-}
-
-// Başlangıç dövüşleri
-List<FightOpportunity> _createInitialFights() {
-  return [
-    FightOpportunity(
-      id: 'fight_underground_1',
-      title: 'Yeraltı Dövüşü',
-      description: 'Karanlık bir mahzende yasadışı dövüş',
-      type: FightType.underground,
-      reward: GameConstants.undergroundFightReward,
-      difficulty: 1,
-      enemyPower: 25,
-    ),
-    FightOpportunity(
-      id: 'fight_underground_2',
-      title: 'Gece Arenası',
-      description: 'Gizli kumarhane dövüşü',
-      type: FightType.underground,
-      reward: GameConstants.undergroundFightReward + 50,
-      difficulty: 2,
-      enemyPower: 35,
-    ),
-    FightOpportunity(
-      id: 'fight_small_1',
-      title: 'Yerel Arena',
-      description: 'Kasaba arenasında halka açık dövüş',
-      type: FightType.smallArena,
-      reward: GameConstants.smallArenaReward,
-      difficulty: 2,
-      enemyPower: 40,
-    ),
-    FightOpportunity(
-      id: 'fight_big_1',
-      title: 'Colosseum',
-      description: 'Roma\'nın kalbinde büyük gösteri',
-      type: FightType.bigArena,
-      reward: GameConstants.bigArenaReward,
-      difficulty: 4,
-      enemyPower: 60,
-      isAvailable: false, // Sonra açılacak
-    ),
-  ];
 }
 
 // Rakipler

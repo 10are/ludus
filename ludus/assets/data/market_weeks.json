@@ -5,58 +5,12 @@
       "title": "Yeni Gelenler",
       "description": "Taze köle kervanı Roma'ya ulaştı",
       "slaves": [
-        {
-          "id": "slave_w1_1",
-          "name": "Spartacus",
-          "origin": "Trakya",
-          "age": 28,
-          "health": 90,
-          "strength": 45,
-          "intelligence": 35,
-          "stamina": 50,
-          "price": 300,
-          "image": "assets/defaultasker.png",
-          "description": "Güçlü ve isyankar"
-        },
-        {
-          "id": "slave_w1_2",
-          "name": "Crixus",
-          "origin": "Galya",
-          "age": 30,
-          "health": 95,
-          "strength": 55,
-          "intelligence": 25,
-          "stamina": 45,
-          "price": 350,
-          "image": "assets/defaultasker.png",
-          "description": "Vahşi bir savaşçı"
-        },
-        {
-          "id": "slave_w1_3",
-          "name": "Agron",
-          "origin": "Germania",
-          "age": 26,
-          "health": 85,
-          "strength": 40,
-          "intelligence": 30,
-          "stamina": 55,
-          "price": 280,
-          "image": "assets/defaultasker.png",
-          "description": "Sadık ve dayanıklı"
-        }
+        {"id": "slave_w1_1", "name": "Spartacus", "origin": "Trakya", "age": 28, "health": 90, "strength": 45, "intelligence": 35, "stamina": 50, "price": 300, "image": "assets/defaultasker.png", "description": "Güçlü ve isyankar"},
+        {"id": "slave_w1_2", "name": "Crixus", "origin": "Galya", "age": 30, "health": 95, "strength": 55, "intelligence": 25, "stamina": 45, "price": 350, "image": "assets/defaultasker.png", "description": "Vahşi bir savaşçı"},
+        {"id": "slave_w1_3", "name": "Agron", "origin": "Germania", "age": 26, "health": 85, "strength": 40, "intelligence": 30, "stamina": 55, "price": 280, "image": "assets/defaultasker.png", "description": "Sadık ve dayanıklı"}
       ],
       "staff": [
-        {
-          "id": "staff_w1_1",
-          "name": "Medicus",
-          "role": "doctor",
-          "salary": 40,
-          "skill": 50,
-          "bonus": 15,
-          "price": 200,
-          "image": "assets/defaultasker.png",
-          "description": "Tecrübeli bir hekim"
-        }
+        {"id": "staff_w1_1", "name": "Medicus", "role": "doctor", "salary": 40, "skill": 50, "bonus": 15, "price": 200, "image": "assets/defaultasker.png", "description": "Tecrübeli bir hekim"}
       ]
     },
     {
@@ -64,71 +18,12 @@
       "title": "Doğu Kervanı",
       "description": "Suriye ve Mısır'dan özel köleler",
       "slaves": [
-        {
-          "id": "slave_w2_1",
-          "name": "Nasir",
-          "origin": "Syria",
-          "age": 24,
-          "health": 80,
-          "strength": 35,
-          "intelligence": 50,
-          "stamina": 45,
-          "price": 320,
-          "image": "assets/defaultasker.png",
-          "description": "Zeki ve çevik"
-        },
-        {
-          "id": "slave_w2_2",
-          "name": "Dagan",
-          "origin": "Mısır",
-          "age": 32,
-          "health": 88,
-          "strength": 50,
-          "intelligence": 40,
-          "stamina": 50,
-          "price": 380,
-          "image": "assets/defaultasker.png",
-          "description": "Nil'in oğlu"
-        },
-        {
-          "id": "slave_w2_3",
-          "name": "Ashur",
-          "origin": "Syria",
-          "age": 29,
-          "health": 75,
-          "strength": 30,
-          "intelligence": 60,
-          "stamina": 40,
-          "price": 250,
-          "image": "assets/defaultasker.png",
-          "description": "Kurnaz ve hesapçı"
-        },
-        {
-          "id": "slave_w2_4",
-          "name": "Mira",
-          "origin": "Judea",
-          "age": 22,
-          "health": 70,
-          "strength": 25,
-          "intelligence": 55,
-          "stamina": 60,
-          "price": 200,
-          "image": "assets/defaultasker.png",
-          "description": "Hızlı ve atik"
-        }
+        {"id": "slave_w2_1", "name": "Nasir", "origin": "Syria", "age": 24, "health": 80, "strength": 35, "intelligence": 50, "stamina": 45, "price": 320, "image": "assets/defaultasker.png", "description": "Zeki ve çevik"},
+        {"id": "slave_w2_2", "name": "Dagan", "origin": "Mısır", "age": 32, "health": 88, "strength": 50, "intelligence": 40, "stamina": 50, "price": 380, "image": "assets/defaultasker.png", "description": "Nil'in oğlu"},
+        {"id": "slave_w2_3", "name": "Ashur", "origin": "Syria", "age": 29, "health": 75, "strength": 30, "intelligence": 60, "stamina": 40, "price": 250, "image": "assets/defaultasker.png", "description": "Kurnaz ve hesapçı"}
       ],
       "staff": [
-        {
-          "id": "staff_w2_1",
-          "name": "Doctore",
-          "role": "trainer",
-          "salary": 35,
-          "skill": 55,
-          "bonus": 3,
-          "price": 250,
-          "image": "assets/defaultasker.png",
-          "description": "Eski bir gladyatör"
-        }
+        {"id": "staff_w2_1", "name": "Doctore", "role": "trainer", "salary": 35, "skill": 55, "bonus": 3, "price": 250, "image": "assets/defaultasker.png", "description": "Eski bir gladyatör"}
       ]
     },
     {
@@ -136,69 +31,745 @@
       "title": "Kuzey Barbarları",
       "description": "Germania ve Britannia'dan vahşi savaşçılar",
       "slaves": [
-        {
-          "id": "slave_w3_1",
-          "name": "Gannicus",
-          "origin": "Galya",
-          "age": 27,
-          "health": 92,
-          "strength": 60,
-          "intelligence": 30,
-          "stamina": 55,
-          "price": 450,
-          "image": "assets/defaultasker.png",
-          "description": "Efsanevi bir dövüşçü"
-        },
-        {
-          "id": "slave_w3_2",
-          "name": "Lugo",
-          "origin": "Germania",
-          "age": 35,
-          "health": 98,
-          "strength": 65,
-          "intelligence": 20,
-          "stamina": 60,
-          "price": 500,
-          "image": "assets/defaultasker.png",
-          "description": "Dev gibi bir adam"
-        },
-        {
-          "id": "slave_w3_3",
-          "name": "Saxa",
-          "origin": "Germania",
-          "age": 25,
-          "health": 85,
-          "strength": 45,
-          "intelligence": 35,
-          "stamina": 50,
-          "price": 380,
-          "image": "assets/defaultasker.png",
-          "description": "Hızlı ve acımasız"
-        }
+        {"id": "slave_w3_1", "name": "Gannicus", "origin": "Galya", "age": 27, "health": 92, "strength": 60, "intelligence": 30, "stamina": 55, "price": 450, "image": "assets/defaultasker.png", "description": "Efsanevi bir dövüşçü"},
+        {"id": "slave_w3_2", "name": "Lugo", "origin": "Germania", "age": 35, "health": 98, "strength": 65, "intelligence": 20, "stamina": 60, "price": 500, "image": "assets/defaultasker.png", "description": "Dev gibi bir adam"},
+        {"id": "slave_w3_3", "name": "Saxa", "origin": "Germania", "age": 25, "health": 85, "strength": 45, "intelligence": 35, "stamina": 50, "price": 380, "image": "assets/defaultasker.png", "description": "Hızlı ve acımasız"}
       ],
       "staff": [
-        {
-          "id": "staff_w3_1",
-          "name": "Oenomaus",
-          "role": "trainer",
-          "salary": 50,
-          "skill": 70,
-          "bonus": 5,
-          "price": 400,
-          "image": "assets/defaultasker.png",
-          "description": "Efsanevi eğitmen"
-        },
-        {
-          "id": "staff_w3_2",
-          "name": "Lucanus",
-          "role": "doctor",
-          "salary": 55,
-          "skill": 65,
-          "bonus": 20,
-          "price": 350,
-          "image": "assets/defaultasker.png",
-          "description": "Roma'nın en iyi cerrahı"
-        }
+        {"id": "staff_w3_1", "name": "Oenomaus", "role": "trainer", "salary": 50, "skill": 70, "bonus": 5, "price": 400, "image": "assets/defaultasker.png", "description": "Efsanevi eğitmen"},
+        {"id": "staff_w3_2", "name": "Lucanus", "role": "doctor", "salary": 55, "skill": 65, "bonus": 20, "price": 350, "image": "assets/defaultasker.png", "description": "Roma'nın en iyi cerrahı"}
+      ]
+    },
+    {
+      "week": 4,
+      "title": "Yunan Köleleri",
+      "description": "Atina ve Sparta'dan gelen savaşçılar",
+      "slaves": [
+        {"id": "slave_w4_1", "name": "Leonidas", "origin": "Sparta", "age": 31, "health": 94, "strength": 58, "intelligence": 40, "stamina": 55, "price": 480, "image": "assets/defaultasker.png", "description": "Spartalı disiplini"},
+        {"id": "slave_w4_2", "name": "Theron", "origin": "Atina", "age": 26, "health": 82, "strength": 42, "intelligence": 55, "stamina": 48, "price": 360, "image": "assets/defaultasker.png", "description": "Stratejik düşünür"},
+        {"id": "slave_w4_3", "name": "Nikos", "origin": "Korint", "age": 24, "health": 88, "strength": 48, "intelligence": 38, "stamina": 52, "price": 340, "image": "assets/defaultasker.png", "description": "Çevik ve hırslı"}
+      ],
+      "staff": [
+        {"id": "staff_w4_1", "name": "Hippokrates", "role": "doctor", "salary": 45, "skill": 60, "bonus": 18, "price": 280, "image": "assets/defaultasker.png", "description": "Yunan tıp geleneği"}
+      ]
+    },
+    {
+      "week": 5,
+      "title": "Afrika Savaşçıları",
+      "description": "Numidya ve Kartaca'dan güçlü köleler",
+      "slaves": [
+        {"id": "slave_w5_1", "name": "Hannibal", "origin": "Kartaca", "age": 33, "health": 90, "strength": 55, "intelligence": 65, "stamina": 50, "price": 520, "image": "assets/defaultasker.png", "description": "Taktik dehası"},
+        {"id": "slave_w5_2", "name": "Jugurtha", "origin": "Numidya", "age": 28, "health": 92, "strength": 52, "intelligence": 45, "stamina": 58, "price": 420, "image": "assets/defaultasker.png", "description": "Çöl savaşçısı"},
+        {"id": "slave_w5_3", "name": "Masinissa", "origin": "Numidya", "age": 25, "health": 86, "strength": 48, "intelligence": 42, "stamina": 54, "price": 380, "image": "assets/defaultasker.png", "description": "Atlı savaşçı"}
+      ],
+      "staff": [
+        {"id": "staff_w5_1", "name": "Hasdrubal", "role": "trainer", "salary": 42, "skill": 58, "bonus": 4, "price": 320, "image": "assets/defaultasker.png", "description": "Kartaca savaş ustası"}
+      ]
+    },
+    {
+      "week": 6,
+      "title": "Britanya Pazarı",
+      "description": "Britanya'dan sert savaşçılar",
+      "slaves": [
+        {"id": "slave_w6_1", "name": "Boudicca", "origin": "Britanya", "age": 27, "health": 88, "strength": 50, "intelligence": 48, "stamina": 56, "price": 440, "image": "assets/defaultasker.png", "description": "İsyankar ruh"},
+        {"id": "slave_w6_2", "name": "Caratacus", "origin": "Britanya", "age": 30, "health": 94, "strength": 58, "intelligence": 42, "stamina": 52, "price": 480, "image": "assets/defaultasker.png", "description": "Klan lideri"},
+        {"id": "slave_w6_3", "name": "Brennus", "origin": "Galya", "age": 32, "health": 96, "strength": 62, "intelligence": 32, "stamina": 58, "price": 520, "image": "assets/defaultasker.png", "description": "Vahşi güç"}
+      ],
+      "staff": [
+        {"id": "staff_w6_1", "name": "Druid", "role": "doctor", "salary": 48, "skill": 55, "bonus": 16, "price": 300, "image": "assets/defaultasker.png", "description": "Kelt şifacısı"}
+      ]
+    },
+    {
+      "week": 7,
+      "title": "Tuna Savaşçıları",
+      "description": "Tuna boyundan Daçya savaşçıları",
+      "slaves": [
+        {"id": "slave_w7_1", "name": "Decebalus", "origin": "Daçya", "age": 34, "health": 96, "strength": 60, "intelligence": 50, "stamina": 55, "price": 550, "image": "assets/defaultasker.png", "description": "Daçya kralı soyundan"},
+        {"id": "slave_w7_2", "name": "Diegis", "origin": "Daçya", "age": 26, "health": 90, "strength": 52, "intelligence": 38, "stamina": 58, "price": 420, "image": "assets/defaultasker.png", "description": "Falx ustası"},
+        {"id": "slave_w7_3", "name": "Scorilo", "origin": "Daçya", "age": 29, "health": 88, "strength": 48, "intelligence": 44, "stamina": 52, "price": 380, "image": "assets/defaultasker.png", "description": "Dağ savaşçısı"}
+      ],
+      "staff": [
+        {"id": "staff_w7_1", "name": "Zalmoxis", "role": "trainer", "salary": 45, "skill": 62, "bonus": 4, "price": 340, "image": "assets/defaultasker.png", "description": "Daçya savaş ustası"}
+      ]
+    },
+    {
+      "week": 8,
+      "title": "Pers Kervanı",
+      "description": "Doğu'nun gizemli savaşçıları",
+      "slaves": [
+        {"id": "slave_w8_1", "name": "Darius", "origin": "Pers", "age": 30, "health": 92, "strength": 54, "intelligence": 58, "stamina": 50, "price": 500, "image": "assets/defaultasker.png", "description": "Soylu kan"},
+        {"id": "slave_w8_2", "name": "Xerxes", "origin": "Pers", "age": 28, "health": 88, "strength": 50, "intelligence": 52, "stamina": 54, "price": 460, "image": "assets/defaultasker.png", "description": "Ölümsüz muhafız"},
+        {"id": "slave_w8_3", "name": "Cyrus", "origin": "Pers", "age": 25, "health": 86, "strength": 46, "intelligence": 48, "stamina": 56, "price": 400, "image": "assets/defaultasker.png", "description": "Genç aslan"}
+      ],
+      "staff": [
+        {"id": "staff_w8_1", "name": "Magi", "role": "doctor", "salary": 50, "skill": 65, "bonus": 20, "price": 380, "image": "assets/defaultasker.png", "description": "Pers şifacısı"}
+      ]
+    },
+    {
+      "week": 9,
+      "title": "İskit Atlıları",
+      "description": "Bozkırlardan gelen atlı savaşçılar",
+      "slaves": [
+        {"id": "slave_w9_1", "name": "Ateas", "origin": "İskit", "age": 29, "health": 90, "strength": 52, "intelligence": 40, "stamina": 62, "price": 480, "image": "assets/defaultasker.png", "description": "Bozkır atlısı"},
+        {"id": "slave_w9_2", "name": "Saulius", "origin": "İskit", "age": 26, "health": 86, "strength": 48, "intelligence": 36, "stamina": 58, "price": 400, "image": "assets/defaultasker.png", "description": "Okçu"},
+        {"id": "slave_w9_3", "name": "Targitaus", "origin": "İskit", "age": 32, "health": 94, "strength": 58, "intelligence": 34, "stamina": 56, "price": 520, "image": "assets/defaultasker.png", "description": "Klan savaşçısı"}
+      ],
+      "staff": [
+        {"id": "staff_w9_1", "name": "Shaman", "role": "doctor", "salary": 42, "skill": 52, "bonus": 14, "price": 260, "image": "assets/defaultasker.png", "description": "Bozkır şifacısı"}
+      ]
+    },
+    {
+      "week": 10,
+      "title": "İber Savaşçıları",
+      "description": "Hispanya'dan gelen kılıç ustaları",
+      "slaves": [
+        {"id": "slave_w10_1", "name": "Viriathus", "origin": "Lusitanya", "age": 31, "health": 94, "strength": 56, "intelligence": 52, "stamina": 54, "price": 540, "image": "assets/defaultasker.png", "description": "Gerilla ustası"},
+        {"id": "slave_w10_2", "name": "Indibilis", "origin": "İberya", "age": 27, "health": 88, "strength": 50, "intelligence": 44, "stamina": 58, "price": 440, "image": "assets/defaultasker.png", "description": "Gladius ustası"},
+        {"id": "slave_w10_3", "name": "Mandonius", "origin": "İberya", "age": 25, "health": 84, "strength": 46, "intelligence": 48, "stamina": 52, "price": 380, "image": "assets/defaultasker.png", "description": "Kalkan savaşçısı"}
+      ],
+      "staff": [
+        {"id": "staff_w10_1", "name": "Iberian Master", "role": "trainer", "salary": 48, "skill": 64, "bonus": 5, "price": 360, "image": "assets/defaultasker.png", "description": "İber dövüş ustası"}
+      ]
+    },
+    {
+      "week": 11,
+      "title": "Zengin Kervan",
+      "description": "Kaliteli köleler geldi",
+      "slaves": [
+        {"id": "slave_w11_1", "name": "Maximus", "origin": "Roma", "age": 35, "health": 96, "strength": 62, "intelligence": 55, "stamina": 58, "price": 620, "image": "assets/defaultasker.png", "description": "Eski lejyoner"},
+        {"id": "slave_w11_2", "name": "Commodus", "origin": "Roma", "age": 28, "health": 90, "strength": 55, "intelligence": 48, "stamina": 54, "price": 520, "image": "assets/defaultasker.png", "description": "Soylu köle"},
+        {"id": "slave_w11_3", "name": "Cassius", "origin": "Roma", "age": 30, "health": 92, "strength": 58, "intelligence": 52, "stamina": 56, "price": 580, "image": "assets/defaultasker.png", "description": "Gladyatör okulu mezunu"},
+        {"id": "slave_w11_4", "name": "Brutus", "origin": "Roma", "age": 26, "health": 88, "strength": 52, "intelligence": 45, "stamina": 52, "price": 460, "image": "assets/defaultasker.png", "description": "Genç ve hırslı"}
+      ],
+      "staff": [
+        {"id": "staff_w11_1", "name": "Marcus Medicus", "role": "doctor", "salary": 55, "skill": 70, "bonus": 22, "price": 420, "image": "assets/defaultasker.png", "description": "Ünlü cerrah"},
+        {"id": "staff_w11_2", "name": "Proximo", "role": "trainer", "salary": 52, "skill": 68, "bonus": 5, "price": 400, "image": "assets/defaultasker.png", "description": "Eski şampiyon"}
+      ]
+    },
+    {
+      "week": 12,
+      "title": "Gladyatör Açık Artırması",
+      "description": "Özel gladyatör satışı",
+      "slaves": [
+        {"id": "slave_w12_1", "name": "Tigris", "origin": "Galya", "age": 32, "health": 98, "strength": 65, "intelligence": 42, "stamina": 60, "price": 700, "image": "assets/defaultasker.png", "description": "Arena efsanesi"},
+        {"id": "slave_w12_2", "name": "Priscus", "origin": "Germania", "age": 29, "health": 94, "strength": 60, "intelligence": 45, "stamina": 58, "price": 620, "image": "assets/defaultasker.png", "description": "Arenada ünlü"},
+        {"id": "slave_w12_3", "name": "Verus", "origin": "Trakya", "age": 27, "health": 92, "strength": 58, "intelligence": 50, "stamina": 56, "price": 580, "image": "assets/defaultasker.png", "description": "Halk favorisi"},
+        {"id": "slave_w12_4", "name": "Felix", "origin": "Africa", "age": 25, "health": 88, "strength": 54, "intelligence": 48, "stamina": 54, "price": 520, "image": "assets/defaultasker.png", "description": "Şanslı gladyatör"}
+      ],
+      "staff": [
+        {"id": "staff_w12_1", "name": "Lanista Veteran", "role": "trainer", "salary": 58, "skill": 72, "bonus": 6, "price": 450, "image": "assets/defaultasker.png", "description": "30 yıllık tecrübe"},
+        {"id": "staff_w12_2", "name": "Greek Healer", "role": "doctor", "salary": 52, "skill": 68, "bonus": 20, "price": 380, "image": "assets/defaultasker.png", "description": "Yunan tıp ustası"}
+      ]
+    },
+    {
+      "week": 13,
+      "title": "Esir Pazarı",
+      "description": "Savaş esirleri satışta",
+      "slaves": [
+        {"id": "slave_w13_1", "name": "Arminius", "origin": "Germania", "age": 28, "health": 94, "strength": 62, "intelligence": 55, "stamina": 58, "price": 650, "image": "assets/defaultasker.png", "description": "Alman isyanı lideri"},
+        {"id": "slave_w13_2", "name": "Thusnelda", "origin": "Germania", "age": 24, "health": 86, "strength": 48, "intelligence": 52, "stamina": 60, "price": 480, "image": "assets/defaultasker.png", "description": "Savaşçı kadın"},
+        {"id": "slave_w13_3", "name": "Segestes", "origin": "Germania", "age": 35, "health": 90, "strength": 56, "intelligence": 48, "stamina": 52, "price": 540, "image": "assets/defaultasker.png", "description": "Tecrübeli savaşçı"},
+        {"id": "slave_w13_4", "name": "Flavus", "origin": "Germania", "age": 26, "health": 88, "strength": 54, "intelligence": 42, "stamina": 56, "price": 500, "image": "assets/defaultasker.png", "description": "Roma'ya sadık"}
+      ],
+      "staff": [
+        {"id": "staff_w13_1", "name": "Battlefield Medic", "role": "doctor", "salary": 48, "skill": 62, "bonus": 18, "price": 340, "image": "assets/defaultasker.png", "description": "Savaş alanı cerrahı"}
+      ]
+    },
+    {
+      "week": 14,
+      "title": "Doğu Hazineleri",
+      "description": "Uzak doğudan nadir köleler",
+      "slaves": [
+        {"id": "slave_w14_1", "name": "Surena", "origin": "Pers", "age": 30, "health": 92, "strength": 58, "intelligence": 62, "stamina": 54, "price": 680, "image": "assets/defaultasker.png", "description": "Part soylusu"},
+        {"id": "slave_w14_2", "name": "Mithridates", "origin": "Pontus", "age": 33, "health": 90, "strength": 55, "intelligence": 65, "stamina": 52, "price": 640, "image": "assets/defaultasker.png", "description": "Zehir bilen kral"},
+        {"id": "slave_w14_3", "name": "Tigranes", "origin": "Ermenistan", "age": 29, "health": 94, "strength": 60, "intelligence": 52, "stamina": 58, "price": 620, "image": "assets/defaultasker.png", "description": "Dağ aslanı"},
+        {"id": "slave_w14_4", "name": "Orodes", "origin": "Pers", "age": 26, "health": 88, "strength": 52, "intelligence": 58, "stamina": 56, "price": 560, "image": "assets/defaultasker.png", "description": "Genç soylu"}
+      ],
+      "staff": [
+        {"id": "staff_w14_1", "name": "Eastern Sage", "role": "doctor", "salary": 60, "skill": 75, "bonus": 25, "price": 500, "image": "assets/defaultasker.png", "description": "Doğu tıbbı ustası"},
+        {"id": "staff_w14_2", "name": "Persian Trainer", "role": "trainer", "salary": 55, "skill": 70, "bonus": 5, "price": 420, "image": "assets/defaultasker.png", "description": "Pers savaş ustası"}
+      ]
+    },
+    {
+      "week": 15,
+      "title": "Arena Yıldızları",
+      "description": "Ünlü gladyatörler satışta",
+      "slaves": [
+        {"id": "slave_w15_1", "name": "Flamma", "origin": "Syria", "age": 34, "health": 98, "strength": 68, "intelligence": 55, "stamina": 62, "price": 850, "image": "assets/defaultasker.png", "description": "4 kez özgürlüğü reddetti"},
+        {"id": "slave_w15_2", "name": "Spiculus", "origin": "Roma", "age": 30, "health": 96, "strength": 65, "intelligence": 52, "stamina": 60, "price": 780, "image": "assets/defaultasker.png", "description": "Nero'nun favorisi"},
+        {"id": "slave_w15_3", "name": "Carpophorus", "origin": "Roma", "age": 28, "health": 94, "strength": 62, "intelligence": 48, "stamina": 58, "price": 720, "image": "assets/defaultasker.png", "description": "Hayvan savaşçısı"},
+        {"id": "slave_w15_4", "name": "Hermes", "origin": "Yunan", "age": 26, "health": 92, "strength": 58, "intelligence": 55, "stamina": 56, "price": 680, "image": "assets/defaultasker.png", "description": "Çok yönlü savaşçı"}
+      ],
+      "staff": [
+        {"id": "staff_w15_1", "name": "Champion Trainer", "role": "trainer", "salary": 65, "skill": 78, "bonus": 7, "price": 550, "image": "assets/defaultasker.png", "description": "Şampiyonlar yetiştirdi"},
+        {"id": "staff_w15_2", "name": "Imperial Medic", "role": "doctor", "salary": 62, "skill": 76, "bonus": 24, "price": 520, "image": "assets/defaultasker.png", "description": "Saray doktoru"}
+      ]
+    },
+    {
+      "week": 16,
+      "title": "Kuzey Rüzgarları",
+      "description": "Skandinavya'dan güçlü savaşçılar",
+      "slaves": [
+        {"id": "slave_w16_1", "name": "Ragnar", "origin": "Skandinavya", "age": 32, "health": 98, "strength": 70, "intelligence": 45, "stamina": 65, "price": 800, "image": "assets/defaultasker.png", "description": "Viking savaşçısı"},
+        {"id": "slave_w16_2", "name": "Bjorn", "origin": "Skandinavya", "age": 28, "health": 96, "strength": 68, "intelligence": 40, "stamina": 62, "price": 750, "image": "assets/defaultasker.png", "description": "Ayı gibi güçlü"},
+        {"id": "slave_w16_3", "name": "Ivar", "origin": "Skandinavya", "age": 25, "health": 90, "strength": 60, "intelligence": 58, "stamina": 55, "price": 680, "image": "assets/defaultasker.png", "description": "Kurnaz savaşçı"},
+        {"id": "slave_w16_4", "name": "Rollo", "origin": "Skandinavya", "age": 30, "health": 94, "strength": 65, "intelligence": 42, "stamina": 60, "price": 720, "image": "assets/defaultasker.png", "description": "Dev adam"}
+      ],
+      "staff": [
+        {"id": "staff_w16_1", "name": "Norse Healer", "role": "doctor", "salary": 55, "skill": 65, "bonus": 20, "price": 400, "image": "assets/defaultasker.png", "description": "Kuzey şifacısı"}
+      ]
+    },
+    {
+      "week": 17,
+      "title": "Mısır Hazinesi",
+      "description": "Nil'den gelen güçlü köleler",
+      "slaves": [
+        {"id": "slave_w17_1", "name": "Ramses", "origin": "Mısır", "age": 33, "health": 94, "strength": 62, "intelligence": 60, "stamina": 58, "price": 750, "image": "assets/defaultasker.png", "description": "Firavun muhafızı"},
+        {"id": "slave_w17_2", "name": "Imhotep", "origin": "Mısır", "age": 35, "health": 88, "strength": 52, "intelligence": 72, "stamina": 50, "price": 680, "image": "assets/defaultasker.png", "description": "Bilge savaşçı"},
+        {"id": "slave_w17_3", "name": "Khufu", "origin": "Mısır", "age": 28, "health": 92, "strength": 58, "intelligence": 55, "stamina": 56, "price": 620, "image": "assets/defaultasker.png", "description": "Güneş savaşçısı"},
+        {"id": "slave_w17_4", "name": "Amenhotep", "origin": "Mısır", "age": 26, "health": 90, "strength": 56, "intelligence": 52, "stamina": 58, "price": 580, "image": "assets/defaultasker.png", "description": "Genç muhafız"}
+      ],
+      "staff": [
+        {"id": "staff_w17_1", "name": "Egyptian Priest", "role": "doctor", "salary": 58, "skill": 72, "bonus": 22, "price": 450, "image": "assets/defaultasker.png", "description": "Mısır tıbbı"},
+        {"id": "staff_w17_2", "name": "Nubian Trainer", "role": "trainer", "salary": 52, "skill": 68, "bonus": 5, "price": 380, "image": "assets/defaultasker.png", "description": "Çöl savaş ustası"}
+      ]
+    },
+    {
+      "week": 18,
+      "title": "Gladyatör Festivali",
+      "description": "Özel festival satışı",
+      "slaves": [
+        {"id": "slave_w18_1", "name": "Triumphus", "origin": "Roma", "age": 31, "health": 96, "strength": 66, "intelligence": 55, "stamina": 60, "price": 820, "image": "assets/defaultasker.png", "description": "Zafer savaşçısı"},
+        {"id": "slave_w18_2", "name": "Victor", "origin": "Roma", "age": 28, "health": 94, "strength": 62, "intelligence": 52, "stamina": 58, "price": 760, "image": "assets/defaultasker.png", "description": "100 maç kazandı"},
+        {"id": "slave_w18_3", "name": "Invictus", "origin": "Galya", "age": 30, "health": 98, "strength": 68, "intelligence": 48, "stamina": 62, "price": 850, "image": "assets/defaultasker.png", "description": "Yenilmez"},
+        {"id": "slave_w18_4", "name": "Glorius", "origin": "Germania", "age": 26, "health": 92, "strength": 60, "intelligence": 50, "stamina": 56, "price": 700, "image": "assets/defaultasker.png", "description": "Şanlı savaşçı"}
+      ],
+      "staff": [
+        {"id": "staff_w18_1", "name": "Festival Master", "role": "trainer", "salary": 60, "skill": 75, "bonus": 6, "price": 480, "image": "assets/defaultasker.png", "description": "Festival organizatörü"}
+      ]
+    },
+    {
+      "week": 19,
+      "title": "Savaş Esirleri",
+      "description": "Son savaştan esirler",
+      "slaves": [
+        {"id": "slave_w19_1", "name": "Vercingetorix", "origin": "Galya", "age": 34, "health": 96, "strength": 68, "intelligence": 62, "stamina": 60, "price": 900, "image": "assets/defaultasker.png", "description": "Galya lideri"},
+        {"id": "slave_w19_2", "name": "Ambiorix", "origin": "Galya", "age": 30, "health": 94, "strength": 64, "intelligence": 58, "stamina": 58, "price": 820, "image": "assets/defaultasker.png", "description": "Kabile reisi"},
+        {"id": "slave_w19_3", "name": "Critognatus", "origin": "Galya", "age": 28, "health": 92, "strength": 60, "intelligence": 55, "stamina": 56, "price": 750, "image": "assets/defaultasker.png", "description": "Savaş kahramanı"},
+        {"id": "slave_w19_4", "name": "Lucterius", "origin": "Galya", "age": 26, "health": 90, "strength": 58, "intelligence": 52, "stamina": 58, "price": 680, "image": "assets/defaultasker.png", "description": "Genç komutan"}
+      ],
+      "staff": [
+        {"id": "staff_w19_1", "name": "War Doctor", "role": "doctor", "salary": 55, "skill": 70, "bonus": 22, "price": 420, "image": "assets/defaultasker.png", "description": "Savaş cerrahı"},
+        {"id": "staff_w19_2", "name": "Gallic Trainer", "role": "trainer", "salary": 58, "skill": 72, "bonus": 6, "price": 450, "image": "assets/defaultasker.png", "description": "Galya savaş ustası"}
+      ]
+    },
+    {
+      "week": 20,
+      "title": "Elit Pazarı",
+      "description": "En kaliteli köleler",
+      "slaves": [
+        {"id": "slave_w20_1", "name": "Achilles", "origin": "Yunan", "age": 28, "health": 98, "strength": 70, "intelligence": 60, "stamina": 65, "price": 1000, "image": "assets/defaultasker.png", "description": "Savaşın tanrısı"},
+        {"id": "slave_w20_2", "name": "Hector", "origin": "Yunan", "age": 32, "health": 96, "strength": 68, "intelligence": 62, "stamina": 62, "price": 950, "image": "assets/defaultasker.png", "description": "Truva kahramanı"},
+        {"id": "slave_w20_3", "name": "Ajax", "origin": "Yunan", "age": 34, "health": 100, "strength": 72, "intelligence": 45, "stamina": 68, "price": 980, "image": "assets/defaultasker.png", "description": "Devasa savaşçı"},
+        {"id": "slave_w20_4", "name": "Odysseus", "origin": "Yunan", "age": 30, "health": 92, "strength": 60, "intelligence": 75, "stamina": 58, "price": 920, "image": "assets/defaultasker.png", "description": "Kurnaz savaşçı"}
+      ],
+      "staff": [
+        {"id": "staff_w20_1", "name": "Legendary Trainer", "role": "trainer", "salary": 70, "skill": 82, "bonus": 8, "price": 600, "image": "assets/defaultasker.png", "description": "Efsanevi eğitmen"},
+        {"id": "staff_w20_2", "name": "Royal Physician", "role": "doctor", "salary": 68, "skill": 80, "bonus": 28, "price": 580, "image": "assets/defaultasker.png", "description": "Kraliyet doktoru"}
+      ]
+    },
+    {
+      "week": 21,
+      "title": "Karadeniz Savaşçıları",
+      "description": "Pontus ve çevresinden güçlü köleler",
+      "slaves": [
+        {"id": "slave_w21_1", "name": "Mithridates II", "origin": "Pontus", "age": 35, "health": 94, "strength": 65, "intelligence": 68, "stamina": 58, "price": 880, "image": "assets/defaultasker.png", "description": "Pontus soylusu"},
+        {"id": "slave_w21_2", "name": "Pharnaces", "origin": "Pontus", "age": 28, "health": 92, "strength": 62, "intelligence": 55, "stamina": 60, "price": 780, "image": "assets/defaultasker.png", "description": "Deniz savaşçısı"},
+        {"id": "slave_w21_3", "name": "Archelaus", "origin": "Pontus", "age": 30, "health": 96, "strength": 66, "intelligence": 52, "stamina": 62, "price": 850, "image": "assets/defaultasker.png", "description": "General soyundan"},
+        {"id": "slave_w21_4", "name": "Neoptolemus", "origin": "Pontus", "age": 26, "health": 90, "strength": 58, "intelligence": 58, "stamina": 56, "price": 720, "image": "assets/defaultasker.png", "description": "Stratejist"}
+      ],
+      "staff": [
+        {"id": "staff_w21_1", "name": "Pontic Healer", "role": "doctor", "salary": 58, "skill": 72, "bonus": 24, "price": 460, "image": "assets/defaultasker.png", "description": "Pontus tıbbı ustası"}
+      ]
+    },
+    {
+      "week": 22,
+      "title": "Arena Efsaneleri",
+      "description": "Yaşayan efsaneler satışta",
+      "slaves": [
+        {"id": "slave_w22_1", "name": "Commodus Rex", "origin": "Roma", "age": 32, "health": 98, "strength": 70, "intelligence": 58, "stamina": 65, "price": 1100, "image": "assets/defaultasker.png", "description": "Arena kralı"},
+        {"id": "slave_w22_2", "name": "Spartacus II", "origin": "Trakya", "age": 29, "health": 96, "strength": 68, "intelligence": 62, "stamina": 62, "price": 1050, "image": "assets/defaultasker.png", "description": "İsmin varisi"},
+        {"id": "slave_w22_3", "name": "Magnus", "origin": "Germania", "age": 34, "health": 100, "strength": 75, "intelligence": 48, "stamina": 68, "price": 1150, "image": "assets/defaultasker.png", "description": "Büyük Magnus"},
+        {"id": "slave_w22_4", "name": "Titan", "origin": "Galya", "age": 30, "health": 98, "strength": 72, "intelligence": 52, "stamina": 64, "price": 1080, "image": "assets/defaultasker.png", "description": "Titan lakaplı"}
+      ],
+      "staff": [
+        {"id": "staff_w22_1", "name": "Master Trainer", "role": "trainer", "salary": 72, "skill": 85, "bonus": 9, "price": 650, "image": "assets/defaultasker.png", "description": "Usta eğitmen"},
+        {"id": "staff_w22_2", "name": "Elite Surgeon", "role": "doctor", "salary": 70, "skill": 82, "bonus": 28, "price": 620, "image": "assets/defaultasker.png", "description": "Elit cerrah"}
+      ]
+    },
+    {
+      "week": 23,
+      "title": "İmparatorluk Açık Artırması",
+      "description": "Saray satışından özel köleler",
+      "slaves": [
+        {"id": "slave_w23_1", "name": "Praetorius", "origin": "Roma", "age": 33, "health": 96, "strength": 68, "intelligence": 65, "stamina": 62, "price": 1050, "image": "assets/defaultasker.png", "description": "Eski praetorian"},
+        {"id": "slave_w23_2", "name": "Imperialis", "origin": "Roma", "age": 30, "health": 94, "strength": 65, "intelligence": 60, "stamina": 60, "price": 980, "image": "assets/defaultasker.png", "description": "İmparatorluk muhafızı"},
+        {"id": "slave_w23_3", "name": "Legatus", "origin": "Roma", "age": 36, "health": 92, "strength": 62, "intelligence": 70, "stamina": 58, "price": 1020, "image": "assets/defaultasker.png", "description": "Eski lejyon komutanı"},
+        {"id": "slave_w23_4", "name": "Centurio", "origin": "Roma", "age": 28, "health": 94, "strength": 66, "intelligence": 58, "stamina": 62, "price": 920, "image": "assets/defaultasker.png", "description": "Centurion"}
+      ],
+      "staff": [
+        {"id": "staff_w23_1", "name": "Imperial Trainer", "role": "trainer", "salary": 75, "skill": 85, "bonus": 9, "price": 680, "image": "assets/defaultasker.png", "description": "İmparatorluk eğitmeni"},
+        {"id": "staff_w23_2", "name": "Palace Doctor", "role": "doctor", "salary": 72, "skill": 84, "bonus": 30, "price": 650, "image": "assets/defaultasker.png", "description": "Saray hekimi"}
+      ]
+    },
+    {
+      "week": 24,
+      "title": "Barbarlar Geliyor",
+      "description": "Kuzeyin en güçlüleri",
+      "slaves": [
+        {"id": "slave_w24_1", "name": "Wodan", "origin": "Germania", "age": 35, "health": 100, "strength": 78, "intelligence": 50, "stamina": 70, "price": 1200, "image": "assets/defaultasker.png", "description": "Tanrı gibi güçlü"},
+        {"id": "slave_w24_2", "name": "Thor", "origin": "Skandinavya", "age": 32, "health": 98, "strength": 75, "intelligence": 45, "stamina": 68, "price": 1150, "image": "assets/defaultasker.png", "description": "Gök gürültüsü"},
+        {"id": "slave_w24_3", "name": "Baldur", "origin": "Skandinavya", "age": 28, "health": 96, "strength": 70, "intelligence": 55, "stamina": 65, "price": 1080, "image": "assets/defaultasker.png", "description": "Parlak savaşçı"},
+        {"id": "slave_w24_4", "name": "Tyr", "origin": "Skandinavya", "age": 30, "health": 94, "strength": 68, "intelligence": 60, "stamina": 62, "price": 1000, "image": "assets/defaultasker.png", "description": "Tek elli kahraman"},
+        {"id": "slave_w24_5", "name": "Fenrir", "origin": "Germania", "age": 26, "health": 92, "strength": 65, "intelligence": 52, "stamina": 60, "price": 920, "image": "assets/defaultasker.png", "description": "Kurt gibi"}
+      ],
+      "staff": [
+        {"id": "staff_w24_1", "name": "Viking Trainer", "role": "trainer", "salary": 68, "skill": 80, "bonus": 8, "price": 580, "image": "assets/defaultasker.png", "description": "Kuzey savaş ustası"}
+      ]
+    },
+    {
+      "week": 25,
+      "title": "Yarı Yıl Festivali",
+      "description": "25. hafta özel satışı",
+      "slaves": [
+        {"id": "slave_w25_1", "name": "Hercules", "origin": "Yunan", "age": 30, "health": 100, "strength": 80, "intelligence": 55, "stamina": 72, "price": 1500, "image": "assets/defaultasker.png", "description": "Yarı tanrı gücü"},
+        {"id": "slave_w25_2", "name": "Perseus", "origin": "Yunan", "age": 28, "health": 96, "strength": 70, "intelligence": 65, "stamina": 65, "price": 1300, "image": "assets/defaultasker.png", "description": "Kahraman soyundan"},
+        {"id": "slave_w25_3", "name": "Theseus", "origin": "Yunan", "age": 32, "health": 98, "strength": 72, "intelligence": 62, "stamina": 68, "price": 1350, "image": "assets/defaultasker.png", "description": "Labirent kahramanı"},
+        {"id": "slave_w25_4", "name": "Jason", "origin": "Yunan", "age": 29, "health": 94, "strength": 68, "intelligence": 68, "stamina": 62, "price": 1250, "image": "assets/defaultasker.png", "description": "Argonaut lideri"},
+        {"id": "slave_w25_5", "name": "Bellerophon", "origin": "Yunan", "age": 26, "health": 92, "strength": 65, "intelligence": 60, "stamina": 64, "price": 1100, "image": "assets/defaultasker.png", "description": "Pegasus binicisi"}
+      ],
+      "staff": [
+        {"id": "staff_w25_1", "name": "Olympic Trainer", "role": "trainer", "salary": 80, "skill": 90, "bonus": 10, "price": 750, "image": "assets/defaultasker.png", "description": "Olimpiyat antrenörü"},
+        {"id": "staff_w25_2", "name": "Greek Master Healer", "role": "doctor", "salary": 78, "skill": 88, "bonus": 32, "price": 720, "image": "assets/defaultasker.png", "description": "Yunan tıp ustası"}
+      ]
+    },
+    {
+      "week": 26,
+      "title": "Asya Kervanı",
+      "description": "Uzak Asya'dan nadir savaşçılar",
+      "slaves": [
+        {"id": "slave_w26_1", "name": "Khan", "origin": "Asya", "age": 35, "health": 96, "strength": 72, "intelligence": 65, "stamina": 68, "price": 1400, "image": "assets/defaultasker.png", "description": "Bozkır hükümdarı"},
+        {"id": "slave_w26_2", "name": "Temujin", "origin": "Asya", "age": 30, "health": 98, "strength": 75, "intelligence": 70, "stamina": 70, "price": 1500, "image": "assets/defaultasker.png", "description": "Dünya fatihi"},
+        {"id": "slave_w26_3", "name": "Attila", "origin": "Hun", "age": 32, "health": 100, "strength": 78, "intelligence": 62, "stamina": 72, "price": 1600, "image": "assets/defaultasker.png", "description": "Tanrının kırbacı"},
+        {"id": "slave_w26_4", "name": "Batu", "origin": "Asya", "age": 28, "health": 94, "strength": 70, "intelligence": 58, "stamina": 66, "price": 1250, "image": "assets/defaultasker.png", "description": "Altın Orda prensi"},
+        {"id": "slave_w26_5", "name": "Subotai", "origin": "Asya", "age": 34, "health": 92, "strength": 68, "intelligence": 75, "stamina": 64, "price": 1350, "image": "assets/defaultasker.png", "description": "Efsanevi stratejist"}
+      ],
+      "staff": [
+        {"id": "staff_w26_1", "name": "Eastern Master", "role": "trainer", "salary": 78, "skill": 88, "bonus": 10, "price": 700, "image": "assets/defaultasker.png", "description": "Doğu savaş ustası"},
+        {"id": "staff_w26_2", "name": "Silk Road Healer", "role": "doctor", "salary": 75, "skill": 85, "bonus": 30, "price": 680, "image": "assets/defaultasker.png", "description": "İpek yolu hekimi"},
+        {"id": "staff_w26_3", "name": "Horse Master", "role": "trainer", "salary": 70, "skill": 82, "bonus": 8, "price": 620, "image": "assets/defaultasker.png", "description": "Atlı savaş ustası"}
+      ]
+    },
+    {
+      "week": 27,
+      "title": "Colosseum Şampiyonları",
+      "description": "Colosseum'un en iyileri",
+      "slaves": [
+        {"id": "slave_w27_1", "name": "Maxentius", "origin": "Roma", "age": 33, "health": 98, "strength": 75, "intelligence": 62, "stamina": 70, "price": 1550, "image": "assets/defaultasker.png", "description": "200 zafer"},
+        {"id": "slave_w27_2", "name": "Aurelius", "origin": "Roma", "age": 30, "health": 96, "strength": 72, "intelligence": 68, "stamina": 68, "price": 1480, "image": "assets/defaultasker.png", "description": "Altın gladyatör"},
+        {"id": "slave_w27_3", "name": "Severus", "origin": "Roma", "age": 28, "health": 94, "strength": 70, "intelligence": 65, "stamina": 66, "price": 1400, "image": "assets/defaultasker.png", "description": "Acımasız savaşçı"},
+        {"id": "slave_w27_4", "name": "Diocletian", "origin": "Dalmaçya", "age": 32, "health": 96, "strength": 73, "intelligence": 60, "stamina": 68, "price": 1450, "image": "assets/defaultasker.png", "description": "İmparator adayı"},
+        {"id": "slave_w27_5", "name": "Constantine", "origin": "Roma", "age": 26, "health": 92, "strength": 68, "intelligence": 72, "stamina": 64, "price": 1350, "image": "assets/defaultasker.png", "description": "Gelecek vaat ediyor"}
+      ],
+      "staff": [
+        {"id": "staff_w27_1", "name": "Colosseum Master", "role": "trainer", "salary": 85, "skill": 92, "bonus": 12, "price": 800, "image": "assets/defaultasker.png", "description": "Colosseum'un en iyisi"}
+      ]
+    },
+    {
+      "week": 28,
+      "title": "Afrika Aslanları",
+      "description": "Afrika'nın en güçlüleri",
+      "slaves": [
+        {"id": "slave_w28_1", "name": "Shaka", "origin": "Afrika", "age": 32, "health": 98, "strength": 78, "intelligence": 65, "stamina": 72, "price": 1600, "image": "assets/defaultasker.png", "description": "Zulu savaşçısı"},
+        {"id": "slave_w28_2", "name": "Mansa", "origin": "Afrika", "age": 35, "health": 96, "strength": 72, "intelligence": 70, "stamina": 68, "price": 1500, "image": "assets/defaultasker.png", "description": "Mali prensi"},
+        {"id": "slave_w28_3", "name": "Sundiata", "origin": "Afrika", "age": 30, "health": 100, "strength": 80, "intelligence": 62, "stamina": 75, "price": 1700, "image": "assets/defaultasker.png", "description": "Aslan kral"},
+        {"id": "slave_w28_4", "name": "Cetshwayo", "origin": "Afrika", "age": 28, "health": 94, "strength": 75, "intelligence": 58, "stamina": 70, "price": 1450, "image": "assets/defaultasker.png", "description": "Savaş lideri"},
+        {"id": "slave_w28_5", "name": "Moshoeshoe", "origin": "Afrika", "age": 26, "health": 92, "strength": 70, "intelligence": 65, "stamina": 66, "price": 1350, "image": "assets/defaultasker.png", "description": "Dağ savaşçısı"}
+      ],
+      "staff": [
+        {"id": "staff_w28_1", "name": "African Healer", "role": "doctor", "salary": 72, "skill": 82, "bonus": 28, "price": 640, "image": "assets/defaultasker.png", "description": "Afrika şifacısı"},
+        {"id": "staff_w28_2", "name": "Tribal Trainer", "role": "trainer", "salary": 75, "skill": 85, "bonus": 10, "price": 680, "image": "assets/defaultasker.png", "description": "Kabile savaş ustası"}
+      ]
+    },
+    {
+      "week": 29,
+      "title": "Efsane Pazarı",
+      "description": "Yaşayan efsaneler",
+      "slaves": [
+        {"id": "slave_w29_1", "name": "Mars", "origin": "Roma", "age": 30, "health": 100, "strength": 82, "intelligence": 60, "stamina": 75, "price": 1800, "image": "assets/defaultasker.png", "description": "Savaş tanrısı lakaplı"},
+        {"id": "slave_w29_2", "name": "Jupiter", "origin": "Roma", "age": 35, "health": 98, "strength": 78, "intelligence": 68, "stamina": 72, "price": 1700, "image": "assets/defaultasker.png", "description": "Göklerin efendisi"},
+        {"id": "slave_w29_3", "name": "Neptune", "origin": "Roma", "age": 32, "health": 96, "strength": 75, "intelligence": 65, "stamina": 70, "price": 1600, "image": "assets/defaultasker.png", "description": "Denizlerin oğlu"},
+        {"id": "slave_w29_4", "name": "Vulcan", "origin": "Roma", "age": 33, "health": 100, "strength": 85, "intelligence": 55, "stamina": 78, "price": 1850, "image": "assets/defaultasker.png", "description": "Demirci tanrısı"},
+        {"id": "slave_w29_5", "name": "Mercury", "origin": "Roma", "age": 26, "health": 90, "strength": 65, "intelligence": 78, "stamina": 80, "price": 1550, "image": "assets/defaultasker.png", "description": "Rüzgar hızı"}
+      ],
+      "staff": [
+        {"id": "staff_w29_1", "name": "Divine Healer", "role": "doctor", "salary": 80, "skill": 90, "bonus": 35, "price": 780, "image": "assets/defaultasker.png", "description": "İlahi şifa"},
+        {"id": "staff_w29_2", "name": "Legendary Trainer", "role": "trainer", "salary": 85, "skill": 92, "bonus": 12, "price": 820, "image": "assets/defaultasker.png", "description": "Efsane eğitmen"},
+        {"id": "staff_w29_3", "name": "Battle Sage", "role": "trainer", "salary": 82, "skill": 88, "bonus": 11, "price": 750, "image": "assets/defaultasker.png", "description": "Savaş bilgesi"}
+      ]
+    },
+    {
+      "week": 30,
+      "title": "Otuz Hafta Şöleni",
+      "description": "30. hafta özel satışı",
+      "slaves": [
+        {"id": "slave_w30_1", "name": "Alexander", "origin": "Makedonya", "age": 28, "health": 98, "strength": 78, "intelligence": 85, "stamina": 72, "price": 2000, "image": "assets/defaultasker.png", "description": "Büyük İskender gibi"},
+        {"id": "slave_w30_2", "name": "Leonidas II", "origin": "Sparta", "age": 32, "health": 100, "strength": 82, "intelligence": 70, "stamina": 78, "price": 1900, "image": "assets/defaultasker.png", "description": "300'ün varisi"},
+        {"id": "slave_w30_3", "name": "Pyrrhus", "origin": "Epirus", "age": 30, "health": 96, "strength": 76, "intelligence": 75, "stamina": 70, "price": 1800, "image": "assets/defaultasker.png", "description": "Zafer ustası"},
+        {"id": "slave_w30_4", "name": "Philip", "origin": "Makedonya", "age": 35, "health": 94, "strength": 74, "intelligence": 80, "stamina": 68, "price": 1750, "image": "assets/defaultasker.png", "description": "Stratejist kral"},
+        {"id": "slave_w30_5", "name": "Antigonus", "origin": "Makedonya", "age": 34, "health": 98, "strength": 80, "intelligence": 68, "stamina": 75, "price": 1850, "image": "assets/defaultasker.png", "description": "Tek gözlü savaşçı"}
+      ],
+      "staff": [
+        {"id": "staff_w30_1", "name": "Macedonian Master", "role": "trainer", "salary": 90, "skill": 95, "bonus": 14, "price": 900, "image": "assets/defaultasker.png", "description": "Makedon savaş ustası"},
+        {"id": "staff_w30_2", "name": "Royal Surgeon", "role": "doctor", "salary": 88, "skill": 92, "bonus": 38, "price": 880, "image": "assets/defaultasker.png", "description": "Kraliyet cerrahı"}
+      ]
+    },
+    {
+      "week": 31,
+      "title": "Şampiyonlar Ligi",
+      "description": "Dünyanın en iyileri",
+      "slaves": [
+        {"id": "slave_w31_1", "name": "Imperator", "origin": "Roma", "age": 33, "health": 100, "strength": 85, "intelligence": 72, "stamina": 78, "price": 2100, "image": "assets/defaultasker.png", "description": "İmparator lakaplı"},
+        {"id": "slave_w31_2", "name": "Dominus", "origin": "Roma", "age": 30, "health": 98, "strength": 82, "intelligence": 68, "stamina": 75, "price": 2000, "image": "assets/defaultasker.png", "description": "Arena hakimi"},
+        {"id": "slave_w31_3", "name": "Rex", "origin": "Germania", "age": 32, "health": 100, "strength": 88, "intelligence": 58, "stamina": 82, "price": 2200, "image": "assets/defaultasker.png", "description": "Kral"},
+        {"id": "slave_w31_4", "name": "Caesar Junior", "origin": "Roma", "age": 28, "health": 96, "strength": 78, "intelligence": 75, "stamina": 72, "price": 1950, "image": "assets/defaultasker.png", "description": "Sezar'ın gölgesi"},
+        {"id": "slave_w31_5", "name": "Dictator", "origin": "Roma", "age": 35, "health": 94, "strength": 80, "intelligence": 78, "stamina": 70, "price": 2050, "image": "assets/defaultasker.png", "description": "Mutlak güç"}
+      ],
+      "staff": [
+        {"id": "staff_w31_1", "name": "Champion Maker", "role": "trainer", "salary": 92, "skill": 96, "bonus": 15, "price": 950, "image": "assets/defaultasker.png", "description": "Şampiyon yaratan"}
+      ]
+    },
+    {
+      "week": 32,
+      "title": "Antik Kahramanlar",
+      "description": "Mitolojik güçler",
+      "slaves": [
+        {"id": "slave_w32_1", "name": "Ares", "origin": "Yunan", "age": 30, "health": 100, "strength": 90, "intelligence": 65, "stamina": 80, "price": 2300, "image": "assets/defaultasker.png", "description": "Savaş tanrısı"},
+        {"id": "slave_w32_2", "name": "Apollo", "origin": "Yunan", "age": 28, "health": 96, "strength": 75, "intelligence": 85, "stamina": 78, "price": 2150, "image": "assets/defaultasker.png", "description": "Güneş savaşçısı"},
+        {"id": "slave_w32_3", "name": "Poseidon", "origin": "Yunan", "age": 32, "health": 98, "strength": 85, "intelligence": 70, "stamina": 82, "price": 2250, "image": "assets/defaultasker.png", "description": "Denizlerin gücü"},
+        {"id": "slave_w32_4", "name": "Hephaestus", "origin": "Yunan", "age": 35, "health": 100, "strength": 92, "intelligence": 75, "stamina": 78, "price": 2400, "image": "assets/defaultasker.png", "description": "Demirci tanrı"},
+        {"id": "slave_w32_5", "name": "Hermes II", "origin": "Yunan", "age": 25, "health": 88, "strength": 68, "intelligence": 80, "stamina": 88, "price": 1900, "image": "assets/defaultasker.png", "description": "Rüzgar gibi hızlı"}
+      ],
+      "staff": [
+        {"id": "staff_w32_1", "name": "Olympian Trainer", "role": "trainer", "salary": 95, "skill": 98, "bonus": 16, "price": 1000, "image": "assets/defaultasker.png", "description": "Olimpos eğitmeni"},
+        {"id": "staff_w32_2", "name": "Asclepius", "role": "doctor", "salary": 92, "skill": 95, "bonus": 40, "price": 980, "image": "assets/defaultasker.png", "description": "Tıp tanrısı"}
+      ]
+    },
+    {
+      "week": 33,
+      "title": "Dünya Savaşçıları",
+      "description": "Dünyanın dört bir yanından",
+      "slaves": [
+        {"id": "slave_w33_1", "name": "Samurai", "origin": "Uzak Doğu", "age": 30, "health": 96, "strength": 78, "intelligence": 82, "stamina": 75, "price": 2200, "image": "assets/defaultasker.png", "description": "Onur savaşçısı"},
+        {"id": "slave_w33_2", "name": "Shogun", "origin": "Uzak Doğu", "age": 35, "health": 98, "strength": 82, "intelligence": 85, "stamina": 72, "price": 2350, "image": "assets/defaultasker.png", "description": "Savaş lordu"},
+        {"id": "slave_w33_3", "name": "Ninja", "origin": "Uzak Doğu", "age": 26, "health": 88, "strength": 68, "intelligence": 88, "stamina": 85, "price": 2100, "image": "assets/defaultasker.png", "description": "Gölge savaşçı"},
+        {"id": "slave_w33_4", "name": "Ronin", "origin": "Uzak Doğu", "age": 32, "health": 94, "strength": 80, "intelligence": 75, "stamina": 78, "price": 2150, "image": "assets/defaultasker.png", "description": "Efendisiz samuray"},
+        {"id": "slave_w33_5", "name": "Daimyo", "origin": "Uzak Doğu", "age": 38, "health": 92, "strength": 76, "intelligence": 88, "stamina": 70, "price": 2250, "image": "assets/defaultasker.png", "description": "Savaş lordu"}
+      ],
+      "staff": [
+        {"id": "staff_w33_1", "name": "Eastern Master", "role": "trainer", "salary": 88, "skill": 92, "bonus": 14, "price": 900, "image": "assets/defaultasker.png", "description": "Uzak Doğu ustası"},
+        {"id": "staff_w33_2", "name": "Monk Healer", "role": "doctor", "salary": 85, "skill": 90, "bonus": 35, "price": 850, "image": "assets/defaultasker.png", "description": "Keşiş şifacı"},
+        {"id": "staff_w33_3", "name": "Sensei", "role": "trainer", "salary": 90, "skill": 94, "bonus": 15, "price": 920, "image": "assets/defaultasker.png", "description": "Usta öğretmen"}
+      ]
+    },
+    {
+      "week": 34,
+      "title": "İmparatorluk Hazinesi",
+      "description": "Saraydan özel satış",
+      "slaves": [
+        {"id": "slave_w34_1", "name": "Augustus II", "origin": "Roma", "age": 32, "health": 98, "strength": 82, "intelligence": 80, "stamina": 78, "price": 2400, "image": "assets/defaultasker.png", "description": "İmparator soyundan"},
+        {"id": "slave_w34_2", "name": "Tiberius", "origin": "Roma", "age": 35, "health": 96, "strength": 80, "intelligence": 78, "stamina": 75, "price": 2300, "image": "assets/defaultasker.png", "description": "İmparator muhafızı"},
+        {"id": "slave_w34_3", "name": "Caligula", "origin": "Roma", "age": 28, "health": 94, "strength": 78, "intelligence": 72, "stamina": 80, "price": 2200, "image": "assets/defaultasker.png", "description": "Çılgın savaşçı"},
+        {"id": "slave_w34_4", "name": "Claudius", "origin": "Roma", "age": 38, "health": 90, "strength": 72, "intelligence": 90, "stamina": 68, "price": 2100, "image": "assets/defaultasker.png", "description": "Bilge savaşçı"},
+        {"id": "slave_w34_5", "name": "Nero II", "origin": "Roma", "age": 26, "health": 92, "strength": 75, "intelligence": 75, "stamina": 78, "price": 2150, "image": "assets/defaultasker.png", "description": "Sanat ve savaş"}
+      ],
+      "staff": [
+        {"id": "staff_w34_1", "name": "Imperial Guard Trainer", "role": "trainer", "salary": 95, "skill": 97, "bonus": 16, "price": 1000, "image": "assets/defaultasker.png", "description": "Praetorian eğitmeni"},
+        {"id": "staff_w34_2", "name": "Senate Physician", "role": "doctor", "salary": 92, "skill": 95, "bonus": 40, "price": 980, "image": "assets/defaultasker.png", "description": "Senato hekimi"}
+      ]
+    },
+    {
+      "week": 35,
+      "title": "Yarı Final Hazırlık",
+      "description": "Final öncesi güçlü köleler",
+      "slaves": [
+        {"id": "slave_w35_1", "name": "Primus", "origin": "Roma", "age": 30, "health": 100, "strength": 88, "intelligence": 75, "stamina": 82, "price": 2500, "image": "assets/defaultasker.png", "description": "Birinci sıra"},
+        {"id": "slave_w35_2", "name": "Secundus", "origin": "Roma", "age": 28, "health": 98, "strength": 85, "intelligence": 72, "stamina": 80, "price": 2400, "image": "assets/defaultasker.png", "description": "İkinci sıra"},
+        {"id": "slave_w35_3", "name": "Tertius", "origin": "Roma", "age": 32, "health": 96, "strength": 82, "intelligence": 78, "stamina": 78, "price": 2350, "image": "assets/defaultasker.png", "description": "Üçüncü sıra"},
+        {"id": "slave_w35_4", "name": "Quartus", "origin": "Roma", "age": 26, "health": 94, "strength": 80, "intelligence": 70, "stamina": 82, "price": 2250, "image": "assets/defaultasker.png", "description": "Dördüncü sıra"},
+        {"id": "slave_w35_5", "name": "Quintus", "origin": "Roma", "age": 34, "health": 98, "strength": 86, "intelligence": 68, "stamina": 78, "price": 2300, "image": "assets/defaultasker.png", "description": "Beşinci sıra"}
+      ],
+      "staff": [
+        {"id": "staff_w35_1", "name": "Elite Trainer", "role": "trainer", "salary": 98, "skill": 98, "bonus": 18, "price": 1100, "image": "assets/defaultasker.png", "description": "En iyi eğitmen"}
+      ]
+    },
+    {
+      "week": 36,
+      "title": "Efsane Savaşçılar",
+      "description": "Tarihin en güçlüleri",
+      "slaves": [
+        {"id": "slave_w36_1", "name": "Romulus", "origin": "Roma", "age": 30, "health": 100, "strength": 90, "intelligence": 78, "stamina": 85, "price": 2700, "image": "assets/defaultasker.png", "description": "Roma'nın kurucusu"},
+        {"id": "slave_w36_2", "name": "Remus", "origin": "Roma", "age": 30, "health": 98, "strength": 88, "intelligence": 75, "stamina": 82, "price": 2600, "image": "assets/defaultasker.png", "description": "Kardeş savaşçı"},
+        {"id": "slave_w36_3", "name": "Aeneas", "origin": "Truva", "age": 35, "health": 96, "strength": 85, "intelligence": 82, "stamina": 78, "price": 2550, "image": "assets/defaultasker.png", "description": "Truva kahramanı"},
+        {"id": "slave_w36_4", "name": "Horatius", "origin": "Roma", "age": 32, "health": 100, "strength": 92, "intelligence": 70, "stamina": 88, "price": 2800, "image": "assets/defaultasker.png", "description": "Köprü savunucusu"},
+        {"id": "slave_w36_5", "name": "Cincinnatus", "origin": "Roma", "age": 40, "health": 94, "strength": 82, "intelligence": 88, "stamina": 75, "price": 2650, "image": "assets/defaultasker.png", "description": "Diktatör kahraman"}
+      ],
+      "staff": [
+        {"id": "staff_w36_1", "name": "Founding Trainer", "role": "trainer", "salary": 100, "skill": 100, "bonus": 20, "price": 1200, "image": "assets/defaultasker.png", "description": "Kurucu eğitmen"},
+        {"id": "staff_w36_2", "name": "Legendary Healer", "role": "doctor", "salary": 98, "skill": 98, "bonus": 45, "price": 1150, "image": "assets/defaultasker.png", "description": "Efsane şifacı"},
+        {"id": "staff_w36_3", "name": "War Sage", "role": "trainer", "salary": 96, "skill": 96, "bonus": 18, "price": 1100, "image": "assets/defaultasker.png", "description": "Savaş bilgesi"}
+      ]
+    },
+    {
+      "week": 37,
+      "title": "Tanrıların Savaşçıları",
+      "description": "Tanrısal güce sahip köleler",
+      "slaves": [
+        {"id": "slave_w37_1", "name": "Zeus", "origin": "Olympos", "age": 35, "health": 100, "strength": 95, "intelligence": 85, "stamina": 88, "price": 3000, "image": "assets/defaultasker.png", "description": "Göklerin efendisi"},
+        {"id": "slave_w37_2", "name": "Hades", "origin": "Olympos", "age": 38, "health": 98, "strength": 90, "intelligence": 88, "stamina": 82, "price": 2900, "image": "assets/defaultasker.png", "description": "Yeraltı tanrısı"},
+        {"id": "slave_w37_3", "name": "Kronos", "origin": "Olympos", "age": 40, "health": 100, "strength": 98, "intelligence": 80, "stamina": 90, "price": 3200, "image": "assets/defaultasker.png", "description": "Titan"},
+        {"id": "slave_w37_4", "name": "Atlas", "origin": "Olympos", "age": 36, "health": 100, "strength": 100, "intelligence": 70, "stamina": 95, "price": 3100, "image": "assets/defaultasker.png", "description": "Dünyayı taşıyan"},
+        {"id": "slave_w37_5", "name": "Prometheus", "origin": "Olympos", "age": 32, "health": 96, "strength": 85, "intelligence": 95, "stamina": 80, "price": 2850, "image": "assets/defaultasker.png", "description": "Ateş getiren"},
+        {"id": "slave_w37_6", "name": "Hyperion", "origin": "Olympos", "age": 34, "health": 98, "strength": 92, "intelligence": 78, "stamina": 85, "price": 2950, "image": "assets/defaultasker.png", "description": "Işık titani"}
+      ],
+      "staff": [
+        {"id": "staff_w37_1", "name": "Divine Trainer", "role": "trainer", "salary": 105, "skill": 100, "bonus": 22, "price": 1300, "image": "assets/defaultasker.png", "description": "İlahi eğitmen"},
+        {"id": "staff_w37_2", "name": "Ambrosia Healer", "role": "doctor", "salary": 102, "skill": 100, "bonus": 50, "price": 1250, "image": "assets/defaultasker.png", "description": "Ambrosia şifacısı"}
+      ]
+    },
+    {
+      "week": 38,
+      "title": "Son Fırsat",
+      "description": "Final öncesi son büyük satış",
+      "slaves": [
+        {"id": "slave_w38_1", "name": "Optimus", "origin": "Roma", "age": 32, "health": 100, "strength": 95, "intelligence": 80, "stamina": 90, "price": 3100, "image": "assets/defaultasker.png", "description": "En iyisi"},
+        {"id": "slave_w38_2", "name": "Ultimus", "origin": "Roma", "age": 30, "health": 98, "strength": 92, "intelligence": 82, "stamina": 88, "price": 3000, "image": "assets/defaultasker.png", "description": "Son savaşçı"},
+        {"id": "slave_w38_3", "name": "Maximus II", "origin": "Roma", "age": 35, "health": 100, "strength": 98, "intelligence": 75, "stamina": 92, "price": 3200, "image": "assets/defaultasker.png", "description": "En büyük"},
+        {"id": "slave_w38_4", "name": "Invictus II", "origin": "Galya", "age": 28, "health": 98, "strength": 90, "intelligence": 78, "stamina": 85, "price": 2900, "image": "assets/defaultasker.png", "description": "Yenilmez II"},
+        {"id": "slave_w38_5", "name": "Eternus", "origin": "Yunan", "age": 33, "health": 96, "strength": 88, "intelligence": 85, "stamina": 82, "price": 2850, "image": "assets/defaultasker.png", "description": "Ebedi savaşçı"},
+        {"id": "slave_w38_6", "name": "Infinitus", "origin": "Roma", "age": 30, "health": 100, "strength": 94, "intelligence": 78, "stamina": 88, "price": 3050, "image": "assets/defaultasker.png", "description": "Sonsuz güç"}
+      ],
+      "staff": [
+        {"id": "staff_w38_1", "name": "Ultimate Trainer", "role": "trainer", "salary": 108, "skill": 100, "bonus": 24, "price": 1400, "image": "assets/defaultasker.png", "description": "Nihai eğitmen"},
+        {"id": "staff_w38_2", "name": "Miracle Healer", "role": "doctor", "salary": 105, "skill": 100, "bonus": 55, "price": 1350, "image": "assets/defaultasker.png", "description": "Mucize şifacı"},
+        {"id": "staff_w38_3", "name": "Grand Master", "role": "trainer", "salary": 110, "skill": 100, "bonus": 25, "price": 1450, "image": "assets/defaultasker.png", "description": "Büyük usta"}
+      ]
+    },
+    {
+      "week": 39,
+      "title": "Caesar'ın Seçimi",
+      "description": "İmparator için en iyiler",
+      "slaves": [
+        {"id": "slave_w39_1", "name": "Caesarion", "origin": "Roma", "age": 28, "health": 100, "strength": 95, "intelligence": 90, "stamina": 88, "price": 3500, "image": "assets/defaultasker.png", "description": "Sezar'ın oğlu"},
+        {"id": "slave_w39_2", "name": "Imperatorius", "origin": "Roma", "age": 32, "health": 100, "strength": 98, "intelligence": 85, "stamina": 92, "price": 3600, "image": "assets/defaultasker.png", "description": "İmparator değerinde"},
+        {"id": "slave_w39_3", "name": "Triumphator", "origin": "Roma", "age": 30, "health": 98, "strength": 92, "intelligence": 88, "stamina": 90, "price": 3400, "image": "assets/defaultasker.png", "description": "Zafer kazanan"},
+        {"id": "slave_w39_4", "name": "Regulus", "origin": "Roma", "age": 35, "health": 96, "strength": 90, "intelligence": 92, "stamina": 85, "price": 3300, "image": "assets/defaultasker.png", "description": "Küçük kral"},
+        {"id": "slave_w39_5", "name": "Princeps", "origin": "Roma", "age": 33, "health": 98, "strength": 94, "intelligence": 82, "stamina": 88, "price": 3450, "image": "assets/defaultasker.png", "description": "Birinci vatandaş"},
+        {"id": "slave_w39_6", "name": "Dominatus", "origin": "Roma", "age": 30, "health": 100, "strength": 96, "intelligence": 80, "stamina": 90, "price": 3550, "image": "assets/defaultasker.png", "description": "Efendi"}
+      ],
+      "staff": [
+        {"id": "staff_w39_1", "name": "Caesar's Trainer", "role": "trainer", "salary": 115, "skill": 100, "bonus": 28, "price": 1600, "image": "assets/defaultasker.png", "description": "Sezar'ın eğitmeni"},
+        {"id": "staff_w39_2", "name": "Royal Healer", "role": "doctor", "salary": 112, "skill": 100, "bonus": 60, "price": 1550, "image": "assets/defaultasker.png", "description": "Kraliyet şifacısı"}
+      ]
+    },
+    {
+      "week": 40,
+      "title": "Kırk Hafta Şöleni",
+      "description": "40. hafta büyük festival",
+      "slaves": [
+        {"id": "slave_w40_1", "name": "Quadraginta", "origin": "Roma", "age": 30, "health": 100, "strength": 98, "intelligence": 88, "stamina": 92, "price": 3800, "image": "assets/defaultasker.png", "description": "Kırkıncı"},
+        {"id": "slave_w40_2", "name": "Fortuna", "origin": "Roma", "age": 28, "health": 98, "strength": 92, "intelligence": 85, "stamina": 90, "price": 3600, "image": "assets/defaultasker.png", "description": "Şans tanrıçası"},
+        {"id": "slave_w40_3", "name": "Victoria", "origin": "Roma", "age": 26, "health": 96, "strength": 88, "intelligence": 90, "stamina": 88, "price": 3500, "image": "assets/defaultasker.png", "description": "Zafer tanrıçası"},
+        {"id": "slave_w40_4", "name": "Bellona", "origin": "Roma", "age": 32, "health": 100, "strength": 95, "intelligence": 82, "stamina": 95, "price": 3700, "image": "assets/defaultasker.png", "description": "Savaş tanrıçası"},
+        {"id": "slave_w40_5", "name": "Minerva", "origin": "Roma", "age": 30, "health": 94, "strength": 85, "intelligence": 98, "stamina": 85, "price": 3550, "image": "assets/defaultasker.png", "description": "Bilgelik tanrıçası"},
+        {"id": "slave_w40_6", "name": "Diana", "origin": "Roma", "age": 25, "health": 92, "strength": 82, "intelligence": 88, "stamina": 92, "price": 3400, "image": "assets/defaultasker.png", "description": "Avcı tanrıça"}
+      ],
+      "staff": [
+        {"id": "staff_w40_1", "name": "Festival Master", "role": "trainer", "salary": 120, "skill": 100, "bonus": 30, "price": 1700, "image": "assets/defaultasker.png", "description": "Festival ustası"},
+        {"id": "staff_w40_2", "name": "Divine Healer", "role": "doctor", "salary": 118, "skill": 100, "bonus": 65, "price": 1650, "image": "assets/defaultasker.png", "description": "İlahi şifacı"},
+        {"id": "staff_w40_3", "name": "Olympian Master", "role": "trainer", "salary": 122, "skill": 100, "bonus": 32, "price": 1750, "image": "assets/defaultasker.png", "description": "Olimpos ustası"}
+      ]
+    },
+    {
+      "week": 41,
+      "title": "Final Hazırlıkları",
+      "description": "Son 10 hafta başlıyor",
+      "slaves": [
+        {"id": "slave_w41_1", "name": "Finalis", "origin": "Roma", "age": 32, "health": 100, "strength": 98, "intelligence": 90, "stamina": 95, "price": 4000, "image": "assets/defaultasker.png", "description": "Final savaşçısı"},
+        {"id": "slave_w41_2", "name": "Apocalyptus", "origin": "Yunan", "age": 30, "health": 100, "strength": 100, "intelligence": 85, "stamina": 98, "price": 4200, "image": "assets/defaultasker.png", "description": "Yıkım habercisi"},
+        {"id": "slave_w41_3", "name": "Terminus", "origin": "Roma", "age": 35, "health": 98, "strength": 95, "intelligence": 88, "stamina": 92, "price": 3900, "image": "assets/defaultasker.png", "description": "Son nokta"},
+        {"id": "slave_w41_4", "name": "Omega", "origin": "Yunan", "age": 28, "health": 96, "strength": 92, "intelligence": 92, "stamina": 90, "price": 3850, "image": "assets/defaultasker.png", "description": "Son harf"},
+        {"id": "slave_w41_5", "name": "Alpha", "origin": "Yunan", "age": 26, "health": 98, "strength": 94, "intelligence": 90, "stamina": 88, "price": 3950, "image": "assets/defaultasker.png", "description": "İlk ve son"},
+        {"id": "slave_w41_6", "name": "Fatum", "origin": "Roma", "age": 33, "health": 100, "strength": 96, "intelligence": 85, "stamina": 94, "price": 4100, "image": "assets/defaultasker.png", "description": "Kader"}
+      ],
+      "staff": [
+        {"id": "staff_w41_1", "name": "Final Trainer", "role": "trainer", "salary": 125, "skill": 100, "bonus": 35, "price": 1800, "image": "assets/defaultasker.png", "description": "Final eğitmeni"}
+      ]
+    },
+    {
+      "week": 42,
+      "title": "Savaş Tanrıları",
+      "description": "En güçlü savaşçılar",
+      "slaves": [
+        {"id": "slave_w42_1", "name": "Bellator Maximus", "origin": "Roma", "age": 33, "health": 100, "strength": 100, "intelligence": 88, "stamina": 98, "price": 4300, "image": "assets/defaultasker.png", "description": "En büyük savaşçı"},
+        {"id": "slave_w42_2", "name": "Pugnator", "origin": "Roma", "age": 30, "health": 98, "strength": 98, "intelligence": 85, "stamina": 95, "price": 4150, "image": "assets/defaultasker.png", "description": "Dövüşçü"},
+        {"id": "slave_w42_3", "name": "Gladius Rex", "origin": "Roma", "age": 32, "health": 100, "strength": 96, "intelligence": 90, "stamina": 92, "price": 4200, "image": "assets/defaultasker.png", "description": "Kılıç kralı"},
+        {"id": "slave_w42_4", "name": "Scutum", "origin": "Roma", "age": 35, "health": 100, "strength": 94, "intelligence": 82, "stamina": 100, "price": 4100, "image": "assets/defaultasker.png", "description": "Kalkan ustası"},
+        {"id": "slave_w42_5", "name": "Pilum", "origin": "Roma", "age": 28, "health": 96, "strength": 90, "intelligence": 88, "stamina": 90, "price": 3950, "image": "assets/defaultasker.png", "description": "Mızrak ustası"},
+        {"id": "slave_w42_6", "name": "Galea", "origin": "Roma", "age": 30, "health": 98, "strength": 92, "intelligence": 85, "stamina": 94, "price": 4050, "image": "assets/defaultasker.png", "description": "Miğfer taşıyan"}
+      ],
+      "staff": [
+        {"id": "staff_w42_1", "name": "War God Trainer", "role": "trainer", "salary": 130, "skill": 100, "bonus": 38, "price": 1900, "image": "assets/defaultasker.png", "description": "Savaş tanrısı eğitmeni"},
+        {"id": "staff_w42_2", "name": "Immortal Healer", "role": "doctor", "salary": 128, "skill": 100, "bonus": 70, "price": 1850, "image": "assets/defaultasker.png", "description": "Ölümsüz şifacı"}
+      ]
+    },
+    {
+      "week": 43,
+      "title": "Efsane Koleksiyonu",
+      "description": "Tüm zamanların en iyileri",
+      "slaves": [
+        {"id": "slave_w43_1", "name": "Legendarius", "origin": "Roma", "age": 35, "health": 100, "strength": 100, "intelligence": 92, "stamina": 98, "price": 4500, "image": "assets/defaultasker.png", "description": "Efsane"},
+        {"id": "slave_w43_2", "name": "Mythicus", "origin": "Yunan", "age": 32, "health": 100, "strength": 98, "intelligence": 95, "stamina": 95, "price": 4400, "image": "assets/defaultasker.png", "description": "Mitolojik"},
+        {"id": "slave_w43_3", "name": "Fabulus", "origin": "Roma", "age": 30, "health": 98, "strength": 96, "intelligence": 88, "stamina": 92, "price": 4300, "image": "assets/defaultasker.png", "description": "Masalsı"},
+        {"id": "slave_w43_4", "name": "Epicus", "origin": "Yunan", "age": 33, "health": 100, "strength": 100, "intelligence": 85, "stamina": 100, "price": 4600, "image": "assets/defaultasker.png", "description": "Destansı"},
+        {"id": "slave_w43_5", "name": "Heroicus", "origin": "Yunan", "age": 28, "health": 96, "strength": 94, "intelligence": 90, "stamina": 88, "price": 4200, "image": "assets/defaultasker.png", "description": "Kahramansı"},
+        {"id": "slave_w43_6", "name": "Gloriosus", "origin": "Roma", "age": 30, "health": 98, "strength": 95, "intelligence": 88, "stamina": 95, "price": 4350, "image": "assets/defaultasker.png", "description": "Şanlı"}
+      ],
+      "staff": [
+        {"id": "staff_w43_1", "name": "Legend Trainer", "role": "trainer", "salary": 135, "skill": 100, "bonus": 40, "price": 2000, "image": "assets/defaultasker.png", "description": "Efsane eğitmen"},
+        {"id": "staff_w43_2", "name": "Phoenix Healer", "role": "doctor", "salary": 132, "skill": 100, "bonus": 75, "price": 1950, "image": "assets/defaultasker.png", "description": "Anka kuşu şifacısı"},
+        {"id": "staff_w43_3", "name": "Eternal Trainer", "role": "trainer", "salary": 138, "skill": 100, "bonus": 42, "price": 2050, "image": "assets/defaultasker.png", "description": "Ebedi eğitmen"}
+      ]
+    },
+    {
+      "week": 44,
+      "title": "Colosseum Hazırlık",
+      "description": "Colosseum finali için hazırlık",
+      "slaves": [
+        {"id": "slave_w44_1", "name": "Colosseus", "origin": "Roma", "age": 32, "health": 100, "strength": 100, "intelligence": 90, "stamina": 100, "price": 4800, "image": "assets/defaultasker.png", "description": "Colosseum'un efendisi"},
+        {"id": "slave_w44_2", "name": "Amphitheater", "origin": "Roma", "age": 30, "health": 98, "strength": 98, "intelligence": 88, "stamina": 96, "price": 4600, "image": "assets/defaultasker.png", "description": "Arena hakimi"},
+        {"id": "slave_w44_3", "name": "Circus Maximus", "origin": "Roma", "age": 35, "health": 100, "strength": 96, "intelligence": 92, "stamina": 94, "price": 4700, "image": "assets/defaultasker.png", "description": "Yarış şampiyonu"},
+        {"id": "slave_w44_4", "name": "Forum Rex", "origin": "Roma", "age": 33, "health": 96, "strength": 94, "intelligence": 95, "stamina": 90, "price": 4500, "image": "assets/defaultasker.png", "description": "Forum kralı"},
+        {"id": "slave_w44_5", "name": "Capitolinus", "origin": "Roma", "age": 28, "health": 98, "strength": 95, "intelligence": 88, "stamina": 92, "price": 4550, "image": "assets/defaultasker.png", "description": "Kapitol savaşçısı"},
+        {"id": "slave_w44_6", "name": "Palatinus", "origin": "Roma", "age": 30, "health": 100, "strength": 97, "intelligence": 85, "stamina": 98, "price": 4650, "image": "assets/defaultasker.png", "description": "Palatin tepesi"}
+      ],
+      "staff": [
+        {"id": "staff_w44_1", "name": "Colosseum Trainer", "role": "trainer", "salary": 140, "skill": 100, "bonus": 45, "price": 2100, "image": "assets/defaultasker.png", "description": "Colosseum eğitmeni"},
+        {"id": "staff_w44_2", "name": "Arena Healer", "role": "doctor", "salary": 138, "skill": 100, "bonus": 80, "price": 2050, "image": "assets/defaultasker.png", "description": "Arena şifacısı"}
+      ]
+    },
+    {
+      "week": 45,
+      "title": "İmparatorluk Şampiyonları",
+      "description": "İmparatorluğun en iyileri",
+      "slaves": [
+        {"id": "slave_w45_1", "name": "Imperium", "origin": "Roma", "age": 33, "health": 100, "strength": 100, "intelligence": 95, "stamina": 100, "price": 5000, "image": "assets/defaultasker.png", "description": "İmparatorluk gücü"},
+        {"id": "slave_w45_2", "name": "Potestas", "origin": "Roma", "age": 30, "health": 100, "strength": 98, "intelligence": 92, "stamina": 98, "price": 4900, "image": "assets/defaultasker.png", "description": "Mutlak güç"},
+        {"id": "slave_w45_3", "name": "Auctoritas", "origin": "Roma", "age": 35, "health": 98, "strength": 96, "intelligence": 98, "stamina": 95, "price": 4850, "image": "assets/defaultasker.png", "description": "Otorite"},
+        {"id": "slave_w45_4", "name": "Dignitas", "origin": "Roma", "age": 32, "health": 96, "strength": 94, "intelligence": 95, "stamina": 92, "price": 4750, "image": "assets/defaultasker.png", "description": "Onur"},
+        {"id": "slave_w45_5", "name": "Virtus", "origin": "Roma", "age": 28, "health": 98, "strength": 100, "intelligence": 88, "stamina": 96, "price": 4950, "image": "assets/defaultasker.png", "description": "Erdem"},
+        {"id": "slave_w45_6", "name": "Pietas", "origin": "Roma", "age": 30, "health": 100, "strength": 95, "intelligence": 90, "stamina": 94, "price": 4800, "image": "assets/defaultasker.png", "description": "Bağlılık"}
+      ],
+      "staff": [
+        {"id": "staff_w45_1", "name": "Imperial Champion Trainer", "role": "trainer", "salary": 145, "skill": 100, "bonus": 48, "price": 2200, "image": "assets/defaultasker.png", "description": "İmparatorluk şampiyonu eğitmeni"}
+      ]
+    },
+    {
+      "week": 46,
+      "title": "Son Fırsat",
+      "description": "Final öncesi son alım şansı",
+      "slaves": [
+        {"id": "slave_w46_1", "name": "Ultima Ratio", "origin": "Roma", "age": 32, "health": 100, "strength": 100, "intelligence": 95, "stamina": 100, "price": 5200, "image": "assets/defaultasker.png", "description": "Son çare"},
+        {"id": "slave_w46_2", "name": "Deus Ex", "origin": "Yunan", "age": 30, "health": 100, "strength": 100, "intelligence": 100, "stamina": 98, "price": 5500, "image": "assets/defaultasker.png", "description": "Tanrısal müdahale"},
+        {"id": "slave_w46_3", "name": "Finis", "origin": "Roma", "age": 35, "health": 98, "strength": 98, "intelligence": 92, "stamina": 96, "price": 5100, "image": "assets/defaultasker.png", "description": "Son"},
+        {"id": "slave_w46_4", "name": "Extremus", "origin": "Roma", "age": 28, "health": 100, "strength": 96, "intelligence": 88, "stamina": 98, "price": 5000, "image": "assets/defaultasker.png", "description": "Uç nokta"},
+        {"id": "slave_w46_5", "name": "Supremus", "origin": "Roma", "age": 33, "health": 100, "strength": 98, "intelligence": 90, "stamina": 100, "price": 5300, "image": "assets/defaultasker.png", "description": "En üstün"},
+        {"id": "slave_w46_6", "name": "Absolutus", "origin": "Roma", "age": 30, "health": 100, "strength": 100, "intelligence": 85, "stamina": 100, "price": 5400, "image": "assets/defaultasker.png", "description": "Mutlak"}
+      ],
+      "staff": [
+        {"id": "staff_w46_1", "name": "Ultimate Trainer", "role": "trainer", "salary": 150, "skill": 100, "bonus": 50, "price": 2300, "image": "assets/defaultasker.png", "description": "Nihai eğitmen"},
+        {"id": "staff_w46_2", "name": "Supreme Healer", "role": "doctor", "salary": 148, "skill": 100, "bonus": 85, "price": 2250, "image": "assets/defaultasker.png", "description": "En üstün şifacı"},
+        {"id": "staff_w46_3", "name": "Absolute Master", "role": "trainer", "salary": 152, "skill": 100, "bonus": 52, "price": 2350, "image": "assets/defaultasker.png", "description": "Mutlak usta"}
+      ]
+    },
+    {
+      "week": 47,
+      "title": "Caesar'ın Gözdesi",
+      "description": "İmparatorun kişisel koleksiyonu",
+      "slaves": [
+        {"id": "slave_w47_1", "name": "Caesar's Chosen", "origin": "Roma", "age": 32, "health": 100, "strength": 100, "intelligence": 98, "stamina": 100, "price": 5800, "image": "assets/defaultasker.png", "description": "Sezar'ın seçilmişi"},
+        {"id": "slave_w47_2", "name": "Divine Champion", "origin": "Roma", "age": 30, "health": 100, "strength": 100, "intelligence": 95, "stamina": 100, "price": 5700, "image": "assets/defaultasker.png", "description": "İlahi şampiyon"},
+        {"id": "slave_w47_3", "name": "Imperial Guard", "origin": "Roma", "age": 35, "health": 100, "strength": 98, "intelligence": 92, "stamina": 98, "price": 5500, "image": "assets/defaultasker.png", "description": "İmparatorluk muhafızı"},
+        {"id": "slave_w47_4", "name": "Praetorian Elite", "origin": "Roma", "age": 28, "health": 98, "strength": 96, "intelligence": 90, "stamina": 96, "price": 5400, "image": "assets/defaultasker.png", "description": "Praetorian elit"},
+        {"id": "slave_w47_5", "name": "Senate Champion", "origin": "Roma", "age": 33, "health": 100, "strength": 100, "intelligence": 88, "stamina": 100, "price": 5600, "image": "assets/defaultasker.png", "description": "Senato şampiyonu"},
+        {"id": "slave_w47_6", "name": "Forum Victor", "origin": "Roma", "age": 30, "health": 100, "strength": 98, "intelligence": 92, "stamina": 98, "price": 5550, "image": "assets/defaultasker.png", "description": "Forum galibi"}
+      ],
+      "staff": [
+        {"id": "staff_w47_1", "name": "Caesar's Personal Trainer", "role": "trainer", "salary": 160, "skill": 100, "bonus": 55, "price": 2500, "image": "assets/defaultasker.png", "description": "Sezar'ın kişisel eğitmeni"},
+        {"id": "staff_w47_2", "name": "Imperial Physician", "role": "doctor", "salary": 158, "skill": 100, "bonus": 90, "price": 2450, "image": "assets/defaultasker.png", "description": "İmparatorluk hekimi"}
+      ]
+    },
+    {
+      "week": 48,
+      "title": "Dünya Şampiyonları",
+      "description": "Bilinen dünyanın en iyileri",
+      "slaves": [
+        {"id": "slave_w48_1", "name": "Orbis Terrarum", "origin": "Roma", "age": 33, "health": 100, "strength": 100, "intelligence": 100, "stamina": 100, "price": 6000, "image": "assets/defaultasker.png", "description": "Dünya şampiyonu"},
+        {"id": "slave_w48_2", "name": "Mundus", "origin": "Roma", "age": 30, "health": 100, "strength": 100, "intelligence": 98, "stamina": 100, "price": 5900, "image": "assets/defaultasker.png", "description": "Dünya hakimi"},
+        {"id": "slave_w48_3", "name": "Universum", "origin": "Yunan", "age": 32, "health": 100, "strength": 100, "intelligence": 95, "stamina": 100, "price": 5850, "image": "assets/defaultasker.png", "description": "Evrensel şampiyon"},
+        {"id": "slave_w48_4", "name": "Cosmos", "origin": "Yunan", "age": 28, "health": 98, "strength": 98, "intelligence": 100, "stamina": 98, "price": 5800, "image": "assets/defaultasker.png", "description": "Kozmik güç"},
+        {"id": "slave_w48_5", "name": "Aeternitas", "origin": "Roma", "age": 35, "health": 100, "strength": 100, "intelligence": 92, "stamina": 100, "price": 5950, "image": "assets/defaultasker.png", "description": "Ebediyet"},
+        {"id": "slave_w48_6", "name": "Immortalis", "origin": "Roma", "age": 30, "health": 100, "strength": 100, "intelligence": 90, "stamina": 100, "price": 5900, "image": "assets/defaultasker.png", "description": "Ölümsüz"}
+      ],
+      "staff": [
+        {"id": "staff_w48_1", "name": "World Champion Trainer", "role": "trainer", "salary": 170, "skill": 100, "bonus": 60, "price": 2700, "image": "assets/defaultasker.png", "description": "Dünya şampiyonu eğitmeni"},
+        {"id": "staff_w48_2", "name": "Eternal Healer", "role": "doctor", "salary": 168, "skill": 100, "bonus": 95, "price": 2650, "image": "assets/defaultasker.png", "description": "Ebedi şifacı"},
+        {"id": "staff_w48_3", "name": "Immortal Trainer", "role": "trainer", "salary": 172, "skill": 100, "bonus": 62, "price": 2750, "image": "assets/defaultasker.png", "description": "Ölümsüz eğitmen"}
+      ]
+    },
+    {
+      "week": 49,
+      "title": "Final Öncesi",
+      "description": "Son büyük satış",
+      "slaves": [
+        {"id": "slave_w49_1", "name": "Penultimus", "origin": "Roma", "age": 32, "health": 100, "strength": 100, "intelligence": 100, "stamina": 100, "price": 6500, "image": "assets/defaultasker.png", "description": "Sondan bir önceki"},
+        {"id": "slave_w49_2", "name": "Almost Final", "origin": "Roma", "age": 30, "health": 100, "strength": 100, "intelligence": 98, "stamina": 100, "price": 6400, "image": "assets/defaultasker.png", "description": "Neredeyse final"},
+        {"id": "slave_w49_3", "name": "Eve of Battle", "origin": "Roma", "age": 28, "health": 100, "strength": 100, "intelligence": 95, "stamina": 100, "price": 6300, "image": "assets/defaultasker.png", "description": "Savaş arifesi"},
+        {"id": "slave_w49_4", "name": "Dawn Warrior", "origin": "Roma", "age": 33, "health": 100, "strength": 100, "intelligence": 92, "stamina": 100, "price": 6350, "image": "assets/defaultasker.png", "description": "Şafak savaşçısı"},
+        {"id": "slave_w49_5", "name": "Twilight Champion", "origin": "Roma", "age": 35, "health": 100, "strength": 100, "intelligence": 90, "stamina": 100, "price": 6250, "image": "assets/defaultasker.png", "description": "Alacakaranlık şampiyonu"},
+        {"id": "slave_w49_6", "name": "Final Hour", "origin": "Roma", "age": 30, "health": 100, "strength": 100, "intelligence": 88, "stamina": 100, "price": 6200, "image": "assets/defaultasker.png", "description": "Son saat"}
+      ],
+      "staff": [
+        {"id": "staff_w49_1", "name": "Final Trainer", "role": "trainer", "salary": 180, "skill": 100, "bonus": 65, "price": 2900, "image": "assets/defaultasker.png", "description": "Final eğitmeni"},
+        {"id": "staff_w49_2", "name": "Last Healer", "role": "doctor", "salary": 178, "skill": 100, "bonus": 100, "price": 2850, "image": "assets/defaultasker.png", "description": "Son şifacı"}
+      ]
+    },
+    {
+      "week": 50,
+      "title": "COLOSSEUM FİNALİ",
+      "description": "Büyük final haftası - Caesar'ın huzurunda son dövüş!",
+      "slaves": [
+        {"id": "slave_w50_1", "name": "ULTIMUS GLADIATOR", "origin": "Roma", "age": 30, "health": 100, "strength": 100, "intelligence": 100, "stamina": 100, "price": 7000, "image": "assets/defaultasker.png", "description": "EN SON GLADYATÖR"},
+        {"id": "slave_w50_2", "name": "CAESAR'S NEMESIS", "origin": "Roma", "age": 32, "health": 100, "strength": 100, "intelligence": 100, "stamina": 100, "price": 7500, "image": "assets/defaultasker.png", "description": "SEZAR'IN DÜŞMANI"},
+        {"id": "slave_w50_3", "name": "DIVINE DESTROYER", "origin": "Olympos", "age": 35, "health": 100, "strength": 100, "intelligence": 100, "stamina": 100, "price": 8000, "image": "assets/defaultasker.png", "description": "İLAHİ YIKICI"},
+        {"id": "slave_w50_4", "name": "FINAL CHAMPION", "origin": "Roma", "age": 28, "health": 100, "strength": 100, "intelligence": 100, "stamina": 100, "price": 7200, "image": "assets/defaultasker.png", "description": "FİNAL ŞAMPİYONU"},
+        {"id": "slave_w50_5", "name": "DESTINY'S WARRIOR", "origin": "Roma", "age": 33, "health": 100, "strength": 100, "intelligence": 100, "stamina": 100, "price": 7800, "image": "assets/defaultasker.png", "description": "KADERİN SAVAŞÇISI"},
+        {"id": "slave_w50_6", "name": "LEGEND OF ROME", "origin": "Roma", "age": 30, "health": 100, "strength": 100, "intelligence": 100, "stamina": 100, "price": 10000, "image": "assets/defaultasker.png", "description": "ROMA'NIN EFSANESİ"}
+      ],
+      "staff": [
+        {"id": "staff_w50_1", "name": "LEGENDARY MASTER", "role": "trainer", "salary": 200, "skill": 100, "bonus": 100, "price": 5000, "image": "assets/defaultasker.png", "description": "EFSANEVİ USTA"},
+        {"id": "staff_w50_2", "name": "DIVINE HEALER", "role": "doctor", "salary": 200, "skill": 100, "bonus": 100, "price": 5000, "image": "assets/defaultasker.png", "description": "İLAHİ ŞİFACI"},
+        {"id": "staff_w50_3", "name": "ULTIMATE TRAINER", "role": "trainer", "salary": 200, "skill": 100, "bonus": 100, "price": 5000, "image": "assets/defaultasker.png", "description": "NİHAİ EĞİTMEN"}
       ]
     }
   ]
