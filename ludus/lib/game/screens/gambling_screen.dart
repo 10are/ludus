@@ -44,7 +44,11 @@ class _GamblingScreenState extends State<GamblingScreen> {
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(color: Colors.white24),
                           ),
-                          child: const Icon(Icons.arrow_back, color: Colors.white, size: 22),
+                          child: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                            size: 22,
+                          ),
                         ),
                       ),
 
@@ -52,15 +56,24 @@ class _GamblingScreenState extends State<GamblingScreen> {
 
                       // Altın
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.black54,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: GameConstants.gold.withAlpha(100)),
+                          border: Border.all(
+                            color: GameConstants.gold.withAlpha(100),
+                          ),
                         ),
                         child: Row(
                           children: [
-                            Icon(Icons.paid, color: GameConstants.gold, size: 18),
+                            Icon(
+                              Icons.paid,
+                              color: GameConstants.gold,
+                              size: 18,
+                            ),
                             const SizedBox(width: 6),
                             Text(
                               '${game.state.gold}',
@@ -95,7 +108,10 @@ class _GamblingScreenState extends State<GamblingScreen> {
       decoration: BoxDecoration(
         color: Colors.black.withAlpha(180),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFF9C27B0).withAlpha(150), width: 2),
+        border: Border.all(
+          color: const Color(0xFF9C27B0).withAlpha(150),
+          width: 2,
+        ),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF9C27B0).withAlpha(40),
@@ -123,9 +139,15 @@ class _GamblingScreenState extends State<GamblingScreen> {
         decoration: BoxDecoration(
           color: isSelected ? const Color(0xFF9C27B0) : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
-          boxShadow: isSelected
-              ? [BoxShadow(color: const Color(0xFF9C27B0).withAlpha(60), blurRadius: 8)]
-              : null,
+          boxShadow:
+              isSelected
+                  ? [
+                    BoxShadow(
+                      color: const Color(0xFF9C27B0).withAlpha(60),
+                      blurRadius: 8,
+                    ),
+                  ]
+                  : null,
         ),
         child: Row(
           children: [
@@ -161,7 +183,8 @@ class _Blackjack21Game extends StatefulWidget {
   State<_Blackjack21Game> createState() => _Blackjack21GameState();
 }
 
-class _Blackjack21GameState extends State<_Blackjack21Game> with TickerProviderStateMixin {
+class _Blackjack21GameState extends State<_Blackjack21Game>
+    with TickerProviderStateMixin {
   final _random = Random();
   int betAmount = 50;
   bool isPlaying = false;
@@ -378,15 +401,16 @@ class _Blackjack21GameState extends State<_Blackjack21Game> with TickerProviderS
         Image.asset(
           'assets/21.jpg',
           fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) => Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xFF1a472a), Color(0xFF0d2818)],
+          errorBuilder:
+              (_, __, ___) => Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0xFF1a472a), Color(0xFF0d2818)],
+                  ),
+                ),
               ),
-            ),
-          ),
         ),
 
         // Karartma
@@ -413,39 +437,56 @@ class _Blackjack21GameState extends State<_Blackjack21Game> with TickerProviderS
                   const SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [25, 50, 100, 200].map((b) => _betBtn(b)).toList(),
+                    children:
+                        [25, 50, 100, 200].map((b) => _betBtn(b)).toList(),
                   ),
                   const SizedBox(height: 24),
                   _actionBtn('OYNA', GameConstants.gold, _start),
                 ] else ...[
                   // Krupiye kartları
-                  _cardRow('KRUPİYE', dealerCards, dealerTotal, !dealerRevealed),
+                  _cardRow(
+                    'KRUPİYE',
+                    dealerCards,
+                    dealerTotal,
+                    !dealerRevealed,
+                  ),
                   const SizedBox(height: 20),
 
                   // Sonuç
                   if (gameOver)
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: playerTotal == dealerTotal
-                              ? Colors.white54
-                              : (playerWon ? GameConstants.success : GameConstants.danger),
+                          color:
+                              playerTotal == dealerTotal
+                                  ? Colors.white54
+                                  : (playerWon
+                                      ? GameConstants.success
+                                      : GameConstants.danger),
                           width: 2,
                         ),
                       ),
                       child: Text(
                         playerTotal == dealerTotal
                             ? 'BERABERE'
-                            : (playerWon ? '+$betAmount ALTIN' : '-$betAmount ALTIN'),
+                            : (playerWon
+                                ? '+$betAmount ALTIN'
+                                : '-$betAmount ALTIN'),
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: playerTotal == dealerTotal
-                              ? Colors.white54
-                              : (playerWon ? GameConstants.success : GameConstants.danger),
+                          color:
+                              playerTotal == dealerTotal
+                                  ? Colors.white54
+                                  : (playerWon
+                                      ? GameConstants.success
+                                      : GameConstants.danger),
                         ),
                       ),
                     )
@@ -463,7 +504,11 @@ class _Blackjack21GameState extends State<_Blackjack21Game> with TickerProviderS
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _actionBtn('DEVAM ET', const Color(0xFF9C27B0), _newHand),
+                        _actionBtn(
+                          'DEVAM ET',
+                          const Color(0xFF9C27B0),
+                          _newHand,
+                        ),
                         const SizedBox(width: 16),
                         _smallBtn('ÇIK', Colors.white38, () {
                           setState(() {
@@ -577,7 +622,8 @@ class _Blackjack21GameState extends State<_Blackjack21Game> with TickerProviderS
 
   Widget _cardRow(String title, List<int> cards, int total, bool hide) {
     final isPlayer = title == 'SEN';
-    final controllers = isPlayer ? _playerCardControllers : _dealerCardControllers;
+    final controllers =
+        isPlayer ? _playerCardControllers : _dealerCardControllers;
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -601,14 +647,21 @@ class _Blackjack21GameState extends State<_Blackjack21Game> with TickerProviderS
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
-                  color: total > 21
-                      ? GameConstants.danger.withAlpha(40)
-                      : const Color(0xFFD4AF37).withAlpha(30),
+                  color:
+                      total > 21
+                          ? GameConstants.danger.withAlpha(40)
+                          : const Color(0xFFD4AF37).withAlpha(30),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: total > 21 ? GameConstants.danger : const Color(0xFFD4AF37),
+                    color:
+                        total > 21
+                            ? GameConstants.danger
+                            : const Color(0xFFD4AF37),
                   ),
                 ),
                 child: Text(
@@ -616,7 +669,10 @@ class _Blackjack21GameState extends State<_Blackjack21Game> with TickerProviderS
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: total > 21 ? GameConstants.danger : const Color(0xFFD4AF37),
+                    color:
+                        total > 21
+                            ? GameConstants.danger
+                            : const Color(0xFFD4AF37),
                   ),
                 ),
               ),
@@ -637,7 +693,11 @@ class _Blackjack21GameState extends State<_Blackjack21Game> with TickerProviderS
   }
 
   // Animasyonlu kart widget'ı
-  Widget _buildAnimatedCard(int value, bool hidden, AnimationController? controller) {
+  Widget _buildAnimatedCard(
+    int value,
+    bool hidden,
+    AnimationController? controller,
+  ) {
     if (controller == null) {
       return _buildAntiqueCard(value, hidden);
     }
@@ -675,23 +735,24 @@ class _Blackjack21GameState extends State<_Blackjack21Game> with TickerProviderS
       margin: const EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
         // Eskitilmiş parşömen rengi
-        gradient: hidden
-            ? const LinearGradient(
-          colors: [Color(0xFF6B3FA0), Color(0xFF4A2C7C)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        )
-            : const LinearGradient(
-          colors: [
-            Color(0xFFF5E6C8),
-            Color(0xFFE8D4A8),
-            Color(0xFFD4C098),
-            Color(0xFFC4B088),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          stops: [0.0, 0.3, 0.7, 1.0],
-        ),
+        gradient:
+            hidden
+                ? const LinearGradient(
+                  colors: [Color(0xFF6B3FA0), Color(0xFF4A2C7C)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )
+                : const LinearGradient(
+                  colors: [
+                    Color(0xFFF5E6C8),
+                    Color(0xFFE8D4A8),
+                    Color(0xFFD4C098),
+                    Color(0xFFC4B088),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [0.0, 0.3, 0.7, 1.0],
+                ),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: hidden ? const Color(0xFF9C27B0) : const Color(0xFF6B5344),
@@ -705,116 +766,123 @@ class _Blackjack21GameState extends State<_Blackjack21Game> with TickerProviderS
           ),
         ],
       ),
-      child: hidden
-          ? Center(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Icon(Icons.shield, color: Colors.white.withAlpha(60), size: 40),
-            Icon(Icons.question_mark, color: Colors.white.withAlpha(180), size: 20),
-          ],
-        ),
-      )
-          : Stack(
-        children: [
-          // Eskitilmiş doku efekti
-          Positioned.fill(
-            child: CustomPaint(
-              painter: _AgedPaperPainter(),
-            ),
-          ),
-          // Sol üst köşe sayı
-          Positioned(
-            top: 4,
-            left: 6,
-            child: Text(
-              _cardName(value),
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w900,
-                color: _getCardColor(value),
-                shadows: [
-                  Shadow(
-                    color: Colors.black.withAlpha(50),
-                    offset: const Offset(1, 1),
-                    blurRadius: 1,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          // Sağ alt köşe sayı (ters)
-          Positioned(
-            bottom: 4,
-            right: 6,
-            child: Transform.rotate(
-              angle: 3.14159,
-              child: Text(
-                _cardName(value),
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w900,
-                  color: _getCardColor(value),
-                  shadows: [
-                    Shadow(
-                      color: Colors.black.withAlpha(50),
-                      offset: const Offset(1, 1),
-                      blurRadius: 1,
+      child:
+          hidden
+              ? Center(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Icon(
+                      Icons.shield,
+                      color: Colors.white.withAlpha(60),
+                      size: 40,
+                    ),
+                    Icon(
+                      Icons.question_mark,
+                      color: Colors.white.withAlpha(180),
+                      size: 20,
                     ),
                   ],
                 ),
-              ),
-            ),
-          ),
-          // Merkez - büyük sayı ve sembol
-          Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Antik sembol
-                Text(
-                  _getCardSymbol(value),
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: _getCardColor(value),
+              )
+              : Stack(
+                children: [
+                  // Eskitilmiş doku efekti
+                  Positioned.fill(
+                    child: CustomPaint(painter: _AgedPaperPainter()),
                   ),
-                ),
-                const SizedBox(height: 2),
-                // Büyük sayı
-                Text(
-                  _cardName(value),
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w900,
-                    color: _getCardColor(value),
-                    letterSpacing: -1,
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withAlpha(40),
-                        offset: const Offset(1, 1),
-                        blurRadius: 2,
+                  // Sol üst köşe sayı
+                  Positioned(
+                    top: 4,
+                    left: 6,
+                    child: Text(
+                      _cardName(value),
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w900,
+                        color: _getCardColor(value),
+                        shadows: [
+                          Shadow(
+                            color: Colors.black.withAlpha(50),
+                            offset: const Offset(1, 1),
+                            blurRadius: 1,
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          // Kenar süslemeleri - antik çerçeve
-          Positioned.fill(
-            child: Container(
-              margin: const EdgeInsets.all(3),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(
-                  color: const Color(0xFF8B7355).withAlpha(60),
-                  width: 1,
-                ),
+                  // Sağ alt köşe sayı (ters)
+                  Positioned(
+                    bottom: 4,
+                    right: 6,
+                    child: Transform.rotate(
+                      angle: 3.14159,
+                      child: Text(
+                        _cardName(value),
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w900,
+                          color: _getCardColor(value),
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withAlpha(50),
+                              offset: const Offset(1, 1),
+                              blurRadius: 1,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Merkez - büyük sayı ve sembol
+                  Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Antik sembol
+                        Text(
+                          _getCardSymbol(value),
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: _getCardColor(value),
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        // Büyük sayı
+                        Text(
+                          _cardName(value),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w900,
+                            color: _getCardColor(value),
+                            letterSpacing: -1,
+                            shadows: [
+                              Shadow(
+                                color: Colors.black.withAlpha(40),
+                                offset: const Offset(1, 1),
+                                blurRadius: 2,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // Kenar süslemeleri - antik çerçeve
+                  Positioned.fill(
+                    child: Container(
+                      margin: const EdgeInsets.all(3),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          color: const Color(0xFF8B7355).withAlpha(60),
+                          width: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -851,15 +919,19 @@ class _AgedPaperPainter extends CustomPainter {
     }
 
     // Çizik efekti
-    final linePaint = Paint()
-      ..color = const Color(0xFF8B7355).withAlpha(20)
-      ..strokeWidth = 0.5;
+    final linePaint =
+        Paint()
+          ..color = const Color(0xFF8B7355).withAlpha(20)
+          ..strokeWidth = 0.5;
 
     for (int i = 0; i < 3; i++) {
       final y = random.nextDouble() * size.height;
       canvas.drawLine(
         Offset(0, y),
-        Offset(size.width * (0.3 + random.nextDouble() * 0.4), y + random.nextDouble() * 5),
+        Offset(
+          size.width * (0.3 + random.nextDouble() * 0.4),
+          y + random.nextDouble() * 5,
+        ),
         linePaint,
       );
     }
@@ -980,15 +1052,16 @@ class _DiceGameState extends State<_DiceGame> with TickerProviderStateMixin {
         Image.asset(
           'assets/zar.jpg',
           fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) => Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xFF2d1f3d), Color(0xFF1a1225)],
+          errorBuilder:
+              (_, __, ___) => Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0xFF2d1f3d), Color(0xFF1a1225)],
+                  ),
+                ),
               ),
-            ),
-          ),
         ),
 
         // Karartma
@@ -1015,7 +1088,8 @@ class _DiceGameState extends State<_DiceGame> with TickerProviderStateMixin {
                   const SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [25, 50, 100, 200].map((b) => _betBtn(b)).toList(),
+                    children:
+                        [25, 50, 100, 200].map((b) => _betBtn(b)).toList(),
                   ),
                   const SizedBox(height: 24),
                   _actionBtn('OYNA', const Color(0xFF9C27B0), _startGame),
@@ -1030,33 +1104,47 @@ class _DiceGameState extends State<_DiceGame> with TickerProviderStateMixin {
                   // Sonuç
                   if (showResult)
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 28,
+                        vertical: 14,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: pTotal > oTotal
-                              ? GameConstants.success
-                              : (pTotal < oTotal ? GameConstants.danger : Colors.white54),
+                          color:
+                              pTotal > oTotal
+                                  ? GameConstants.success
+                                  : (pTotal < oTotal
+                                      ? GameConstants.danger
+                                      : Colors.white54),
                           width: 2,
                         ),
                       ),
                       child: Text(
                         pTotal > oTotal
                             ? '+$betAmount ALTIN'
-                            : (pTotal < oTotal ? '-$betAmount ALTIN' : 'BERABERE'),
+                            : (pTotal < oTotal
+                                ? '-$betAmount ALTIN'
+                                : 'BERABERE'),
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: pTotal > oTotal
-                              ? GameConstants.success
-                              : (pTotal < oTotal ? GameConstants.danger : Colors.white54),
+                          color:
+                              pTotal > oTotal
+                                  ? GameConstants.success
+                                  : (pTotal < oTotal
+                                      ? GameConstants.danger
+                                      : Colors.white54),
                         ),
                       ),
                     )
                   else
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.black38,
                         borderRadius: BorderRadius.circular(10),
@@ -1091,7 +1179,8 @@ class _DiceGameState extends State<_DiceGame> with TickerProviderStateMixin {
                     const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [25, 50, 100, 200].map((b) => _betBtn(b)).toList(),
+                      children:
+                          [25, 50, 100, 200].map((b) => _betBtn(b)).toList(),
                     ),
                     const SizedBox(height: 20),
                   ],
@@ -1169,15 +1258,16 @@ class _DiceGameState extends State<_DiceGame> with TickerProviderStateMixin {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(12),
-          boxShadow: color != Colors.grey
-              ? [
-            BoxShadow(
-              color: color.withAlpha(80),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ]
-              : null,
+          boxShadow:
+              color != Colors.grey
+                  ? [
+                    BoxShadow(
+                      color: color.withAlpha(80),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                  : null,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -1250,11 +1340,16 @@ class _DiceGameState extends State<_DiceGame> with TickerProviderStateMixin {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: showPlaceholder ? Colors.white10 : color.withAlpha(30),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: showPlaceholder ? Colors.white24 : color),
+                  border: Border.all(
+                    color: showPlaceholder ? Colors.white24 : color,
+                  ),
                 ),
                 child: Text(
                   showPlaceholder ? '?' : '$total',
@@ -1292,11 +1387,7 @@ class _DiceGameState extends State<_DiceGame> with TickerProviderStateMixin {
           border: Border.all(color: Colors.white24, width: 2),
         ),
         child: Center(
-          child: Icon(
-            Icons.casino,
-            color: Colors.white38,
-            size: 30,
-          ),
+          child: Icon(Icons.casino, color: Colors.white38, size: 30),
         ),
       );
     }
@@ -1305,7 +1396,8 @@ class _DiceGameState extends State<_DiceGame> with TickerProviderStateMixin {
       animation: _diceAnimController,
       builder: (context, child) {
         final bounce = isRolling ? sin(_diceRotation.value * 3) * 10 : 0.0;
-        final scale = isRolling ? 0.9 + sin(_diceRotation.value * 2) * 0.1 : 1.0;
+        final scale =
+            isRolling ? 0.9 + sin(_diceRotation.value * 2) * 0.1 : 1.0;
 
         return Transform.translate(
           offset: Offset(0, bounce),
@@ -1357,14 +1449,18 @@ class _DiePainter extends CustomPainter {
         positions.addAll([const Offset(0.3, 0.3), const Offset(0.7, 0.7)]);
         break;
       case 3:
-        positions.addAll([const Offset(0.3, 0.3), const Offset(0.5, 0.5), const Offset(0.7, 0.7)]);
+        positions.addAll([
+          const Offset(0.3, 0.3),
+          const Offset(0.5, 0.5),
+          const Offset(0.7, 0.7),
+        ]);
         break;
       case 4:
         positions.addAll([
           const Offset(0.3, 0.3),
           const Offset(0.7, 0.3),
           const Offset(0.3, 0.7),
-          const Offset(0.7, 0.7)
+          const Offset(0.7, 0.7),
         ]);
         break;
       case 5:
@@ -1373,7 +1469,7 @@ class _DiePainter extends CustomPainter {
           const Offset(0.7, 0.3),
           const Offset(0.5, 0.5),
           const Offset(0.3, 0.7),
-          const Offset(0.7, 0.7)
+          const Offset(0.7, 0.7),
         ]);
         break;
       case 6:
@@ -1383,13 +1479,17 @@ class _DiePainter extends CustomPainter {
           const Offset(0.3, 0.5),
           const Offset(0.7, 0.5),
           const Offset(0.3, 0.7),
-          const Offset(0.7, 0.7)
+          const Offset(0.7, 0.7),
         ]);
         break;
     }
 
     for (final p in positions) {
-      canvas.drawCircle(Offset(p.dx * size.width, p.dy * size.height), r, paint);
+      canvas.drawCircle(
+        Offset(p.dx * size.width, p.dy * size.height),
+        r,
+        paint,
+      );
     }
   }
 
